@@ -42,6 +42,7 @@ final class AuthController extends BaseController
      *             type="string"
      *         ),
      *     ),
+     *     @OA\Response(response=401, description="Unauthenticated"),
      *     @OA\Response(response="200", description="成功")
      * )
      *
@@ -63,6 +64,11 @@ final class AuthController extends BaseController
      * @OA\Get(
      *     path="/api/core/admins/me",
      *     tags={"Auth"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Response(response="200", description="成功")
      * )
      * Get the authenticated User
@@ -81,6 +87,11 @@ final class AuthController extends BaseController
      * @OA\Delete(
      *     path="/api/core/admins/logout",
      *     tags={"Auth"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="email",
      *         in="query",
@@ -118,6 +129,11 @@ final class AuthController extends BaseController
      * @OA\Get(
      *     path="/api/core/admins/refresh",
      *     tags={"Auth"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="email",
      *         in="query",

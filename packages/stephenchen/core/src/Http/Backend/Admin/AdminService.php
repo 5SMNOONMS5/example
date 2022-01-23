@@ -4,6 +4,7 @@ namespace Stephenchen\Core\Http\Backend\Admin;
 
 use Carbon\Carbon;
 use Exception;
+use Stephenchen\Core\Http\Backend\Auth\AuthService;
 use Stephenchen\Core\Http\Backend\Role\RoleRepositoryInterface;
 use Stephenchen\Core\Traits\HelperTrait;
 
@@ -29,16 +30,24 @@ final class AdminService
     private AdminRepositoryInterface $repository;
 
     /**
+     * @var AuthService
+     */
+    private AuthService $authService;
+
+    /**
      * Create a new Service instance.
      *
      * @param RoleRepositoryInterface $roleRepository
      * @param AdminRepositoryInterface $repository
+     * @param AuthService $authService
      */
     public function __construct(RoleRepositoryInterface $roleRepository,
-                                AdminRepositoryInterface $repository)
+                                AdminRepositoryInterface $repository,
+                                AuthService $authService)
     {
         $this->roleRepository = $roleRepository;
         $this->repository     = $repository;
+        $this->authService    = $authService;
     }
 
     /**
@@ -165,7 +174,7 @@ final class AdminService
     public function index(): array
     {
         $authAdmin = $this->authService->getAuthUser();
-
+        
         return $this->repository->all()
             ->filter(function ($user) use ($authAdmin) {
                 return $user->id != ( $authAdmin->id ?? NULL );

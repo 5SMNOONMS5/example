@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Stephenchen\Core\Http\Backend;
+namespace Stephenchen\Core\Tests;
 
 use Stephenchen\Core\Http\Backend\Admin\AdminModel;
 use Tests\TestCase;
@@ -26,7 +26,7 @@ class AuthControllerTest extends TestCase
     {
         $parameters = [
             'email'    => 'admin@gmail.com',
-            'password' => 'adminpassword',
+            'password' => 'aaa111222',
         ];
 
         $response = $this->post("{$this->router}/login", $parameters);
@@ -34,14 +34,9 @@ class AuthControllerTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJsonStructure(
-                $this->getJsonStructureForAssert()
+                $this->getJsonStructureForSingle()
             );
 
-    }
-
-    public function test_admins_login2()
-    {
-        dd('test');
     }
 
     /**
@@ -55,13 +50,16 @@ class AuthControllerTest extends TestCase
     /**
      * Current assert json structure
      */
-    public function getJsonStructureForAssert()
+    public function getJsonStructureForSingle()
     {
         return [
             'code',
             'msg',
             'data' => [
-                '*' => [
+                "expired_at",
+                "token_type",
+                "refresh_expired_at",
+                'admin_infos' => [
                     "id",
                     "account",
                     "display_name",
@@ -72,28 +70,6 @@ class AuthControllerTest extends TestCase
                     "created_at",
                     "updated_at",
                 ],
-            ],
-        ];
-    }
-
-    /**
-     * Current assert json structure
-     */
-    public function getJsonStructureForSingle()
-    {
-        return [
-            'code',
-            'msg',
-            'data' => [
-                "id",
-                "account",
-                "display_name",
-                "email",
-                "status",
-                "latest_ip",
-                "latest_login_at",
-                "created_at",
-                "updated_at",
             ],
         ];
     }

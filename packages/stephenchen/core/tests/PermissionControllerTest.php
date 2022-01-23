@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Stephenchen\Core\Http\Backend;
+namespace Stephenchen\Core\Tests;
 
 use Illuminate\Support\Str;
 use Stephenchen\Core\Http\Backend\Permission\PermissionModel;
@@ -8,6 +8,8 @@ use Tests\TestCase;
 
 class PermissionControllerTest extends TestCase
 {
+    use FakeUserTrait;
+
     protected string $router = 'api/core/admins/permissions';
 
     protected array $parameters;
@@ -24,6 +26,8 @@ class PermissionControllerTest extends TestCase
         $this->parameters = [
             'name' => Str::random(),
         ];
+
+        $this->actingAsSuperAdmin();
     }
 
     /**

@@ -102,6 +102,7 @@ final class AdminModel extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
+        'id',
         'account',
         'email',
         'password',

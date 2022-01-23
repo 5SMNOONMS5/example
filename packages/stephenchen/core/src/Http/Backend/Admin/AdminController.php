@@ -30,6 +30,11 @@ final class AdminController extends BaseController
      * @OA\Get(
      *     path="/api/core/admins",
      *     tags={"Admin"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Response(response="200", description="成功")
      * )
      */
@@ -45,12 +50,16 @@ final class AdminController extends BaseController
      * @OA\Post(
      *     path="/api/core/admins",
      *     tags={"Admin"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\RequestBody(
      *          required=true,
      *          @OA\MediaType(
      *              mediaType="application/json",
      *              @OA\Schema(ref="#/components/schemas/AdminModel")
-     *
      *          )
      *     ),
      *     @OA\Response(response="200", description="成功")
@@ -74,6 +83,11 @@ final class AdminController extends BaseController
      * @OA\Get(
      *     path="/api/core/admins/{id}",
      *     tags={"Admin"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -103,6 +117,11 @@ final class AdminController extends BaseController
      * @OA\Put(
      *     path="/api/core/admins/{id}",
      *     tags={"Admin"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -142,6 +161,11 @@ final class AdminController extends BaseController
      * @OA\Delete(
      *     path="/api/core/admins/{id}",
      *     tags={"Admin"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

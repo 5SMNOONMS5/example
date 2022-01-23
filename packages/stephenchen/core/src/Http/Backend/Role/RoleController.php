@@ -34,6 +34,11 @@ final class RoleController extends BaseController
      * @OA\Get(
      *     path="/api/core/admins/roles",
      *     tags={"Role"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Response(response="200", description="成功")
      * )
      */
@@ -49,6 +54,11 @@ final class RoleController extends BaseController
      * @OA\Post(
      *     path="/api/core/admins/roles",
      *     tags={"Role"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\RequestBody(
      *          required=true,
      *          @OA\MediaType(
@@ -93,6 +103,11 @@ final class RoleController extends BaseController
      * @OA\Get(
      *     path="/api/core/admins/roles/{id}",
      *     tags={"Role"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -122,6 +137,11 @@ final class RoleController extends BaseController
      * @OA\Put(
      *     path="/api/core/admins/roles/{id}",
      *     tags={"Role"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -176,6 +196,11 @@ final class RoleController extends BaseController
      * @OA\Delete(
      *     path="/api/core/admins/roles/{id}",
      *     tags={"Role"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

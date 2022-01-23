@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7e029a4d74591f0207154abf847be8d",
+    "content-hash": "33fb2da9cc707777613bf9226a6e36ac",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3540,7 +3540,7 @@
             "dist": {
                 "type": "path",
                 "url": "./packages/stephenchen/core",
-                "reference": "d40512148cdf7df105107bccbba501c30afc88b0"
+                "reference": "de3760895632159a802f89ff35cce490cba05f3f"
             },
             "require": {
                 "darkaonline/l5-swagger": "^8.0",
@@ -3570,7 +3570,8 @@
                 "psr-4": {
                     "Stephenchen\\Core\\": "src",
                     "Database\\Factories\\": "database/factories/",
-                    "Database\\Seeders\\": "database/seeders/"
+                    "Database\\Seeders\\": "database/seeders/",
+                    "Stephenchen\\Core\\Tests\\": "tests"
                 }
             },
             "autoload-dev": {
@@ -3605,6 +3606,68 @@
             "transport-options": {
                 "relative": true
             }
+        },
+        {
+            "name": "stephenchen/demo",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/5SMNOONMS5/Demo.git",
+                "reference": "856be333e11768e6b6286f801bdfa69fbd5c9c56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/5SMNOONMS5/Demo/zipball/856be333e11768e6b6286f801bdfa69fbd5c9c56",
+                "reference": "856be333e11768e6b6286f801bdfa69fbd5c9c56",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^8.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.23",
+                "phpunit/phpunit": "^9.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "StephenChen\\Demo\\DemoServiceProvider"
+                    ],
+                    "aliases": {
+                        "Demo": "StephenChen\\Demo\\DemoFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "StephenChen\\Demo\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Demo",
+                    "email": "Demo@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Demo purpose ",
+            "homepage": "https://github.com/stephenchen/demo",
+            "keywords": [
+                "demo",
+                "stephenchen"
+            ],
+            "support": {
+                "issues": "https://github.com/5SMNOONMS5/Demo/issues",
+                "source": "https://github.com/5SMNOONMS5/Demo/tree/main"
+            },
+            "time": "2022-01-14T02:02:13+00:00"
         },
         {
             "name": "swagger-api/swagger-ui",
@@ -9016,7 +9079,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "stephenchen/core": 20
+        "stephenchen/core": 20,
+        "stephenchen/demo": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

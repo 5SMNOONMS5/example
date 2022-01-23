@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Stephenchen\Core\Http\Backend;
+namespace Stephenchen\Core\Tests;
 
 use Illuminate\Support\Str;
 use Stephenchen\Core\Http\Backend\Admin\AdminModel;
@@ -9,6 +9,8 @@ use Tests\TestCase;
 
 class AdminControllerTest extends TestCase
 {
+    use FakeUserTrait;
+
     protected string $router = 'api/core/admins';
 
     protected array $parameters;
@@ -22,8 +24,6 @@ class AdminControllerTest extends TestCase
     {
         parent::setUp();
 
-
-
         $random           = Str::uuid();
         $random           = Str::substr($random, 0, 10);
         $this->parameters = [
@@ -34,6 +34,8 @@ class AdminControllerTest extends TestCase
             'status'       => 1,
             'role_id'      => ( new RoleModel )->first()->id,
         ];
+
+        $this->actingAsSuperAdmin();
     }
 
     /**
@@ -41,7 +43,8 @@ class AdminControllerTest extends TestCase
      */
     public function test_admins_get_all()
     {
-        $response = $this->get($this->router);
+        $response = $this
+            ->get($this->router);
 
         $response
             ->assertStatus(200)
@@ -55,17 +58,23 @@ class AdminControllerTest extends TestCase
      */
     public function test_admins_create()
     {
-        $response = $this->post($this->router, $this->parameters);
+        $response = $this
+            ->post($this->router, $this->parameters);
         $response
             ->assertStatus(200);
     }
+
 
     /**
      * Test get by id
      */
     public function test_admins_get_by_id()
     {
-        $response = $this->get("{$this->router}/{$this->getID()}");
+        $response = $this
+            ->get("{$this->router}/{$this->getID()}", [
+                'Accept'        => 'application/json',
+                'Authorization' => 'Bearer ' . $this->token,
+            ]);
 
         $response->assertStatus(200)
             ->assertJsonStructure(

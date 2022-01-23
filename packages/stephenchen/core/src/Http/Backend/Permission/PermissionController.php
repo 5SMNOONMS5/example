@@ -27,6 +27,12 @@ class PermissionController extends BaseController
      * @OA\Get(
      *     path="/api/core/admins/permissions",
      *     tags={"Permission"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
+     *     @OA\Response(response=401, description="Unauthenticated"),
      *     @OA\Response(response="200", description="成功")
      * )
      */
@@ -42,6 +48,11 @@ class PermissionController extends BaseController
      * @OA\Post(
      *     path="/api/core/admins/permissions",
      *     tags={"Permission"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="name",
      *         in="query",
@@ -72,6 +83,11 @@ class PermissionController extends BaseController
      * @OA\Get(
      *     path="/api/core/admins/permissions/{id}",
      *     tags={"Permission"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -101,6 +117,11 @@ class PermissionController extends BaseController
      * @OA\Put(
      *     path="/api/core/admins/permissions/{id}",
      *     tags={"Permission"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -139,6 +160,11 @@ class PermissionController extends BaseController
      * @OA\Delete(
      *     path="/api/core/admins/permissions/{id}",
      *     tags={"Permission"},
+     *     security={
+     *          {
+     *              "bearerAuth": {}
+     *          },
+     *     },
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

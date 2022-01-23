@@ -32,7 +32,8 @@
         "psr-4": {
             "Stephenchen\\Core\\": "src",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Stephenchen\\Core\\Tests\\": "tests"
         }
     },
     "autoload-dev": {

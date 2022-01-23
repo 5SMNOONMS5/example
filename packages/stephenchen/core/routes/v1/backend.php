@@ -37,11 +37,11 @@ Route::group([
     |--------------------------------------------------------------------------
     */
     Route::group([
-        'prefix' => 'admins',
-//        'middleware' => [
-//            'auth.assign.guard:admins',
-//            'auth.jwt.verify',
-//        ],
+        'prefix'     => 'admins',
+        'middleware' => [
+            'auth.assign.guard:admins',
+            'auth.jwt.verify',
+        ],
     ], function () {
 
         /*

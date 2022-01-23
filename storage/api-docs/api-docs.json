@@ -2,10 +2,14 @@
     "openapi": "3.0.0",
     "info": {
         "title": "後端專案",
-        "description": "後端專案專用的 ＡＰＩ 文件",
+        "description": "後端專案專用的 ＡＰＩ 文件, 請先透過 auth 中的 login 登入拿到 token\n *     在到右邊的 Authorize 中設定，方可使用所有有鎖頭的 api\n *     ",
         "contact": {
-            "name": "",
+            "name": "stephen chen",
             "email": "tasb00429@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         },
         "version": "1.0"
     },
@@ -21,7 +25,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -43,7 +52,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/core/admins/{id}": {
@@ -68,7 +82,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -101,7 +120,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -121,7 +145,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/core/admins/login": {
@@ -129,8 +158,8 @@
                 "tags": [
                     "Auth"
                 ],
-                "summary": "後台登入，測試帳密是 admin@gmail.com, adminpassword，登入之後請在打 me 這隻 api 拿到當前使用者資訊",
-                "operationId": "19ebf0b19776055fcbb475c97a5aa0f6",
+                "summary": "後台登入，測試帳密是 admin@gmail.com, aaa111222，登入之後請在打 me 這隻 api 拿到當前使用者資訊",
+                "operationId": "3c234cbbfb574ee2651e86dfb59b7f01",
                 "parameters": [
                     {
                         "name": "email",
@@ -152,6 +181,9 @@
                     }
                 ],
                 "responses": {
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
                     "200": {
                         "description": "成功"
                     }
@@ -164,12 +196,17 @@
                     "Auth"
                 ],
                 "summary": "拿到 admin 使用者的相關資料",
-                "operationId": "fcac070b26102ea70bc84df9c9943d46",
+                "operationId": "93295949624433194a551b6a71505fee",
                 "responses": {
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/core/admins/logout": {
@@ -178,7 +215,7 @@
                     "Auth"
                 ],
                 "summary": "Log the user out (Invalidate the token)",
-                "operationId": "b48b91c26099a6916bbfa6cc47135a95",
+                "operationId": "fd81f0712367600b188b890c8197c550",
                 "parameters": [
                     {
                         "name": "email",
@@ -203,7 +240,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/core/admins/refresh": {
@@ -212,7 +254,7 @@
                     "Auth"
                 ],
                 "summary": "Refresh a token.",
-                "operationId": "c5a0cc682862bf9d4698298d9e79e783",
+                "operationId": "159be0788f26565e477a4e3833e233fc",
                 "parameters": [
                     {
                         "name": "email",
@@ -237,7 +279,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/core/admins/permissions": {
@@ -248,10 +295,18 @@
                 "summary": "把 Permission 資料列出來",
                 "operationId": "edef3a7265973ddc499e258d5fbd1019",
                 "responses": {
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -277,7 +332,12 @@
                     "422": {
                         "description": "參數不對，失敗"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/core/admins/permissions/{id}": {
@@ -302,7 +362,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -334,7 +399,12 @@
                     "422": {
                         "description": "參數不對，失敗"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -357,7 +427,12 @@
                     "400": {
                         "description": "當 template 已經有這語系的時候無法刪除"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/core/admins/roles": {
@@ -371,7 +446,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -407,7 +487,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/core/admins/roles/{id}": {
@@ -432,7 +517,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -479,7 +569,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -499,7 +594,12 @@
                     "200": {
                         "description": "成功"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },
@@ -568,7 +668,7 @@
             "bearerAuth": {
                 "type": "http",
                 "description": "Login with email and password to get the authentication token",
-                "name": "Token based Based",
+                "name": "Authorization",
                 "in": "header",
                 "bearerFormat": "JWT",
                 "scheme": "bearer"
