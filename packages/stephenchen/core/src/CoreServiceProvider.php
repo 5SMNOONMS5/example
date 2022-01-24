@@ -34,20 +34,26 @@ class CoreServiceProvider extends ServiceProvider
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'core');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'core');
 
+        // Load database relate
         $this->loadFactoriesFrom(__DIR__ . '/../database/factories');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
+
         // load routers
         $this->loadRoutesFrom(__DIR__ . '/../routes/v1/backend.php');
-//        $this->loadRoutesFrom(__DIR__ . '/../routes/v1/frontend.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/v1/frontend.php');
+
 
         // cf. https://laracasts.com/discuss/channels/general-discussion/register-middleware-via-service-provider?page=2
         $router->aliasMiddleware('auth.jwt.verify', AuthenticateJwtVerify::class);
         $router->aliasMiddleware('auth.assign.guard', AuthenticateAssignGuard::class);
 
+
         $this->registerModelBindings();
 
+
         if ($this->app->runningInConsole()) {
+
             $this->offerPublishing();
 
             $this->registerMacroHelpers();
@@ -59,8 +65,7 @@ class CoreServiceProvider extends ServiceProvider
     /**
      * Register the application services.
      */
-    public
-    function register()
+    public function register()
     {
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'core');
@@ -95,16 +100,14 @@ class CoreServiceProvider extends ServiceProvider
 
     }
 
-    private
-    function registerCommands()
+    private function registerCommands()
     {
         $this->commands([
             InitialCommandPart1::class,
         ]);
     }
 
-    private
-    function registerModelBindings()
+    private function registerModelBindings()
     {
         $this->app->bind(SocialiteRepositoryInterface::class, SocialiteRepository::class);
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
