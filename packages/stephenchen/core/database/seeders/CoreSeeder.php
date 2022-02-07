@@ -20,7 +20,7 @@ class CoreSeeder extends Seeder
         $admin = AdminModel::create([
             'account'      => 'admin',
             'email'        => 'admin@gmail.com',
-            'password'     => 'aaa111222',
+            'password'     => '123456',
             'display_name' => 'admin',
         ]);
 

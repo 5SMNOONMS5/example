@@ -32,7 +32,7 @@ final class RoleController extends BaseController
     /**
      * 把 Role 資料列出來
      * @OA\Get(
-     *     path="/api/core/admins/roles",
+     *     path="/admins/roles",
      *     tags={"Role"},
      *     security={
      *          {
@@ -52,7 +52,7 @@ final class RoleController extends BaseController
     /**
      * 新增 Role, permission 也一並傳近來新增
      * @OA\Post(
-     *     path="/api/core/admins/roles",
+     *     path="/admins/roles/create",
      *     tags={"Role"},
      *     security={
      *          {
@@ -101,7 +101,7 @@ final class RoleController extends BaseController
     /**
      * 查看一筆 Role, 會把 permissions 一起回傳
      * @OA\Get(
-     *     path="/api/core/admins/roles/{id}",
+     *     path="/admins/roles/{id}",
      *     tags={"Role"},
      *     security={
      *          {
@@ -135,7 +135,7 @@ final class RoleController extends BaseController
     /**
      * 修改一筆 Role, permission 也一並傳近來一起修改
      * @OA\Put(
-     *     path="/api/core/admins/roles/{id}",
+     *     path="/admins/roles/{id}",
      *     tags={"Role"},
      *     security={
      *          {
@@ -194,7 +194,7 @@ final class RoleController extends BaseController
     /**
      * 刪除一筆 Role
      * @OA\Delete(
-     *     path="/api/core/admins/roles/{id}",
+     *     path="/admins/roles/{id}",
      *     tags={"Role"},
      *     security={
      *          {

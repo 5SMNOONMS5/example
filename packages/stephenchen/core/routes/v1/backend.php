@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'prefix'    => 'api/core',
+    // @TODO:
+//    'prefix'    => 'api/core',
     'namespace' => 'Stephenchen\Core\Http\Backend',
 ], function () {
 
@@ -37,7 +38,6 @@ Route::group([
     |--------------------------------------------------------------------------
     */
     Route::group([
-        'prefix'     => 'admins',
         'middleware' => [
             'auth.assign.guard:admins',
             'auth.jwt.verify',
@@ -52,11 +52,12 @@ Route::group([
         Route::group([
             'namespace' => 'Admin',
         ], function () {
-            Route::get('', 'AdminController@index');
-            Route::post('', 'AdminController@store');
-            Route::get('{id}', 'AdminController@show')->where('id', '[0-9]+');
-            Route::put('{id}', 'AdminController@update')->where('id', '[0-9]+');
-            Route::delete('{id}', 'AdminController@destroy')->where('id', '[0-9]+');
+            Route::resource('admins', 'AdminController');
+//            Route::get('', 'AdminController@index');
+//            Route::post('', 'AdminController@store');
+//            Route::get('{id}', 'AdminController@show')->where('id', '[0-9]+');
+//            Route::put('{id}', 'AdminController@update')->where('id', '[0-9]+');
+//            Route::delete('{id}', 'AdminController@destroy')->where('id', '[0-9]+');
         });
 
         /*
@@ -65,14 +66,10 @@ Route::group([
         |--------------------------------------------------------------------------
         */
         Route::group([
-            'prefix'    => 'permissions',
+            'prefix'    => 'admins',
             'namespace' => 'Permission',
         ], function () {
-            Route::get('', 'PermissionController@index');
-            Route::get('{id}', 'PermissionController@show')->where('id', '[0-9]+');
-            Route::post('', 'PermissionController@store');
-            Route::put('{id}', 'PermissionController@update')->where('id', '[0-9]+');
-            Route::delete('{id}', 'PermissionController@destroy')->where('id', '[0-9]+');
+            Route::resource('permissions', 'PermissionController');
         });
 
         /*
@@ -81,7 +78,7 @@ Route::group([
         |--------------------------------------------------------------------------
         */
         Route::group([
-            'prefix'    => 'roles',
+            'prefix'    => 'admins/roles',
             'namespace' => 'Role',
         ], function () {
             Route::get('', 'RoleController@index');

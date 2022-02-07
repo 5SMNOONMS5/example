@@ -20,14 +20,14 @@ final class AuthController extends BaseController
     }
 
     /**
-     * 後台登入，測試帳密是 admin@gmail.com, aaa111222，登入之後請在打 me 這隻 api 拿到當前使用者資訊
+     * 後台登入，測試帳密是 admin 或者 admin@gmail.com, 123456，登入之後請在打 me 這隻 api 拿到當前使用者資訊
      * @OA\Post(
-     *     path="/api/core/admins/login",
+     *     path="/admins/login",
      *     tags={"Auth"},
      *     @OA\Parameter(
-     *         name="email",
+     *         name="primary",
      *         in="query",
-     *         description="信箱",
+     *         description="信箱 or 帳號",
      *         required=true,
      *         @OA\Schema(
      *             type="string"
@@ -52,7 +52,7 @@ final class AuthController extends BaseController
      */
     public function login(Request $request)
     {
-        $results = $this->service->attempt($request->only(['email', 'password']));
+        $results = $this->service->attempt($request->all());
 
         return ( $results )
             ? parent::jsonSuccess('success', $results)
@@ -62,7 +62,7 @@ final class AuthController extends BaseController
     /**
      * 拿到 admin 使用者的相關資料
      * @OA\Get(
-     *     path="/api/core/admins/me",
+     *     path="/admins/me",
      *     tags={"Auth"},
      *     security={
      *          {
@@ -85,7 +85,7 @@ final class AuthController extends BaseController
     /**
      * Log the user out (Invalidate the token)
      * @OA\Delete(
-     *     path="/api/core/admins/logout",
+     *     path="/admins/logout",
      *     tags={"Auth"},
      *     security={
      *          {
@@ -127,7 +127,7 @@ final class AuthController extends BaseController
     /**
      * Refresh a token.
      * @OA\Get(
-     *     path="/api/core/admins/refresh",
+     *     path="/admins/refresh",
      *     tags={"Auth"},
      *     security={
      *          {

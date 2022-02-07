@@ -11,7 +11,9 @@ class AdminControllerTest extends TestCase
 {
     use FakeUserTrait;
 
-    protected string $router = 'api/core/admins';
+//    TIP: Mark for temp
+//    protected string $router = 'api/core/admins';
+    protected string $router = 'admins';
 
     protected array $parameters;
 

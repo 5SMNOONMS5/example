@@ -10,7 +10,9 @@ class PermissionControllerTest extends TestCase
 {
     use FakeUserTrait;
 
-    protected string $router = 'api/core/admins/permissions';
+//    TIP: Mark for temp
+//    protected string $router = 'api/core/admins/permissions';
+    protected string $router = 'admins';
 
     protected array $parameters;
 
@@ -93,7 +95,7 @@ class PermissionControllerTest extends TestCase
      */
     private function getID()
     {
-        return PermissionModel::select('id')->orderBy('id', 'desc')->firstOrFail()->id;
+        return (int)PermissionModel::select('id')->orderBy('id', 'desc')->firstOrFail()->id;
     }
 
     /**

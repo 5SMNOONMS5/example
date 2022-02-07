@@ -5,9 +5,19 @@ namespace Stephenchen\Core\Tests;
 use Stephenchen\Core\Http\Backend\Admin\AdminModel;
 use Tests\TestCase;
 
+/**
+ * Class AuthControllerTest
+ *
+ * @package Stephenchen\Core\Tests
+ */
 class AuthControllerTest extends TestCase
 {
-    protected string $router = 'api/core/admins';
+//    TIP: Mark for temp
+//    protected string $router = 'api/core/admins';
+    /**
+     * @var string
+     */
+    protected string $router = 'admins';
 
     /**
      * Setup the test environment.
@@ -20,23 +30,45 @@ class AuthControllerTest extends TestCase
     }
 
     /**
-     * Test get lists
+     * Login using account
      */
-    public function test_admins_login()
+    public function test_admins_login_by_account()
     {
         $parameters = [
-            'email'    => 'admin@gmail.com',
-            'password' => 'aaa111222',
+            'primary'  => 'admin',
+            'password' => '123456',
         ];
 
         $response = $this->post("{$this->router}/login", $parameters);
+
+//        $response->dd();
 
         $response
             ->assertStatus(200)
             ->assertJsonStructure(
                 $this->getJsonStructureForSingle()
             );
+    }
 
+    /**
+     * Login using email
+     */
+    public function test_admins_login_by_email()
+    {
+        $parameters = [
+            'primary'  => 'admin@gmail.com',
+            'password' => '123456',
+        ];
+
+        $response = $this->post("{$this->router}/login", $parameters);
+
+//        $response->dd();
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure(
+                $this->getJsonStructureForSingle()
+            );
     }
 
     /**

@@ -47,7 +47,13 @@ final class AuthService
      */
     public function attempt(array $credentials): ?array
     {
-        if ($token = $this->authService->attempt($credentials)) {
+        $primary = $credentials[ 'primary' ];
+        $field   = filter_var($primary, FILTER_VALIDATE_EMAIL) ? 'email' : 'account';
+
+        $attempt[ $field ]     = $primary;
+        $attempt[ 'password' ] = $credentials[ 'password' ];
+
+        if ($token = $this->authService->attempt($attempt)) {
 
             // Update user `latest_login_at` and `latest_ip`....etc
             $admin = $this->authService->getAuthUser();

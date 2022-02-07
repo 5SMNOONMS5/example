@@ -28,7 +28,7 @@ final class AdminController extends BaseController
     /**
      * 把 Admins 資料列出來, 但是不會顯示當前的自己
      * @OA\Get(
-     *     path="/api/core/admins",
+     *     path="/admins",
      *     tags={"Admin"},
      *     security={
      *          {
@@ -48,7 +48,7 @@ final class AdminController extends BaseController
     /**
      * 新增 Admin
      * @OA\Post(
-     *     path="/api/core/admins",
+     *     path="/admins/create",
      *     tags={"Admin"},
      *     security={
      *          {
@@ -81,7 +81,7 @@ final class AdminController extends BaseController
     /**
      * 查看一筆 Admin, 會把 role 一併回傳
      * @OA\Get(
-     *     path="/api/core/admins/{id}",
+     *     path="/admins/{id}",
      *     tags={"Admin"},
      *     security={
      *          {
@@ -115,7 +115,7 @@ final class AdminController extends BaseController
     /**
      * 修改一筆 Admin
      * @OA\Put(
-     *     path="/api/core/admins/{id}",
+     *     path="/admins/{id}",
      *     tags={"Admin"},
      *     security={
      *          {
@@ -159,7 +159,7 @@ final class AdminController extends BaseController
     /**
      * 刪除一筆 Admin
      * @OA\Delete(
-     *     path="/api/core/admins/{id}",
+     *     path="/admins/{id}",
      *     tags={"Admin"},
      *     security={
      *          {

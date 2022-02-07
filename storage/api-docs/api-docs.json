@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "後端專案",
-        "description": "後端專案專用的 ＡＰＩ 文件, 請先透過 auth 中的 login 登入拿到 token\n *     在到右邊的 Authorize 中設定，方可使用所有有鎖頭的 api\n *     ",
+        "description": "\n *     後端專案專用的 ＡＰＩ 文件,\n *     請先透過 auth 分類中的 login 登入拿到 token\n *     在到右邊的 Authorize 按鈕中中設定，方可使用所有有鎖頭的 api\n *     然後有鎖頭的 ＡＰＩ 要在 http header 帶 token 進去\n *     ",
         "contact": {
             "name": "stephen chen",
             "email": "tasb00429@gmail.com"
@@ -14,13 +14,13 @@
         "version": "1.0"
     },
     "paths": {
-        "/api/core/admins": {
+        "/admins": {
             "get": {
                 "tags": [
                     "Admin"
                 ],
                 "summary": "把 Admins 資料列出來, 但是不會顯示當前的自己",
-                "operationId": "9ba9b1767457419c8ed9547b94129dbd",
+                "operationId": "50fd05d48c913ad674f8748d036e3900",
                 "responses": {
                     "200": {
                         "description": "成功"
@@ -31,13 +31,15 @@
                         "bearerAuth": []
                     }
                 ]
-            },
+            }
+        },
+        "/admins/create": {
             "post": {
                 "tags": [
                     "Admin"
                 ],
                 "summary": "新增 Admin",
-                "operationId": "3c64c018566aef9395419b98418d91a8",
+                "operationId": "05957d1ec38740fafed97c2c697168f2",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -60,13 +62,13 @@
                 ]
             }
         },
-        "/api/core/admins/{id}": {
+        "/admins/{id}": {
             "get": {
                 "tags": [
                     "Admin"
                 ],
                 "summary": "查看一筆 Admin, 會把 role 一併回傳",
-                "operationId": "9781d7c8fe09f1c824a554d28f77a127",
+                "operationId": "7ab89c7659dd04a99d4dcc765d740d46",
                 "parameters": [
                     {
                         "name": "id",
@@ -94,7 +96,7 @@
                     "Admin"
                 ],
                 "summary": "修改一筆 Admin",
-                "operationId": "a0c87c0541c7c9ccbc1e151bc7aaef27",
+                "operationId": "17a955220ee04cfc7a41a101730bbd68",
                 "parameters": [
                     {
                         "name": "id",
@@ -132,7 +134,7 @@
                     "Admin"
                 ],
                 "summary": "刪除一筆 Admin",
-                "operationId": "3422b4cc4b7200c3381bbb6f59f93977",
+                "operationId": "a923734ecfba1620faca30df2c5cc828",
                 "parameters": [
                     {
                         "name": "id",
@@ -153,18 +155,18 @@
                 ]
             }
         },
-        "/api/core/admins/login": {
+        "/admins/login": {
             "post": {
                 "tags": [
                     "Auth"
                 ],
-                "summary": "後台登入，測試帳密是 admin@gmail.com, aaa111222，登入之後請在打 me 這隻 api 拿到當前使用者資訊",
-                "operationId": "3c234cbbfb574ee2651e86dfb59b7f01",
+                "summary": "後台登入，測試帳密是 admin, 123456，登入之後請在打 me 這隻 api 拿到當前使用者資訊",
+                "operationId": "5563155241b9391f950225221d545341",
                 "parameters": [
                     {
-                        "name": "email",
+                        "name": "primary",
                         "in": "query",
-                        "description": "信箱",
+                        "description": "信箱 or 帳號",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -190,13 +192,13 @@
                 }
             }
         },
-        "/api/core/admins/me": {
+        "/admins/me": {
             "get": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "拿到 admin 使用者的相關資料",
-                "operationId": "93295949624433194a551b6a71505fee",
+                "operationId": "d43087e86b4255b9e9d8dac3c1be1bbb",
                 "responses": {
                     "200": {
                         "description": "成功"
@@ -209,13 +211,13 @@
                 ]
             }
         },
-        "/api/core/admins/logout": {
+        "/admins/logout": {
             "delete": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Log the user out (Invalidate the token)",
-                "operationId": "fd81f0712367600b188b890c8197c550",
+                "operationId": "909b1ba20f6c909f0a2706446d1d3ae6",
                 "parameters": [
                     {
                         "name": "email",
@@ -248,13 +250,13 @@
                 ]
             }
         },
-        "/api/core/admins/refresh": {
+        "/admins/refresh": {
             "get": {
                 "tags": [
                     "Auth"
                 ],
                 "summary": "Refresh a token.",
-                "operationId": "159be0788f26565e477a4e3833e233fc",
+                "operationId": "de1ed6aafc6a06d202ec7d7d197d6c86",
                 "parameters": [
                     {
                         "name": "email",
@@ -287,13 +289,13 @@
                 ]
             }
         },
-        "/api/core/admins/permissions": {
+        "/admins/permissions": {
             "get": {
                 "tags": [
                     "Permission"
                 ],
                 "summary": "把 Permission 資料列出來",
-                "operationId": "edef3a7265973ddc499e258d5fbd1019",
+                "operationId": "b48c083bdf2f2599353d2dd2da392539",
                 "responses": {
                     "401": {
                         "description": "Unauthenticated"
@@ -307,13 +309,15 @@
                         "bearerAuth": []
                     }
                 ]
-            },
+            }
+        },
+        "/admins/permissions/create": {
             "post": {
                 "tags": [
                     "Permission"
                 ],
                 "summary": "新增 Permission",
-                "operationId": "8b32430ba75fb50fc216b2353b1c96b2",
+                "operationId": "c62e64722a1003201cfe235381b5e6cf",
                 "parameters": [
                     {
                         "name": "name",
@@ -340,13 +344,13 @@
                 ]
             }
         },
-        "/api/core/admins/permissions/{id}": {
+        "/admins/permissions/{id}": {
             "get": {
                 "tags": [
                     "Permission"
                 ],
                 "summary": "查看一筆 Permission",
-                "operationId": "f3ae4a96d1dc080a6fde42797fe8f7b6",
+                "operationId": "e9acc7e5c4cecfe6856167e4a44a9a52",
                 "parameters": [
                     {
                         "name": "id",
@@ -374,7 +378,7 @@
                     "Permission"
                 ],
                 "summary": "修改一筆 Permission",
-                "operationId": "3c763047b231caa51a55b861b1776cfa",
+                "operationId": "f8a9ddfaa92f93e7d6227a8bc34fea21",
                 "parameters": [
                     {
                         "name": "id",
@@ -411,7 +415,7 @@
                     "Permission"
                 ],
                 "summary": "刪除一筆 Permission",
-                "operationId": "c0ea4d9df31e70f5922bd41f78aebb8e",
+                "operationId": "b88c1c3c5d2c339f68b573f783d45387",
                 "parameters": [
                     {
                         "name": "id",
@@ -435,13 +439,13 @@
                 ]
             }
         },
-        "/api/core/admins/roles": {
+        "/admins/roles": {
             "get": {
                 "tags": [
                     "Role"
                 ],
                 "summary": "把 Role 資料列出來",
-                "operationId": "1310ea6993f68c0daecae71343b80ed7",
+                "operationId": "a368e74d19e8dbff72d432813ecbc500",
                 "responses": {
                     "200": {
                         "description": "成功"
@@ -452,13 +456,15 @@
                         "bearerAuth": []
                     }
                 ]
-            },
+            }
+        },
+        "/admins/roles/create": {
             "post": {
                 "tags": [
                     "Role"
                 ],
                 "summary": "新增 Role, permission 也一並傳近來新增",
-                "operationId": "5fed3aa02b8adcbb7433c2c7b608d88a",
+                "operationId": "e4909d20adb29915dde44de34f09bd1b",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -495,13 +501,13 @@
                 ]
             }
         },
-        "/api/core/admins/roles/{id}": {
+        "/admins/roles/{id}": {
             "get": {
                 "tags": [
                     "Role"
                 ],
                 "summary": "查看一筆 Role, 會把 permissions 一起回傳",
-                "operationId": "b1500b28543a37c2369a26febfdd573b",
+                "operationId": "bf0806b9a377d04466387ca26ee2be56",
                 "parameters": [
                     {
                         "name": "id",
@@ -529,7 +535,7 @@
                     "Role"
                 ],
                 "summary": "修改一筆 Role, permission 也一並傳近來一起修改",
-                "operationId": "5adb62b9f105e86f3573e32295b2ef2a",
+                "operationId": "b50f0626dce93b75b747d5f0259c9705",
                 "parameters": [
                     {
                         "name": "id",
@@ -581,7 +587,7 @@
                     "Role"
                 ],
                 "summary": "刪除一筆 Role",
-                "operationId": "81de732e86410d12e51dfd96677a8d0a",
+                "operationId": "d3931a1869f19b300e57552529c6c1e8",
                 "parameters": [
                     {
                         "name": "id",

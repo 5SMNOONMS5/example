@@ -25,7 +25,7 @@ class PermissionController extends BaseController
     /**
      * 把 Permission 資料列出來
      * @OA\Get(
-     *     path="/api/core/admins/permissions",
+     *     path="/admins/permissions",
      *     tags={"Permission"},
      *     security={
      *          {
@@ -46,7 +46,7 @@ class PermissionController extends BaseController
     /**
      * 新增 Permission
      * @OA\Post(
-     *     path="/api/core/admins/permissions",
+     *     path="/admins/permissions/create",
      *     tags={"Permission"},
      *     security={
      *          {
@@ -81,7 +81,7 @@ class PermissionController extends BaseController
     /**
      * 查看一筆 Permission
      * @OA\Get(
-     *     path="/api/core/admins/permissions/{id}",
+     *     path="/admins/permissions/{id}",
      *     tags={"Permission"},
      *     security={
      *          {
@@ -115,7 +115,7 @@ class PermissionController extends BaseController
     /**
      * 修改一筆 Permission
      * @OA\Put(
-     *     path="/api/core/admins/permissions/{id}",
+     *     path="/admins/permissions/{id}",
      *     tags={"Permission"},
      *     security={
      *          {
@@ -158,7 +158,7 @@ class PermissionController extends BaseController
     /**
      * 刪除一筆 Permission
      * @OA\Delete(
-     *     path="/api/core/admins/permissions/{id}",
+     *     path="/admins/permissions/{id}",
      *     tags={"Permission"},
      *     security={
      *          {
