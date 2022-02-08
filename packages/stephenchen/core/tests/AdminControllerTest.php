@@ -48,7 +48,7 @@ class AdminControllerTest extends TestCase
         $response = $this
             ->get($this->router);
 
-        $json = $response->json();
+//        $json = $response->json();
 //        dd($json);
 
         $response
@@ -58,7 +58,7 @@ class AdminControllerTest extends TestCase
                 'msg',
                 'data' => [
                     'lists' => [
-                        '*' => [
+                        [
                             'id',
                             'role_name',
                             'account',

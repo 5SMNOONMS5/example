@@ -181,7 +181,13 @@ final class AdminService
             ->paginate()
             ->toArray();
 
+//        dd($paginate);
+//        dd($paginate[ 'data' ]);
+
         $admins = collect($paginate[ 'data' ])
+            ->filter(function ($admin) use ($authAdmin) {
+                return $admin[ 'id' ] != ( $authAdmin->id ?? NULL );
+            })
             ->map(function ($admin) {
                 $roles                = collect($admin[ 'roles' ]);
                 $roleNames            = $roles->implode('name', ',');
@@ -189,9 +195,7 @@ final class AdminService
                 unset($admin[ 'roles' ]);
                 return $admin;
             })
-            ->filter(function ($admin) use ($authAdmin) {
-                return $admin[ 'id' ] != ( $authAdmin->id ?? NULL );
-            })
+            ->values()
             ->toArray();
 
         // Remove self
