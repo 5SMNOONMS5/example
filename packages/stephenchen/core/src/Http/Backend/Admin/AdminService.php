@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Exception;
 use Stephenchen\Core\Http\Backend\Auth\AuthService;
 use Stephenchen\Core\Http\Backend\Role\RoleRepositoryInterface;
+use Stephenchen\Core\Http\Resources\IndexResource;
 use Stephenchen\Core\Traits\HelperTrait;
 
 final class AdminService
@@ -173,12 +174,27 @@ final class AdminService
      */
     public function index(): array
     {
-        $authAdmin = $this->authService->getAuthUser();
-        
-        return $this->repository->all()
-            ->filter(function ($user) use ($authAdmin) {
-                return $user->id != ( $authAdmin->id ?? NULL );
-            })
+//        $authAdmin = $this->authService->getAuthUser();
+
+        $paginate = $this->repository
+            ->loadRelationshipRole()
+            ->paginate()
             ->toArray();
+
+        $admins = collect($paginate[ 'data' ])
+            ->map(function ($admin) {
+                $roles                = collect($admin[ 'roles' ]);
+                $roleNames            = $roles->implode('name', ',');
+                $admin[ 'role_name' ] = $roleNames;
+                unset($admin[ 'roles' ]);
+                return $admin;
+            })
+//            ->filter(function ($admin) use ($authAdmin) {
+//                return $admin[ 'id' ] != ( $authAdmin->id ?? NULL );
+//            })
+            ->toArray();
+
+        return ( new IndexResource() )
+            ->to($admins, $paginate[ 'total' ]);
     }
 }

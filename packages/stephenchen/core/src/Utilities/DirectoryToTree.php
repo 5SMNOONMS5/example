@@ -2,11 +2,6 @@
 
 namespace Stephenchen\Core\Utilities;
 
-/**
- * Class DirectoryToTree
- *
- * @package App\Utilities
- */
 final class DirectoryToTree
 {
     /**

@@ -6,7 +6,6 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Stephenchen\Core\Base\BaseController;
-use Stephenchen\Core\Http\Backend\Role\RoleService;
 
 final class AdminController extends BaseController
 {

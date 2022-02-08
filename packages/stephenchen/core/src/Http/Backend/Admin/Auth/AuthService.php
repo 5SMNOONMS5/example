@@ -2,7 +2,9 @@
 
 namespace Stephenchen\Core\Http\Backend\Admin\Auth;
 
+use App\Http\Backend\User\UserModel;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Stephenchen\Core\Http\Backend\Admin\AdminService;
 use Stephenchen\Core\Http\Backend\Auth\AuthService as BaseAuthService;
 
@@ -50,10 +52,10 @@ final class AuthService
         $primary = $credentials[ 'primary' ];
         $field   = filter_var($primary, FILTER_VALIDATE_EMAIL) ? 'email' : 'account';
 
-        $attempt[ $field ]     = $primary;
-        $attempt[ 'password' ] = $credentials[ 'password' ];
+        $attempts[ $field ]     = $primary;
+        $attempts[ 'password' ] = $credentials[ 'password' ];
 
-        if ($token = $this->authService->attempt($attempt)) {
+        if ($token = $this->authService->attempt($attempts)) {
 
             // Update user `latest_login_at` and `latest_ip`....etc
             $admin = $this->authService->getAuthUser();

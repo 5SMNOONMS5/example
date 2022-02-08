@@ -4,11 +4,6 @@ namespace Stephenchen\Core\Utilities;
 
 use Illuminate\Support\Facades\Log as LaravelLog;
 
-/**
- * Class Log
- *
- * @package App\Utilities
- */
 final class Log
 {
     /**

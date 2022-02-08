@@ -13,6 +13,7 @@ Route::group([
     | Admin Auth
     |--------------------------------------------------------------------------
     */
+
     Route::group([
         'namespace' => 'Admin\Auth',
         'prefix'    => 'admins',
@@ -37,6 +38,7 @@ Route::group([
     | middleware 要 透過 jwt 驗證
     |--------------------------------------------------------------------------
     */
+
     Route::group([
         'middleware' => [
             'auth.assign.guard:admins',
@@ -49,15 +51,11 @@ Route::group([
         | 後台使用者
         |--------------------------------------------------------------------------
         */
+
         Route::group([
             'namespace' => 'Admin',
         ], function () {
-            Route::resource('admins', 'AdminController');
-//            Route::get('', 'AdminController@index');
-//            Route::post('', 'AdminController@store');
-//            Route::get('{id}', 'AdminController@show')->where('id', '[0-9]+');
-//            Route::put('{id}', 'AdminController@update')->where('id', '[0-9]+');
-//            Route::delete('{id}', 'AdminController@destroy')->where('id', '[0-9]+');
+            Route::resource('admins/authUser', 'AdminController');
         });
 
         /*
@@ -69,7 +67,7 @@ Route::group([
             'prefix'    => 'admins',
             'namespace' => 'Permission',
         ], function () {
-            Route::resource('permissions', 'PermissionController');
+//            Route::resource('permissions', 'PermissionController');
         });
 
         /*
@@ -81,11 +79,11 @@ Route::group([
             'prefix'    => 'admins/roles',
             'namespace' => 'Role',
         ], function () {
-            Route::get('', 'RoleController@index');
-            Route::get('{id}', 'RoleController@show')->where('id', '[0-9]+');
-            Route::post('', 'RoleController@store');
-            Route::put('{id}', 'RoleController@update')->where('id', '[0-9]+');
-            Route::delete('{id}', 'RoleController@destroy')->where('id', '[0-9]+');
+//            Route::get('', 'RoleController@index');
+//            Route::get('{id}', 'RoleController@show')->where('id', '[0-9]+');
+//            Route::post('', 'RoleController@store');
+//            Route::put('{id}', 'RoleController@update')->where('id', '[0-9]+');
+//            Route::delete('{id}', 'RoleController@destroy')->where('id', '[0-9]+');
         });
     });
 });

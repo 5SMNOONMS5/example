@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Stephenchen\Core\Http\Backend\Admin\AdminModel;
 use Stephenchen\Core\Http\Backend\Permission\PermissionModel;
 use Stephenchen\Core\Http\Backend\Role\RoleModel;
+use Stephenchen\Core\Utilities\Database;
 
 class CoreSeeder extends Seeder
 {
@@ -17,6 +18,8 @@ class CoreSeeder extends Seeder
      */
     public function run()
     {
+        Database::truncateAllTables();
+
         $admin = AdminModel::create([
             'account'      => 'admin',
             'email'        => 'admin@gmail.com',
@@ -26,13 +29,39 @@ class CoreSeeder extends Seeder
 
         AdminModel::factory(10)->create();
         RoleModel::factory(10)->create();
-        PermissionModel::factory(10)->create();
+        $this->seedPermissions();
+
 
         $role = RoleModel::findById(1);
         PermissionModel::all()->map(function ($permission) use ($role) {
             $role->givePermissionTo($permission);
-        })->toArray();
+        });
 
-        $admin->syncRoles([$role->name]);
+        AdminModel::all()->map(function ($admin) use ($role) {
+            $admin->syncRoles([$role->name]);
+        });
+    }
+
+    private function seedPermissions()
+    {
+        $auth = PermissionModel::create([
+            'name' => 'auth',
+            'path' => 'auth',
+            'icon' => 'person',
+        ]);
+
+        $authUser = PermissionModel::create([
+            'name'      => 'authUser',
+            'path'      => 'authUser',
+            'icon'      => 'authUser',
+            'parent_id' => $auth->id,
+        ]);
+
+        $authRole = PermissionModel::create([
+            'name'      => 'authRole',
+            'path'      => 'authRole',
+            'icon'      => 'authRole',
+            'parent_id' => $auth->id,
+        ]);
     }
 }

@@ -6,11 +6,6 @@ use Exception;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
-/**
- * Class Helpers
- *
- * @package App\Helpers
- */
 final class Helpers
 {
     /**
@@ -186,5 +181,18 @@ final class Helpers
         if (!App::environment('production')) {
             dd($description, $exception->getMessage(), $exception->getTraceAsString());
         }
+    }
+
+    /**
+     * Generate token
+     *
+     * @return string
+     */
+    static function generateUniqidToken(): string
+    {
+        // @TODO: 之後把 id 換成專案的常數
+        $id  = rand(1, 100);
+        $md5 = md5(uniqid(md5(microtime(TRUE)), TRUE));
+        return "{$id}{$md5}";
     }
 }

@@ -64,6 +64,25 @@ final class AuthService
     }
 
     /**
+     * Set auth user while user success login by socialite ways
+     *
+     * @param $guard
+     * @param $user
+     * @return mixed
+     * @throws Exception
+     */
+    public function loginBy($guard, $user)
+    {
+        $auth = Auth::guard($guard);
+
+        if (!$result = $auth->login($user)) {
+            return NULL;
+        }
+
+        return $this->transformJWTToken($result);
+    }
+
+    /**
      * Refresh
      *
      * @param string $guard

@@ -2,11 +2,6 @@
 
 namespace Stephenchen\Core\Utilities;
 
-/**
- * Class ToTree
- *
- * @package App\Utilities
- */
 final class ToTree
 {
     /**

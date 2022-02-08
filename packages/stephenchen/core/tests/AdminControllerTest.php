@@ -13,7 +13,7 @@ class AdminControllerTest extends TestCase
 
 //    TIP: Mark for temp
 //    protected string $router = 'api/core/admins';
-    protected string $router = 'admins';
+    protected string $router = 'admins/authUser';
 
     protected array $parameters;
 
@@ -48,11 +48,32 @@ class AdminControllerTest extends TestCase
         $response = $this
             ->get($this->router);
 
+        $json = $response->json();
+//        dd($json);
+
         $response
             ->assertStatus(200)
-            ->assertJsonStructure(
-                $this->getJsonStructureForAssert()
-            );
+            ->assertJsonStructure([
+                'code',
+                'msg',
+                'data' => [
+                    'lists' => [
+                        '*' => [
+                            'id',
+                            'role_name',
+                            'account',
+                            'display_name',
+                            'email',
+                            'status',
+                            'latest_ip',
+                            'latest_login_at',
+                            'created_at',
+                            'updated_at',
+                        ],
+                    ],
+                    'total',
+                ],
+            ]);
     }
 
     /**
@@ -60,12 +81,22 @@ class AdminControllerTest extends TestCase
      */
     public function test_admins_create()
     {
-        $response = $this
-            ->post($this->router, $this->parameters);
+        $random     = Str::uuid();
+        $random     = Str::substr($random, 0, 10);
+        $parameters = [
+            'account'        => $random,
+            'email'          => "{$random}@gmail.com",
+            'password'       => 'a111111',
+            'display_name'   => $random,
+            'status'         => 1,
+            'role_id'        => 1,
+            'permission_ids' => [1, 2, 3, 4, 5],
+        ];
+        $response   = $this->post($this->router, $parameters);
+
         $response
             ->assertStatus(200);
     }
-
 
     /**
      * Test get by id
@@ -73,7 +104,7 @@ class AdminControllerTest extends TestCase
     public function test_admins_get_by_id()
     {
         $response = $this
-            ->get("{$this->router}/{$this->getID()}", [
+            ->get('{$this->router}/{$this->getID()}', [
                 'Accept'        => 'application/json',
                 'Authorization' => 'Bearer ' . $this->token,
             ]);
@@ -91,7 +122,7 @@ class AdminControllerTest extends TestCase
     {
         $newParameters                   = $this->parameters;
         $newParameters[ 'display_name' ] = 'nwqewqe';
-        $response                        = $this->put("{$this->router}/{$this->getID()}", $newParameters);
+        $response                        = $this->put('{$this->router}/{$this->getID()}', $newParameters);
         $response->assertStatus(200);
     }
 
@@ -100,7 +131,7 @@ class AdminControllerTest extends TestCase
      */
     public function test_admins_delete()
     {
-        $this->delete("{$this->router}/{$this->getID()}")
+        $this->delete('{$this->router}/{$this->getID()}')
             ->assertStatus(200);
     }
 
@@ -122,15 +153,15 @@ class AdminControllerTest extends TestCase
             'msg',
             'data' => [
                 '*' => [
-                    "id",
-                    "account",
-                    "display_name",
-                    "email",
-                    "status",
-                    "latest_ip",
-                    "latest_login_at",
-                    "created_at",
-                    "updated_at",
+                    'id',
+                    'account',
+                    'display_name',
+                    'email',
+                    'status',
+                    'latest_ip',
+                    'latest_login_at',
+                    'created_at',
+                    'updated_at',
                 ],
             ],
         ];
@@ -145,15 +176,15 @@ class AdminControllerTest extends TestCase
             'code',
             'msg',
             'data' => [
-                "id",
-                "account",
-                "display_name",
-                "email",
-                "status",
-                "latest_ip",
-                "latest_login_at",
-                "created_at",
-                "updated_at",
+                'id',
+                'account',
+                'display_name',
+                'email',
+                'status',
+                'latest_ip',
+                'latest_login_at',
+                'created_at',
+                'updated_at',
             ],
         ];
     }
