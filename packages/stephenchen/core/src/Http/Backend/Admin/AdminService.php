@@ -174,7 +174,7 @@ final class AdminService
      */
     public function index(): array
     {
-//        $authAdmin = $this->authService->getAuthUser();
+        $authAdmin = $this->authService->getAuthUser();
 
         $paginate = $this->repository
             ->loadRelationshipRole()
@@ -189,12 +189,15 @@ final class AdminService
                 unset($admin[ 'roles' ]);
                 return $admin;
             })
-//            ->filter(function ($admin) use ($authAdmin) {
-//                return $admin[ 'id' ] != ( $authAdmin->id ?? NULL );
-//            })
+            ->filter(function ($admin) use ($authAdmin) {
+                return $admin[ 'id' ] != ( $authAdmin->id ?? NULL );
+            })
             ->toArray();
 
+        // Remove self
+        $total = $paginate[ 'total' ] - 1;
+
         return ( new IndexResource() )
-            ->to($admins, $paginate[ 'total' ]);
+            ->to($admins, $total);
     }
 }
