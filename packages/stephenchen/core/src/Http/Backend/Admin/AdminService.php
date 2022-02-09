@@ -135,10 +135,14 @@ final class AdminService
      */
     public function show(int $id): ?array
     {
-        return $this->repository
+        $admin              = $this->repository
             ->loadRelationshipRole()
             ->find($id)
             ->toArray();
+        $admin[ 'role_id' ] = $admin[ 'roles' ][ 0 ][ 'id' ] ?? NULL;
+        unset($admin[ 'roles' ]);
+
+        return $admin;
     }
 
     /**
@@ -152,15 +156,14 @@ final class AdminService
     {
         $entity = $this->repository->find($id);
 
+//        dd($parameters);
+
         if ($this->isArrayHasKey($parameters, 'password')) {
             $entity[ 'password' ] = $parameters[ 'password' ];
         }
 
-        // Update role
-        if ($this->isArrayHasKey($parameters, 'role')) {
-            $roleID = $parameters[ 'role' ][ 'id' ];
-            $this->repository->sync($id, 'roles', $roleID);
-        }
+        $roleID = $parameters[ 'role_id' ];
+        $this->repository->sync(3, 'roles', $roleID);
 
         $entity->update($parameters);
 
@@ -180,9 +183,6 @@ final class AdminService
             ->loadRelationshipRole()
             ->paginate()
             ->toArray();
-
-//        dd($paginate);
-//        dd($paginate[ 'data' ]);
 
         $admins = collect($paginate[ 'data' ])
             ->filter(function ($admin) use ($authAdmin) {

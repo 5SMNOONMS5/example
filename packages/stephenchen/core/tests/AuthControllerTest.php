@@ -72,14 +72,6 @@ class AuthControllerTest extends TestCase
     }
 
     /**
-     * Current data id for this test
-     */
-    private function getID()
-    {
-        return AdminModel::select('id')->orderBy('id', 'desc')->firstOrFail()->id;
-    }
-
-    /**
      * Current assert json structure
      */
     public function getJsonStructureForSingle()

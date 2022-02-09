@@ -14,13 +14,13 @@
         "version": "1.0"
     },
     "paths": {
-        "/admins": {
+        "/admins/authUser": {
             "get": {
                 "tags": [
                     "Admin"
                 ],
                 "summary": "把 Admins 資料列出來, 但是不會顯示當前的自己",
-                "operationId": "50fd05d48c913ad674f8748d036e3900",
+                "operationId": "b3c98ff4a5f79ba02af9bd784217c4e8",
                 "responses": {
                     "200": {
                         "description": "成功"
@@ -33,13 +33,13 @@
                 ]
             }
         },
-        "/admins/create": {
+        "/admins/authUser/create": {
             "post": {
                 "tags": [
                     "Admin"
                 ],
                 "summary": "新增 Admin",
-                "operationId": "05957d1ec38740fafed97c2c697168f2",
+                "operationId": "676abbf821623d4da6013bb2543e885b",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -62,13 +62,13 @@
                 ]
             }
         },
-        "/admins/{id}": {
+        "/admins/authUser/{id}": {
             "get": {
                 "tags": [
                     "Admin"
                 ],
                 "summary": "查看一筆 Admin, 會把 role 一併回傳",
-                "operationId": "7ab89c7659dd04a99d4dcc765d740d46",
+                "operationId": "3dd3feaad17383dc4ad7f9364cc39264",
                 "parameters": [
                     {
                         "name": "id",
@@ -96,7 +96,7 @@
                     "Admin"
                 ],
                 "summary": "修改一筆 Admin",
-                "operationId": "17a955220ee04cfc7a41a101730bbd68",
+                "operationId": "a36373c404a8a5f3f99b60abb7dd0167",
                 "parameters": [
                     {
                         "name": "id",
@@ -134,7 +134,7 @@
                     "Admin"
                 ],
                 "summary": "刪除一筆 Admin",
-                "operationId": "a923734ecfba1620faca30df2c5cc828",
+                "operationId": "64e77ed97f5d70a854e03e7957e326c3",
                 "parameters": [
                     {
                         "name": "id",
@@ -160,7 +160,7 @@
                 "tags": [
                     "Auth"
                 ],
-                "summary": "後台登入，測試帳密是 admin, 123456，登入之後請在打 me 這隻 api 拿到當前使用者資訊",
+                "summary": "後台登入，測試帳密是 admin 或者 admin@gmail.com, 123456，登入之後請在打 me 這隻 api 拿到當前使用者資訊",
                 "operationId": "5563155241b9391f950225221d545341",
                 "parameters": [
                     {
