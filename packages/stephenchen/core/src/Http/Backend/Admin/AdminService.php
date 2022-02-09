@@ -8,6 +8,7 @@ use Stephenchen\Core\Http\Backend\Auth\AuthService;
 use Stephenchen\Core\Http\Backend\Role\RoleRepositoryInterface;
 use Stephenchen\Core\Http\Resources\IndexResource;
 use Stephenchen\Core\Traits\HelperTrait;
+use Stephenchen\Core\Utilities\ToTree;
 
 final class AdminService
 {
@@ -76,8 +77,21 @@ final class AdminService
     {
         $permissions = $this->roleRepository
             ->getPermissionsViaAdmin($admin)
-            ->pluck('name')
+            ->map(function ($permission) {
+                $newPermission[ 'id' ]        = $permission[ 'id' ];
+                $newPermission[ 'parent_id' ] = $permission[ 'parent_id' ];
+                $newPermission[ 'name' ]      = $permission[ 'name' ];
+                $newPermission[ 'path' ]      = $permission[ 'path' ];
+                $newPermission[ 'icon' ]      = $permission[ 'icon' ];
+                return $newPermission;
+            })
             ->toArray();
+
+        $permissions = ( new ToTree() )
+            ->convert($permissions, 'parent_id');
+
+        unset($admin[ 'roles' ]);
+
         return [
             'admin_infos' => $admin,
             'permissions' => $permissions,

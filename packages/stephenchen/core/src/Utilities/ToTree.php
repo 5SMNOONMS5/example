@@ -5,32 +5,26 @@ namespace Stephenchen\Core\Utilities;
 final class ToTree
 {
     /**
-     * @var string
-     */
-    private string $parentIDName;
-
-    /**
      * ToTree constructor.
-     *
-     * @param string $parentIdName
      */
-    public function __construct(string $parentIdName)
+    public function __construct()
     {
-        $this->parentIDName = $parentIdName;
+
     }
 
     /**
      * 把 flatten array 轉成 tree
      *
      * @param array $flattenArray
+     * @param string $parentIDName
      * @param int $root
      * @return array
      */
-    public function get(array $flattenArray, $root = 0)
+    public function convert(array $flattenArray, string $parentIDName, $root = 0)
     {
         $parents = [];
         foreach ($flattenArray as $flat) {
-            $parents[ $flat[ $this->parentIDName ] ][] = $flat;
+            $parents[ $flat[ $parentIDName ] ][] = $flat;
         }
 
         // The root key is not exits

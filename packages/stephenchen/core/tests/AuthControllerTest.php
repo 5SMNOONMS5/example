@@ -2,7 +2,6 @@
 
 namespace Stephenchen\Core\Tests;
 
-use Stephenchen\Core\Http\Backend\Admin\AdminModel;
 use Tests\TestCase;
 
 /**
@@ -12,6 +11,8 @@ use Tests\TestCase;
  */
 class AuthControllerTest extends TestCase
 {
+    use FakeUserTrait;
+
 //    TIP: Mark for temp
 //    protected string $router = 'api/core/admins';
     /**
@@ -68,6 +69,40 @@ class AuthControllerTest extends TestCase
             ->assertStatus(200)
             ->assertJsonStructure(
                 $this->getJsonStructureForSingle()
+            );
+    }
+
+    /**
+     * Login using email
+     */
+    public function test_admins_me()
+    {
+        $this->actingAsSuperAdmin();
+
+        $response = $this->get("{$this->router}/me");
+
+//        $response->dd();
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                    'code',
+                    'msg',
+                    'data' => [
+                        'admin_infos' => [
+                            "id",
+                            "account",
+                            "display_name",
+                            "email",
+                            "status",
+                            "latest_ip",
+                            "latest_login_at",
+                            "created_at",
+                            "updated_at",
+                        ],
+                        'permissions'
+                    ],
+                ]
             );
     }
 

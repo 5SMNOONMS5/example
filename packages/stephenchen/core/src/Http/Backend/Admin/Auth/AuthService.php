@@ -72,6 +72,7 @@ final class AuthService
     public function me()
     {
         $admin = $this->authService->getAuthUser();
+//        dd($admin, 'ss ');
         return $this->adminService->me($admin);
     }
 

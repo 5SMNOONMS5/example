@@ -31,7 +31,6 @@ class CoreSeeder extends Seeder
         RoleModel::factory(10)->create();
         $this->seedPermissions();
 
-
         $role = RoleModel::findById(1);
         PermissionModel::all()->map(function ($permission) use ($role) {
             $role->givePermissionTo($permission);
