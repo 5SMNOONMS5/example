@@ -2,6 +2,8 @@
 
 namespace Stephenchen\Core\Http\Backend\Permission;
 
+use Stephenchen\Core\Http\Resources\IndexResource;
+
 class PermissionService
 {
     /**
@@ -26,7 +28,16 @@ class PermissionService
      */
     public function index(): array
     {
-        return $this->repository->all()->toArray();
+        $sources = $this
+            ->repository
+            ->paginate()
+            ->toArray();
+
+        $permissions = $sources[ 'data' ];
+        $total       = $sources[ 'total' ];
+
+        return ( new IndexResource() )
+            ->to($permissions, $total);
     }
 
     /**

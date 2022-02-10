@@ -19,6 +19,21 @@ class RoleModel extends BaseRole
         HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'id',
+        'name',
+        'guard_name',
+        'description',
+        'is_enabled',
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return Factory

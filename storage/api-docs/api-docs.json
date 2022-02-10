@@ -31,15 +31,13 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/admins/authUser/create": {
+            },
             "post": {
                 "tags": [
                     "Admin"
                 ],
                 "summary": "新增 Admin",
-                "operationId": "676abbf821623d4da6013bb2543e885b",
+                "operationId": "ec1ae4f6306e708d6f7662e16776ebdc",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -311,134 +309,6 @@
                 ]
             }
         },
-        "/admins/permissions/create": {
-            "post": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "新增 Permission",
-                "operationId": "c62e64722a1003201cfe235381b5e6cf",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "要新增的 permission name",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功"
-                    },
-                    "422": {
-                        "description": "參數不對，失敗"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/admins/permissions/{id}": {
-            "get": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "查看一筆 Permission",
-                "operationId": "e9acc7e5c4cecfe6856167e4a44a9a52",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "permission 的 id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "修改一筆 Permission",
-                "operationId": "f8a9ddfaa92f93e7d6227a8bc34fea21",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "permission 的 id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "要修改的 name",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功"
-                    },
-                    "422": {
-                        "description": "參數不對，失敗"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "刪除一筆 Permission",
-                "operationId": "b88c1c3c5d2c339f68b573f783d45387",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "permission 的 id",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功"
-                    },
-                    "400": {
-                        "description": "當 template 已經有這語系的時候無法刪除"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
         "/admins/roles": {
             "get": {
                 "tags": [
@@ -456,15 +326,13 @@
                         "bearerAuth": []
                     }
                 ]
-            }
-        },
-        "/admins/roles/create": {
+            },
             "post": {
                 "tags": [
                     "Role"
                 ],
                 "summary": "新增 Role, permission 也一並傳近來新增",
-                "operationId": "e4909d20adb29915dde44de34f09bd1b",
+                "operationId": "a5f3efbca2f59c3007dd385e943b4236",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -475,8 +343,16 @@
                                         "description": "Updated name of the pet",
                                         "type": "string"
                                     },
-                                    "permissionsIDs": {
-                                        "description": "Updated status of the pet",
+                                    "description": {
+                                        "description": "描述",
+                                        "type": "string"
+                                    },
+                                    "is_enabled": {
+                                        "description": "狀態",
+                                        "type": "boolean"
+                                    },
+                                    "permissionIDs": {
+                                        "description": "permissions 的 ID",
                                         "type": "array",
                                         "items": {
                                             "description": "permissions 的 id",
@@ -557,8 +433,16 @@
                                         "description": "Updated name of the pet",
                                         "type": "string"
                                     },
-                                    "permissionsIDs": {
-                                        "description": "Updated status of the pet",
+                                    "description": {
+                                        "description": "描述",
+                                        "type": "string"
+                                    },
+                                    "is_enabled": {
+                                        "description": "狀態",
+                                        "type": "boolean"
+                                    },
+                                    "permissionIDs": {
+                                        "description": "permissions 的 ID",
                                         "type": "array",
                                         "items": {
                                             "description": "permissions 的 id",

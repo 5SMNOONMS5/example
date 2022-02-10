@@ -52,13 +52,21 @@ final class RoleController extends BaseController
     /**
      * 新增 Role, permission 也一並傳近來新增
      * @OA\Post(
-     *     path="/admins/roles/create",
+     *     path="/admins/roles",
      *     tags={"Role"},
      *     security={
      *          {
      *              "bearerAuth": {}
      *          },
      *     },
+     *         @OA\Header(
+     *             header="X-Rate-Limit",
+     *             @OA\Schema(
+     *                 type="integer",
+     *                 format="int32"
+     *             ),
+     *             description="calls per hour allowed by the user"
+     *         ),
      *     @OA\RequestBody(
      *          required=true,
      *          @OA\MediaType(
@@ -71,8 +79,18 @@ final class RoleController extends BaseController
      *                      type="string"
      *                  ),
      *                  @OA\Property(
-     *                      property="permissionsIDs",
-     *                      description="Updated status of the pet",
+     *                      property="description",
+     *                      description="描述",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="is_enabled",
+     *                      description="狀態",
+     *                      type="boolean"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="permissionIDs",
+     *                      description="permissions 的 ID",
      *                      type="array",
      *                      @OA\Items(
      *                          type="integer",
@@ -89,7 +107,7 @@ final class RoleController extends BaseController
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
         $results = $this->service->store($request->all());
 
@@ -163,8 +181,18 @@ final class RoleController extends BaseController
      *                      type="string"
      *                  ),
      *                  @OA\Property(
-     *                      property="permissionsIDs",
-     *                      description="Updated status of the pet",
+     *                      property="description",
+     *                      description="描述",
+     *                      type="string"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="is_enabled",
+     *                      description="狀態",
+     *                      type="boolean"
+     *                  ),
+     *                  @OA\Property(
+     *                      property="permissionIDs",
+     *                      description="permissions 的 ID",
      *                      type="array",
      *                      @OA\Items(
      *                          type="integer",
@@ -178,11 +206,11 @@ final class RoleController extends BaseController
      * )
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param RoleRequest $request
      * @param $id
      * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
         $results = $this->service->update($request->all(), $id);
 

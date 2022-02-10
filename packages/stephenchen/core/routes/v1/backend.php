@@ -40,10 +40,10 @@ Route::group([
     */
 
     Route::group([
-        'middleware' => [
-            'auth.assign.guard:admins',
-            'auth.jwt.verify',
-        ],
+//        'middleware' => [
+//            'auth.assign.guard:admins',
+//            'auth.jwt.verify',
+//        ],
     ], function () {
 
         /*
@@ -67,7 +67,7 @@ Route::group([
             'prefix'    => 'admins',
             'namespace' => 'Permission',
         ], function () {
-//            Route::resource('permissions', 'PermissionController');
+            Route::resource('permissions', 'PermissionController');
         });
 
         /*
@@ -76,14 +76,10 @@ Route::group([
         |--------------------------------------------------------------------------
         */
         Route::group([
-            'prefix'    => 'admins/roles',
+            'prefix'    => 'admins',
             'namespace' => 'Role',
         ], function () {
-//            Route::get('', 'RoleController@index');
-//            Route::get('{id}', 'RoleController@show')->where('id', '[0-9]+');
-//            Route::post('', 'RoleController@store');
-//            Route::put('{id}', 'RoleController@update')->where('id', '[0-9]+');
-//            Route::delete('{id}', 'RoleController@destroy')->where('id', '[0-9]+');
+            Route::resource('roles', 'RoleController');
         });
     });
 });

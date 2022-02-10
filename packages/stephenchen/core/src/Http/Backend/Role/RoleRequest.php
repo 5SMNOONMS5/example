@@ -2,8 +2,8 @@
 
 namespace Stephenchen\Core\Http\Backend\Role;
 
-use Stephenchen\Core\Base\BaseRequest;
 use Illuminate\Validation\Rule;
+use Stephenchen\Core\Base\BaseRequest;
 
 /**
  * Class RoleRequest
@@ -20,11 +20,13 @@ class RoleRequest extends BaseRequest
     public function rules()
     {
         $id = $this->route('id');
+
         return [
-            'title'       => 'required',
-            'description' => 'required',
-            'permissions' => 'required|array',
-            Rule::unique('permissions', 'name')->ignore($id),
+            'name'          => [
+                'required',
+                Rule::unique('roles', 'name')->ignore($id),
+            ],
+            'permissionIDs' => 'array',
         ];
     }
 
@@ -36,13 +38,8 @@ class RoleRequest extends BaseRequest
     public function messages()
     {
         return [
-            'name.required'        => '請輸入 權限群組唯一值',
-            'name.unique'          => '權限群組唯一值 不可重複',
-            'title.required'       => '請輸入 標題',
-            'description.required' => '請輸入 描敘',
-
-            'permissions.required' => '請至少輸入一種權限',
-            'permissions.array'    => '格式錯誤',
+            'name.required' => '請輸入 權限群組唯一值',
+            'name.unique'   => '權限群組唯一值 不可重複',
         ];
     }
 }

@@ -3,9 +3,8 @@
 namespace Stephenchen\Core\Http\Backend\Role;
 
 use Exception;
-use Illuminate\Support\Collection;
-use Stephenchen\Core\Http\Backend\Admin\AdminModel;
 use Stephenchen\Core\Http\Backend\Permission\PermissionRepositoryInterface;
+use Stephenchen\Core\Http\Resources\IndexResource;
 
 class RoleService
 {
@@ -39,7 +38,16 @@ class RoleService
      */
     public function index(): array
     {
-        return $this->repository->all()->toArray();
+        $sources = $this
+            ->repository
+            ->paginate()
+            ->toArray();
+
+        $roles = $sources[ 'data' ];
+        $total = $sources[ 'total' ];
+
+        return ( new IndexResource() )
+            ->to($roles, $total);
     }
 
     /**
@@ -50,10 +58,17 @@ class RoleService
      */
     public function show(int $id): ?array
     {
-        return $this->repository
+        $roles = $this->repository
             ->loadRelationships()
             ->find($id)
             ->toArray();
+
+        $roles[ 'permissionIDs' ] = collect($roles[ 'permissions' ])
+            ->pluck('id')
+            ->toArray();
+
+        unset($roles[ 'permissions' ]);
+        return $roles;
     }
 
     /**
@@ -66,8 +81,8 @@ class RoleService
     public function store(array $parameters): bool
     {
         // @FIXME: 怪怪的 還有要修改 vue
-        $permissionsIDs = $parameters[ 'permissionsIDs' ] ?? [];
-        unset($parameters[ 'permissionsIDs' ]);
+        $permissionsIDs = $parameters[ 'permissionIDs' ] ?? [];
+        unset($parameters[ 'permissionIDs' ]);
 
         $entity = $this->repository->create($parameters);
 
@@ -89,7 +104,8 @@ class RoleService
         $entity = $this->repository->find($id);
         $entity->update($parameters);
 
-        $permissionIDs = $parameters[ 'permissionsIDs' ];
+        $permissionIDs = $parameters[ 'permissionIDs' ];
+
         $this->repository->sync($id, 'permissions', $permissionIDs);
 
         return TRUE;

@@ -1,39 +1,38 @@
 <?php
 
-namespace Stephenchen\Core\Http\Backend\Admin;
+namespace Stephenchen\Core\Http\Backend\Permission;
 
-use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Stephenchen\Core\Base\BaseController;
 
-final class AdminController extends BaseController
+class PermissionControllerTemp extends BaseController
 {
     /**
-     * @var AdminService
+     * @PermissionService
      */
-    private AdminService $service;
+    private PermissionService $service;
 
     /**
-     * Create a new AdminController instance.
+     * PermissionController constructor.
      *
-     * @param AdminService $service
+     * @param PermissionService $service
      */
-    public function __construct(AdminService $service)
+    public function __construct(PermissionService $service)
     {
         $this->service = $service;
     }
 
     /**
-     * 把 Admins 資料列出來, 但是不會顯示當前的自己
+     * 把 Permission 資料列出來
      * @OA\Get(
-     *     path="/admins/authUser",
-     *     tags={"Admin"},
+     *     path="/admins/permissions",
+     *     tags={"Permission"},
      *     security={
      *          {
      *              "bearerAuth": {}
      *          },
      *     },
+     *     @OA\Response(response=401, description="Unauthenticated"),
      *     @OA\Response(response="200", description="成功")
      * )
      */
@@ -45,30 +44,32 @@ final class AdminController extends BaseController
     }
 
     /**
-     * 新增 Admin
+     * 新增 Permission
      * @OA\Post(
-     *     path="/admins/authUser",
-     *     tags={"Admin"},
+     *     path="/admins/permissions",
+     *     tags={"Permission"},
      *     security={
      *          {
      *              "bearerAuth": {}
      *          },
      *     },
-     *     @OA\RequestBody(
-     *          required=true,
-     *          @OA\MediaType(
-     *              mediaType="application/json",
-     *              @OA\Schema(ref="#/components/schemas/AdminModel")
-     *          )
+     *     @OA\Parameter(
+     *         name="name",
+     *         in="query",
+     *         description="要新增的 permission name",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         ),
      *     ),
-     *     @OA\Response(response="200", description="成功")
+     *     @OA\Response(response="200", description="成功"),
+     *     @OA\Response(response="422", description="參數不對，失敗")
      * )
      *
      * @param  $request
      * @return JsonResponse
-     * @throws Exception
      */
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
         $results = $this->service->store($request->all());
 
@@ -78,10 +79,10 @@ final class AdminController extends BaseController
     }
 
     /**
-     * 查看一筆 Admin, 會把 role 一併回傳
+     * 查看一筆 Permission
      * @OA\Get(
-     *     path="/admins/authUser/{id}",
-     *     tags={"Admin"},
+     *     path="/admins/permissions/{id}",
+     *     tags={"Permission"},
      *     security={
      *          {
      *              "bearerAuth": {}
@@ -90,7 +91,7 @@ final class AdminController extends BaseController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="admin 的 id",
+     *         description="permission 的 id",
      *         required=true,
      *         @OA\Schema(
      *             type="integer"
@@ -112,10 +113,10 @@ final class AdminController extends BaseController
     }
 
     /**
-     * 修改一筆 Admin
+     * 修改一筆 Permission
      * @OA\Put(
-     *     path="/admins/authUser/{id}",
-     *     tags={"Admin"},
+     *     path="/admins/permissions/{id}",
+     *     tags={"Permission"},
      *     security={
      *          {
      *              "bearerAuth": {}
@@ -124,29 +125,28 @@ final class AdminController extends BaseController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="admin 的 id",
+     *         description="permission 的 id",
      *         required=true,
      *         @OA\Schema(
      *             type="integer"
      *         ),
      *     ),
-     *     @OA\RequestBody(
-     *          required=true,
-     *          @OA\MediaType(
-     *              mediaType="application/json",
-     *              @OA\Schema(ref="#/components/schemas/AdminModel")
-     *
-     *          )
+     *     @OA\Parameter(
+     *         name="name",
+     *         in="query",
+     *         description="要修改的 name",
+     *         required=true,
      *     ),
-     *     @OA\Response(response="200", description="成功")
+     *     @OA\Response(response="200", description="成功"),
+     *     @OA\Response(response="422", description="參數不對，失敗")
      * )
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param PermissionRequest $request
      * @param $id
      * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(PermissionRequest $request, $id)
     {
         $results = $this->service->update($request->all(), $id);
 
@@ -156,10 +156,10 @@ final class AdminController extends BaseController
     }
 
     /**
-     * 刪除一筆 Admin
+     * 刪除一筆 Permission
      * @OA\Delete(
-     *     path="/admins/authUser/{id}",
-     *     tags={"Admin"},
+     *     path="/admins/permissions/{id}",
+     *     tags={"Permission"},
      *     security={
      *          {
      *              "bearerAuth": {}
@@ -168,15 +168,15 @@ final class AdminController extends BaseController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="admin 的 id",
+     *         description="permission 的 id",
      *         required=true,
      *     ),
-     *     @OA\Response(response="200", description="成功")
+     *     @OA\Response(response="200", description="成功"),
+     *     @OA\Response(response="400", description="當 template 已經有這語系的時候無法刪除")
      * )
      *
      * @param $id
      * @return JsonResponse
-     * @throws Exception
      */
     public function destroy($id)
     {

@@ -139,7 +139,9 @@ return [
              * @note This option overwrites `paths.excludes`
              * @see \OpenApi\scan
             */
-            'exclude' => [],
+            'exclude' => [
+                'PermissionControllerTemp'
+            ],
         ],
 
         /*

@@ -11,7 +11,7 @@ class RoleControllerTest extends TestCase
 {
     use FakeUserTrait;
 
-    protected string $router = 'api/core/admins/roles';
+    protected string $router = 'admins/roles';
 
     protected array $parameters;
 
@@ -27,8 +27,10 @@ class RoleControllerTest extends TestCase
         $all = PermissionModel::select('id')->get()->pluck('id')->toArray();
 
         $this->parameters = [
-            'name'           => Str::random(),
-            'permissionsIDs' => $all,
+            'name'          => Str::random(),
+            'description'   => Str::random(),
+            'is_enabled'    => 1,
+            'permissionIDs' => $all,
         ];
 
         $this->actingAsSuperAdmin();
@@ -41,11 +43,27 @@ class RoleControllerTest extends TestCase
     {
         $response = $this->get($this->router);
 
+//        $json = $response->json();
+//        dd($json);
+
         $response
             ->assertStatus(200)
-            ->assertJsonStructure(
-                $this->getJsonStructureForAssert()
-            );
+            ->assertJsonStructure([
+                'code',
+                'msg',
+                'data' => [
+                    'lists' => [
+                        [
+                            'id',
+                            'name',
+                            'guard_name',
+                            'created_at',
+                            'updated_at',
+                        ],
+                    ],
+                    'total',
+                ],
+            ]);
     }
 
     /**
@@ -54,6 +72,10 @@ class RoleControllerTest extends TestCase
     public function test_roles_create()
     {
         $response = $this->post($this->router, $this->parameters);
+
+//        $response->dd();
+//        dd($response);
+
         $response
             ->assertStatus(200);
     }
@@ -77,8 +99,10 @@ class RoleControllerTest extends TestCase
     public function test_roles_update()
     {
         $data     = [
-            'name'           => Str::random(),
-            'permissionsIDs' => [1],
+            'name'          => Str::random(),
+            'description'   => Str::random(),
+            'is_enabled'    => 1,
+            'permissionIDs' => [1],
         ];
         $response = $this->put("{$this->router}/{$this->getID()}", $data);
 

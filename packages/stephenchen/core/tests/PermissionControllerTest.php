@@ -3,7 +3,6 @@
 namespace Stephenchen\Core\Tests;
 
 use Illuminate\Support\Str;
-use Stephenchen\Core\Http\Backend\Permission\PermissionModel;
 use Tests\TestCase;
 
 class PermissionControllerTest extends TestCase
@@ -12,7 +11,7 @@ class PermissionControllerTest extends TestCase
 
 //    TIP: Mark for temp
 //    protected string $router = 'api/core/admins/permissions';
-    protected string $router = 'admins';
+    protected string $router = 'admins/permissions';
 
     protected array $parameters;
 
@@ -39,64 +38,84 @@ class PermissionControllerTest extends TestCase
     {
         $response = $this->get($this->router);
 
+//        $response->dd();
+//        $json = $response->json();
+//        dd($json);
+
         $response
             ->assertStatus(200)
-            ->assertJsonStructure(
-                $this->getJsonStructureForAssert()
-            );
+            ->assertJsonStructure([
+                'code',
+                'msg',
+                'data' => [
+                    'lists' => [
+                        [
+                            'id',
+                            'name',
+                            'path',
+                            'icon',
+                            'parent_id',
+                            'guard_name',
+                            'created_at',
+                            'updated_at',
+                        ],
+                    ],
+                    'total',
+                ],
+            ]);
     }
 
-    /**
-     * Test create
-     */
-    public function test_permissions_create()
-    {
-        $response = $this->post($this->router, $this->parameters);
-
-        $response
-            ->assertStatus(200);
-    }
-
-    /**
-     * Test get by id
-     */
-    public function test_permissions_get_by_id()
-    {
-        $response = $this->get("{$this->router}/{$this->getID()}");
-
-        $response->assertStatus(200)
-            ->assertJsonStructure(
-                $this->getJsonStructureForSingle()
-            );
-    }
-
-    /**
-     * Test update by id
-     */
-    public function test_permissions_update()
-    {
-        $response = $this->put("{$this->router}/{$this->getID()}", [
-            'name' => Str::random(),
-        ]);
-        $response->assertStatus(200);
-    }
-
-    /**
-     * Test delete
-     */
-    public function test_permissions_delete()
-    {
-        $this->delete("{$this->router}/{$this->getID()}")
-            ->assertStatus(200);
-    }
-
-    /**
-     * Current data id for this test
-     */
-    private function getID()
-    {
-        return (int)PermissionModel::select('id')->orderBy('id', 'desc')->firstOrFail()->id;
-    }
+//    /**
+//     * Test create
+//     */
+//    public function test_permissions_create()
+//    {
+//        $response = $this->post($this->router, $this->parameters);
+//
+//        $response
+//            ->assertStatus(200);
+//    }
+//
+//    /**
+//     * Test get by id
+//     */
+//    public function test_permissions_get_by_id()
+//    {
+//        $response = $this->get("{$this->router}/{$this->getID()}");
+//
+//        $response->assertStatus(200)
+//            ->assertJsonStructure(
+//                $this->getJsonStructureForSingle()
+//            );
+//    }
+//
+//    /**
+//     * Test update by id
+//     */
+//    public function test_permissions_update()
+//    {
+//        $response = $this->put("{$this->router}/{$this->getID()}", [
+//            'name' => Str::random(),
+//        ]);
+//        $response->assertStatus(200);
+//    }
+//
+//    /**
+//     * Test delete
+//     */
+//    public function test_permissions_delete()
+//    {
+//        $this->delete("{$this->router}/{$this->getID()}")
+//            ->assertStatus(200);
+//    }
+//
+//    /**
+//     * Current data id for this test
+//     */
+//    private function getID()
+//    {
+//        return (int)PermissionModel::select('id')->orderBy('id', 'desc')->firstOrFail()->id;
+//    }
 
     /**
      * Current assert json structure
