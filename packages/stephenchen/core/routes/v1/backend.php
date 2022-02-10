@@ -40,10 +40,10 @@ Route::group([
     */
 
     Route::group([
-//        'middleware' => [
-//            'auth.assign.guard:admins',
-//            'auth.jwt.verify',
-//        ],
+        'middleware' => [
+            'auth.assign.guard:admins',
+            'auth.jwt.verify',
+        ],
     ], function () {
 
         /*
