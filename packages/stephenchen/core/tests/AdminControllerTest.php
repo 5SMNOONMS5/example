@@ -2,6 +2,7 @@
 
 namespace Stephenchen\Core\Tests;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Stephenchen\Core\Http\Backend\Admin\AdminModel;
 use Stephenchen\Core\Http\Backend\Role\RoleModel;
@@ -45,12 +46,21 @@ class AdminControllerTest extends TestCase
      */
     public function test_admins_get_all()
     {
-        $response = $this
-            ->get($this->router);
+        // Assert
+        $perPage    = 2;
+        $parameters = [
+            'page'     => 1,
+            'per_page' => $perPage,
+        ];
+        $query      = Arr::query($parameters);
+        $response   = $this->get("$this->router?{$query}", $parameters);
 
-//        $json = $response->json();
-//        dd($json);
+        // Act
+        $json = $response->json();
+        $data = $json[ 'data' ][ 'lists' ];
 
+        // Assert
+        $this->assertSame($perPage, count($data));
         $response
             ->assertStatus(200)
             ->assertJsonStructure([
@@ -74,6 +84,7 @@ class AdminControllerTest extends TestCase
                     'total',
                 ],
             ]);
+
     }
 
     /**

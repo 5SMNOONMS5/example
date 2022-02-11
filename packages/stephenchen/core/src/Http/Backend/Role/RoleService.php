@@ -5,9 +5,12 @@ namespace Stephenchen\Core\Http\Backend\Role;
 use Exception;
 use Stephenchen\Core\Http\Backend\Permission\PermissionRepositoryInterface;
 use Stephenchen\Core\Http\Resources\IndexResource;
+use Stephenchen\Core\Traits\HelperPaginateTrait;
 
 class RoleService
 {
+    use HelperPaginateTrait;
+
     /**
      * @var RoleRepositoryInterface
      */
@@ -38,16 +41,16 @@ class RoleService
      */
     public function index(): array
     {
-        $sources = $this
-            ->repository
-            ->paginate()
+        $sources = $this->repository
+            ->skip($this->getSkip())
+            ->take($this->getPerPage())
+            ->get()
             ->toArray();
 
-        $roles = $sources[ 'data' ];
-        $total = $sources[ 'total' ];
+        $total = $this->repository->count();
 
         return ( new IndexResource() )
-            ->to($roles, $total);
+            ->to($sources, $total);
     }
 
     /**
@@ -63,7 +66,7 @@ class RoleService
             ->find($id)
             ->toArray();
 
-        $roles[ 'permissionIDs' ] = collect($roles[ 'permissions' ])
+        $roles[ 'permission_ids' ] = collect($roles[ 'permissions' ])
             ->pluck('id')
             ->toArray();
 
@@ -81,8 +84,8 @@ class RoleService
     public function store(array $parameters): bool
     {
         // @FIXME: 怪怪的 還有要修改 vue
-        $permissionsIDs = $parameters[ 'permissionIDs' ] ?? [];
-        unset($parameters[ 'permissionIDs' ]);
+        $permissionsIDs = $parameters[ 'permission_ids' ] ?? [];
+        unset($parameters[ 'permission_ids' ]);
 
         $entity = $this->repository->create($parameters);
 
@@ -104,7 +107,7 @@ class RoleService
         $entity = $this->repository->find($id);
         $entity->update($parameters);
 
-        $permissionIDs = $parameters[ 'permissionIDs' ];
+        $permissionIDs = $parameters[ 'permission_ids' ];
 
         $this->repository->sync($id, 'permissions', $permissionIDs);
 

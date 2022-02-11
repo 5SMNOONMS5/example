@@ -26,7 +26,7 @@ class RoleRequest extends BaseRequest
                 'required',
                 Rule::unique('roles', 'name')->ignore($id),
             ],
-            'permissionIDs' => 'array',
+            'permission_ids' => 'array',
         ];
     }
 

@@ -21,6 +21,24 @@
                 ],
                 "summary": "把 Admins 資料列出來, 但是不會顯示當前的自己",
                 "operationId": "b3c98ff4a5f79ba02af9bd784217c4e8",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "admin 的 page ( 最小是 1 )",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "admin 的 per_page ( 默認 20 )",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "成功"
@@ -294,6 +312,24 @@
                 ],
                 "summary": "把 Permission 資料列出來",
                 "operationId": "b48c083bdf2f2599353d2dd2da392539",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "admin 的 page ( 最小是 1 )",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "admin 的 per_page ( 默認 20 )",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "401": {
                         "description": "Unauthenticated"
@@ -316,6 +352,24 @@
                 ],
                 "summary": "把 Role 資料列出來",
                 "operationId": "a368e74d19e8dbff72d432813ecbc500",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "admin 的 page ( 最小是 1 )",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "admin 的 per_page ( 默認 20 )",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "成功"
@@ -351,7 +405,7 @@
                                         "description": "狀態",
                                         "type": "boolean"
                                     },
-                                    "permissionIDs": {
+                                    "permission_ids": {
                                         "description": "permissions 的 ID",
                                         "type": "array",
                                         "items": {
@@ -441,7 +495,7 @@
                                         "description": "狀態",
                                         "type": "boolean"
                                     },
-                                    "permissionIDs": {
+                                    "permission_ids": {
                                         "description": "permissions 的 ID",
                                         "type": "array",
                                         "items": {

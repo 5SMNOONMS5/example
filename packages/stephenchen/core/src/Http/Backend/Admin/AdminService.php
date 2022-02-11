@@ -7,12 +7,14 @@ use Exception;
 use Stephenchen\Core\Http\Backend\Auth\AuthService;
 use Stephenchen\Core\Http\Backend\Role\RoleRepositoryInterface;
 use Stephenchen\Core\Http\Resources\IndexResource;
+use Stephenchen\Core\Traits\HelperPaginateTrait;
 use Stephenchen\Core\Traits\HelperTrait;
 use Stephenchen\Core\Utilities\ToTree;
 
 final class AdminService
 {
-    use HelperTrait;
+    use HelperTrait,
+        HelperPaginateTrait;
 
     /**
      * The table associated with the model.
@@ -29,7 +31,7 @@ final class AdminService
     /**
      * @var AdminRepositoryInterface
      */
-    private AdminRepositoryInterface $repository;
+    private AdminRepositoryInterface $adminRepository;
 
     /**
      * @var AuthService
@@ -40,16 +42,16 @@ final class AdminService
      * Create a new Service instance.
      *
      * @param RoleRepositoryInterface $roleRepository
-     * @param AdminRepositoryInterface $repository
+     * @param AdminRepositoryInterface $adminRepository
      * @param AuthService $authService
      */
     public function __construct(RoleRepositoryInterface $roleRepository,
-                                AdminRepositoryInterface $repository,
+                                AdminRepositoryInterface $adminRepository,
                                 AuthService $authService)
     {
-        $this->roleRepository = $roleRepository;
-        $this->repository     = $repository;
-        $this->authService    = $authService;
+        $this->roleRepository  = $roleRepository;
+        $this->adminRepository = $adminRepository;
+        $this->authService     = $authService;
     }
 
     /**
@@ -112,7 +114,7 @@ final class AdminService
             'latest_login_at' => Carbon::now(),
         ];
         $parameters = array_merge($parameters, $additions);
-        $entity     = $this->repository->create($parameters);
+        $entity     = $this->adminRepository->create($parameters);
 
         // Update role
         $roleID = $parameters[ 'role_id' ];
@@ -139,7 +141,7 @@ final class AdminService
         }
 
         // @TIP: Admin had soft_delete so roles will not being detach
-        $entity = $this->repository->find($id);
+        $entity = $this->adminRepository->find($id);
 
         return $entity->delete();
     }
@@ -149,7 +151,7 @@ final class AdminService
      */
     public function show(int $id): ?array
     {
-        $admin              = $this->repository
+        $admin              = $this->adminRepository
             ->loadRelationshipRole()
             ->find($id)
             ->toArray();
@@ -168,7 +170,7 @@ final class AdminService
      */
     public function update(array $parameters, int $id): ?bool
     {
-        $entity = $this->repository->find($id);
+        $entity = $this->adminRepository->find($id);
 
 //        dd($parameters);
 
@@ -177,7 +179,7 @@ final class AdminService
         }
 
         $roleID = $parameters[ 'role_id' ];
-        $this->repository->sync(3, 'roles', $roleID);
+        $this->adminRepository->sync(3, 'roles', $roleID);
 
         $entity->update($parameters);
 
@@ -191,17 +193,17 @@ final class AdminService
      */
     public function index(): array
     {
+        //
         $authAdmin = $this->authService->getAuthUser();
-
-        $paginate = $this->repository
-            ->loadRelationshipRole()
-            ->paginate()
+        $source    = $this->adminRepository
+            ->scopeQuery(fn($query) => $query->where('id', '!=', $authAdmin->id))
+            ->with('roles')
+            ->skip($this->getSkip())
+            ->take($this->getPerPage())
+            ->get()
             ->toArray();
 
-        $admins = collect($paginate[ 'data' ])
-            ->filter(function ($admin) use ($authAdmin) {
-                return $admin[ 'id' ] != ( $authAdmin->id ?? NULL );
-            })
+        $admins = collect($source)
             ->map(function ($admin) {
                 $roles                = collect($admin[ 'roles' ]);
                 $roleNames            = $roles->implode('name', ',');
@@ -212,8 +214,7 @@ final class AdminService
             ->values()
             ->toArray();
 
-        // Remove self
-        $total = $paginate[ 'total' ] - 1;
+        $total = $this->adminRepository->count();
 
         return ( new IndexResource() )
             ->to($admins, $total);

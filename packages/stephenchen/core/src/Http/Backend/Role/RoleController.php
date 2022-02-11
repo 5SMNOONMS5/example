@@ -39,6 +39,22 @@ final class RoleController extends BaseController
      *              "bearerAuth": {}
      *          },
      *     },
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="admin 的 page ( 最小是 1 )",
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *     ),
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         description="admin 的 per_page ( 默認 20 )",
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *     ),
      *     @OA\Response(response="200", description="成功")
      * )
      */
@@ -59,14 +75,6 @@ final class RoleController extends BaseController
      *              "bearerAuth": {}
      *          },
      *     },
-     *         @OA\Header(
-     *             header="X-Rate-Limit",
-     *             @OA\Schema(
-     *                 type="integer",
-     *                 format="int32"
-     *             ),
-     *             description="calls per hour allowed by the user"
-     *         ),
      *     @OA\RequestBody(
      *          required=true,
      *          @OA\MediaType(
@@ -89,7 +97,7 @@ final class RoleController extends BaseController
      *                      type="boolean"
      *                  ),
      *                  @OA\Property(
-     *                      property="permissionIDs",
+     *                      property="permission_ids",
      *                      description="permissions 的 ID",
      *                      type="array",
      *                      @OA\Items(
@@ -191,7 +199,7 @@ final class RoleController extends BaseController
      *                      type="boolean"
      *                  ),
      *                  @OA\Property(
-     *                      property="permissionIDs",
+     *                      property="permission_ids",
      *                      description="permissions 的 ID",
      *                      type="array",
      *                      @OA\Items(

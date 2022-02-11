@@ -30,7 +30,7 @@ class RoleControllerTest extends TestCase
             'name'          => Str::random(),
             'description'   => Str::random(),
             'is_enabled'    => 1,
-            'permissionIDs' => $all,
+            'permission_ids' => $all,
         ];
 
         $this->actingAsSuperAdmin();
@@ -102,7 +102,7 @@ class RoleControllerTest extends TestCase
             'name'          => Str::random(),
             'description'   => Str::random(),
             'is_enabled'    => 1,
-            'permissionIDs' => [1],
+            'permission_ids' => [1],
         ];
         $response = $this->put("{$this->router}/{$this->getID()}", $data);
 

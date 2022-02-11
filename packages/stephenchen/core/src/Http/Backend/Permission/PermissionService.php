@@ -3,9 +3,12 @@
 namespace Stephenchen\Core\Http\Backend\Permission;
 
 use Stephenchen\Core\Http\Resources\IndexResource;
+use Stephenchen\Core\Traits\HelperPaginateTrait;
 
 class PermissionService
 {
+    use HelperPaginateTrait;
+
     /**
      * @var PermissionRepositoryInterface
      */
@@ -28,16 +31,16 @@ class PermissionService
      */
     public function index(): array
     {
-        $sources = $this
-            ->repository
-            ->paginate()
+        $sources = $this->repository
+            ->skip($this->getSkip())
+            ->take($this->getPerPage())
+            ->get()
             ->toArray();
 
-        $permissions = $sources[ 'data' ];
-        $total       = $sources[ 'total' ];
+        $total = $this->repository->count();
 
         return ( new IndexResource() )
-            ->to($permissions, $total);
+            ->to($sources, $total);
     }
 
     /**

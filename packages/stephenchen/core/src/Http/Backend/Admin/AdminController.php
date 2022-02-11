@@ -34,6 +34,22 @@ final class AdminController extends BaseController
      *              "bearerAuth": {}
      *          },
      *     },
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="admin 的 page ( 最小是 1 )",
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *     ),
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         description="admin 的 per_page ( 默認 20 )",
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *     ),
      *     @OA\Response(response="200", description="成功")
      * )
      */
