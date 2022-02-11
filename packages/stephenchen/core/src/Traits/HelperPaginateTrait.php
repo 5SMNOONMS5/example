@@ -50,7 +50,7 @@ trait HelperPaginateTrait
     }
 
     /**
-     * Get page number, return `page 1` if nonexist
+     * Get skip by calculate value from `page` and `per_page`
      *
      * @param string $page
      * @param string $perPage
