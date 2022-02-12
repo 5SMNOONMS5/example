@@ -2,8 +2,8 @@
 
 namespace Stephenchen\Core\Http\Backend\Permission;
 
-use Stephenchen\Core\Http\Resources\IndexResource;
 use Stephenchen\Core\Traits\HelperPaginateTrait;
+use Stephenchen\Core\Utilities\ToTree;
 
 class PermissionService
 {
@@ -32,15 +32,14 @@ class PermissionService
     public function index(): array
     {
         $sources = $this->repository
+            ->select('id', 'parent_id', 'name', 'path', 'icon')
             ->skip($this->getSkip())
             ->take($this->getPerPage())
             ->get()
             ->toArray();
 
-        $total = $this->repository->count();
-
-        return ( new IndexResource() )
-            ->to($sources, $total);
+        return ( new ToTree() )
+            ->convert($sources, 'parent_id');
     }
 
     /**

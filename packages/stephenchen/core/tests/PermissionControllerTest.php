@@ -48,19 +48,22 @@ class PermissionControllerTest extends TestCase
                 'code',
                 'msg',
                 'data' => [
-                    'lists' => [
-                        [
-                            'id',
-                            'name',
-                            'path',
-                            'icon',
-                            'parent_id',
-                            'guard_name',
-                            'created_at',
-                            'updated_at',
+                    '*' => [
+                        'id',
+                        'parent_id',
+                        'name',
+                        'path',
+                        'icon',
+                        'children' => [
+                            '*' => [
+                                'id',
+                                'parent_id',
+                                'name',
+                                'path',
+                                'icon',
+                            ],
                         ],
                     ],
-                    'total',
                 ],
             ]);
     }
@@ -116,42 +119,22 @@ class PermissionControllerTest extends TestCase
 //    {
 //        return (int)PermissionModel::select('id')->orderBy('id', 'desc')->firstOrFail()->id;
 //    }
-
-    /**
-     * Current assert json structure
-     */
-    public function getJsonStructureForAssert()
-    {
-        return [
-            'code',
-            'msg',
-            'data' => [
-                '*' => [
-                    'id',
-                    'name',
-                    'guard_name',
-                    'created_at',
-                    'updated_at',
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Current assert json structure
-     */
-    public function getJsonStructureForSingle()
-    {
-        return [
-            'code',
-            'msg',
-            'data' => [
-                'id',
-                'name',
-                'guard_name',
-                'created_at',
-                'updated_at',
-            ],
-        ];
-    }
+//
+//    /**
+//     * Current assert json structure
+//     */
+//    public function getJsonStructureForSingle()
+//    {
+//        return [
+//            'code',
+//            'msg',
+//            'data' => [
+//                'id',
+//                'name',
+//                'guard_name',
+//                'created_at',
+//                'updated_at',
+//            ],
+//        ];
+//    }
 }
