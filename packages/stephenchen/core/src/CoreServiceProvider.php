@@ -40,6 +40,7 @@ class CoreServiceProvider extends ServiceProvider
 
 
         // load routers
+        $this->loadRoutesFrom(__DIR__ . '/../routes/develop.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/v1/backend.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/v1/frontend.php');
 
