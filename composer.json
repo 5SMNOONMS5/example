@@ -15,7 +15,6 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "stephenchen/core": "dev-master",
-        "stephenchen/line-bot": "dev-main",
         "wulfheart/pretty_routes": "^0.3.0"
     },
     "require-dev": {
