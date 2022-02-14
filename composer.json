@@ -36,10 +36,6 @@
         {
             "type": "path",
             "url": "./packages/stephenchen/core"
-        },
-        {
-            "type": "path",
-            "url": "./packages/stephenchen/line-bot"
         }
     ],
     "autoload-dev": {
