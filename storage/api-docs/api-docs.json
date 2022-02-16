@@ -312,24 +312,6 @@
                 ],
                 "summary": "把 Permission 資料列出來",
                 "operationId": "b48c083bdf2f2599353d2dd2da392539",
-                "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "admin 的 page ( 最小是 1 )",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "per_page",
-                        "in": "query",
-                        "description": "admin 的 per_page ( 默認 20 )",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
                 "responses": {
                     "401": {
                         "description": "Unauthenticated"
@@ -356,7 +338,7 @@
                     {
                         "name": "page",
                         "in": "query",
-                        "description": "admin 的 page ( 最小是 1 )",
+                        "description": "admin 的 page ( 沒有帶參數就全部吐回來 )",
                         "schema": {
                             "type": "integer"
                         }
@@ -364,7 +346,7 @@
                     {
                         "name": "per_page",
                         "in": "query",
-                        "description": "admin 的 per_page ( 默認 20 )",
+                        "description": "admin 的 per_page ( 沒有帶參數就全部吐回來 )",
                         "schema": {
                             "type": "integer"
                         }
@@ -581,6 +563,12 @@
                         "type": "string",
                         "format": "string",
                         "example": "小虎"
+                    },
+                    "status": {
+                        "description": "狀態，可能會有 0 ~ 127",
+                        "type": "string",
+                        "format": "integer",
+                        "example": "0"
                     },
                     "role_id": {
                         "type": "string",

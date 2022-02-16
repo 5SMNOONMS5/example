@@ -75,6 +75,16 @@ final class AdminModel extends Authenticatable implements JWTSubject
     /**
      * @OA\Property(
      *     format="integer",
+     *     description="狀態，可能會有 0 ~ 127",
+     *     example="0"
+     * )
+     * @var string
+     */
+    private string $status;
+
+    /**
+     * @OA\Property(
+     *     format="integer",
      *     example="1"
      * )
      * @var string

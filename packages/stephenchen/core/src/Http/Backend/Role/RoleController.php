@@ -92,7 +92,7 @@ final class RoleController extends BaseController
      *                      type="string"
      *                  ),
      *                  @OA\Property(
-     *                      property="is_enabled",
+     *                      property="status",
      *                      description="狀態",
      *                      type="boolean"
      *                  ),
@@ -194,7 +194,7 @@ final class RoleController extends BaseController
      *                      type="string"
      *                  ),
      *                  @OA\Property(
-     *                      property="is_enabled",
+     *                      property="status",
      *                      description="狀態",
      *                      type="boolean"
      *                  ),

@@ -30,7 +30,7 @@ class RoleControllerTest extends TestCase
         $this->parameters = [
             'name'           => Str::random(),
             'description'    => Str::random(),
-            'is_enabled'     => 1,
+            'status'     => 1,
             'permission_ids' => $all,
         ];
 
@@ -148,7 +148,7 @@ class RoleControllerTest extends TestCase
         $data     = [
             'name'           => Str::random(),
             'description'    => Str::random(),
-            'is_enabled'     => 1,
+            'status'     => 1,
             'permission_ids' => [1],
         ];
         $response = $this->put("{$this->router}/{$this->getID()}", $data);

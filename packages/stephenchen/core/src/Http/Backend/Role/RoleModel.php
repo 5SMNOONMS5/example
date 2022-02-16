@@ -28,7 +28,7 @@ class RoleModel extends BaseRole
         'name',
         'guard_name',
         'description',
-        'is_enabled',
+        'status',
         'created_at',
         'updated_at',
     ];

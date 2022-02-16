@@ -27,9 +27,6 @@ use Illuminate\Routing\Controller;
  *         url="http://www.apache.org/licenses/LICENSE-2.0.html"
  *     )
  * )
- */
-
-/**
  *
  * @OA\SecurityScheme(
  *     type="http",
