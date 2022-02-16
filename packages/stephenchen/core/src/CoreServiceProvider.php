@@ -6,6 +6,7 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Stephenchen\Core\Commands\InitialCommandPart1;
+use Stephenchen\Core\Commands\TestCommand;
 use Stephenchen\Core\Http\Backend\Admin\AdminRepository;
 use Stephenchen\Core\Http\Backend\Admin\AdminRepositoryInterface;
 use Stephenchen\Core\Http\Backend\Permission\PermissionRepository;
@@ -105,6 +106,7 @@ class CoreServiceProvider extends ServiceProvider
     {
         $this->commands([
             InitialCommandPart1::class,
+            TestCommand::class,
         ]);
     }
 

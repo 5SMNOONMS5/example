@@ -41,9 +41,15 @@ class RoleService
      */
     public function index(): array
     {
+        $page    = request()->has('page');
+        $perPage = request()->has('per_page');
+
         $sources = $this->repository
-            ->skip($this->getSkip())
-            ->take($this->getPerPage())
+            ->when($page & $perPage, function ($query) {
+                return $query
+                    ->skip($this->getSkip())
+                    ->take($this->getPerPage());
+            })
             ->get()
             ->toArray();
 

@@ -46,7 +46,10 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@reminder",
+            "@reminder",
+            "@reminder"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
@@ -56,6 +59,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "reminder": [
+            "echo \"因為 router 是用 admins 當作開頭，為了避免 cros 問題，請在 config/cros.php 底下把 path 加上 admins/* 避免 cros 問題\""
         ]
     },
     "extra": {

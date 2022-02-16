@@ -31,10 +31,16 @@ class PermissionService
      */
     public function index(): array
     {
+        $page    = request()->has('page');
+        $perPage = request()->has('per_page');
+
         $sources = $this->repository
             ->select('id', 'parent_id', 'name', 'path', 'icon')
-            ->skip($this->getSkip())
-            ->take($this->getPerPage())
+            ->when($page & $perPage, function ($query) {
+                return $query
+                    ->skip($this->getSkip())
+                    ->take($this->getPerPage());
+            })
             ->get()
             ->toArray();
 

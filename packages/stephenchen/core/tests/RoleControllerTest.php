@@ -2,6 +2,7 @@
 
 namespace Stephenchen\Core\Tests;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Stephenchen\Core\Http\Backend\Permission\PermissionModel;
 use Stephenchen\Core\Http\Backend\Role\RoleModel;
@@ -27,9 +28,9 @@ class RoleControllerTest extends TestCase
         $all = PermissionModel::select('id')->get()->pluck('id')->toArray();
 
         $this->parameters = [
-            'name'          => Str::random(),
-            'description'   => Str::random(),
-            'is_enabled'    => 1,
+            'name'           => Str::random(),
+            'description'    => Str::random(),
+            'is_enabled'     => 1,
             'permission_ids' => $all,
         ];
 
@@ -43,8 +44,54 @@ class RoleControllerTest extends TestCase
     {
         $response = $this->get($this->router);
 
-//        $json = $response->json();
-//        dd($json);
+        $all  = RoleModel::count();
+        $json = $response->json();
+//        dd($json, $all);
+
+        // Assert same count
+        $lists = $json[ 'data' ][ 'lists' ];
+        $this->assertSame($all, count($lists));
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                'code',
+                'msg',
+                'data' => [
+                    'lists' => [
+                        [
+                            'id',
+                            'name',
+                            'guard_name',
+                            'created_at',
+                            'updated_at',
+                        ],
+                    ],
+                    'total',
+                ],
+            ]);
+    }
+
+
+    /**
+     * Test get lists
+     */
+    public function test_roles_get_all_with_page_and_perpage()
+    {
+        $perPage    = 5;
+        $parameters = [
+            'page'     => 1,
+            'per_page' => $perPage,
+        ];
+        $query      = Arr::query($parameters);
+        $response   = $this->get("$this->router?{$query}");
+
+        $json = $response->json();
+//        dd($json)
+
+        // Assert same count
+        $lists = $json[ 'data' ][ 'lists' ];
+        $this->assertSame($perPage, count($lists));
 
         $response
             ->assertStatus(200)
@@ -99,9 +146,9 @@ class RoleControllerTest extends TestCase
     public function test_roles_update()
     {
         $data     = [
-            'name'          => Str::random(),
-            'description'   => Str::random(),
-            'is_enabled'    => 1,
+            'name'           => Str::random(),
+            'description'    => Str::random(),
+            'is_enabled'     => 1,
             'permission_ids' => [1],
         ];
         $response = $this->put("{$this->router}/{$this->getID()}", $data);

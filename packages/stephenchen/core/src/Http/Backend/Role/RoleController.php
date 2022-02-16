@@ -42,7 +42,7 @@ final class RoleController extends BaseController
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
-     *         description="admin 的 page ( 最小是 1 )",
+     *         description="admin 的 page ( 沒有帶參數就全部吐回來 )",
      *         @OA\Schema(
      *             type="integer"
      *         ),
@@ -50,7 +50,7 @@ final class RoleController extends BaseController
      *     @OA\Parameter(
      *         name="per_page",
      *         in="query",
-     *         description="admin 的 per_page ( 默認 20 )",
+     *         description="admin 的 per_page ( 沒有帶參數就全部吐回來 )",
      *         @OA\Schema(
      *             type="integer"
      *         ),
