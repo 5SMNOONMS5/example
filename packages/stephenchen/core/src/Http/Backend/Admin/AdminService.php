@@ -193,17 +193,15 @@ final class AdminService
      */
     public function index(): array
     {
-        //
         $authAdmin = $this->authService->getAuthUser();
-        $source    = $this->adminRepository
+
+        // Filter first, exclude self
+        $source = $this->adminRepository
             ->scopeQuery(fn($query) => $query->where('id', '!=', $authAdmin->id))
             ->with('roles')
-            ->skip($this->getSkip())
-            ->take($this->getPerPage())
-            ->get()
-            ->toArray();
+            ->paginate($this->getPerPage());
 
-        $admins = collect($source)
+        $admins = collect($source->items())
             ->map(function ($admin) {
                 $roles                = collect($admin[ 'roles' ]);
                 $roleNames            = $roles->implode('name', ',');
@@ -214,7 +212,7 @@ final class AdminService
             ->values()
             ->toArray();
 
-        $total = $this->adminRepository->count();
+        $total = $source->total();
 
         return ( new IndexResource() )
             ->to($admins, $total);

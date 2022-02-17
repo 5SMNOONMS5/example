@@ -49,7 +49,7 @@ class AdminControllerTest extends TestCase
         // Assert
         $perPage    = 2;
         $parameters = [
-            'page'     => 1,
+            'page'     => 2,
             'per_page' => $perPage,
         ];
         $query      = Arr::query($parameters);
