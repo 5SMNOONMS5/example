@@ -84,7 +84,7 @@ final class AdminController extends BaseController
      * @return JsonResponse
      * @throws Exception
      */
-    public function store(Request $request)
+    public function store(AdminRequest $request)
     {
         $results = $this->service->store($request->all());
 
@@ -158,11 +158,11 @@ final class AdminController extends BaseController
      * )
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param AdminRequest $request
      * @param $id
      * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(AdminRequest $request, $id)
     {
         $results = $this->service->update($request->all(), $id);
 

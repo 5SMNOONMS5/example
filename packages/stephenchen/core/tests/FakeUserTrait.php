@@ -29,6 +29,7 @@ trait FakeUserTrait
     public function actingAs($user, $guard = NULL)
     {
         $this->token = JWTAuth::fromUser($user);
+        $this->withHeader('Accept', 'application/json');
         $this->withHeader('Authorization', "Bearer {$this->token}");
         parent::actingAs($user);
     }

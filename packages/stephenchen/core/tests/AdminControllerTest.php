@@ -3,7 +3,6 @@
 namespace Stephenchen\Core\Tests;
 
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Stephenchen\Core\Http\Backend\Admin\AdminModel;
 use Stephenchen\Core\Http\Backend\Role\RoleModel;
 use Tests\TestCase;
@@ -27,15 +26,16 @@ class AdminControllerTest extends TestCase
     {
         parent::setUp();
 
-        $random           = Str::uuid();
-        $random           = Str::substr($random, 0, 10);
+
+        $random           = time();
         $this->parameters = [
-            'account'      => $random,
-            'email'        => "{$random}@gmail.com",
-            'password'     => 'a111111',
-            'display_name' => $random,
-            'status'       => 1,
-            'role_id'      => ( new RoleModel )->first()->id,
+            'account'               => "ab{$random}",
+            'email'                 => "{$random}@gmail.com",
+            'password'              => 'a111111',
+            'password_confirmation' => 'a111111',
+            'display_name'          => $random,
+            'status'                => 1,
+            'role_id'               => ( new RoleModel )->first()->id,
         ];
 
         $this->actingAsSuperAdmin();
@@ -53,7 +53,9 @@ class AdminControllerTest extends TestCase
             'per_page' => $perPage,
         ];
         $query      = Arr::query($parameters);
-        $response   = $this->get("$this->router?{$query}", $parameters);
+        $response   = $this->get("$this->router?{$query}", [
+            'Accept', 'application/json',
+        ]);
 
         // Act
         $json = $response->json();
@@ -92,10 +94,49 @@ class AdminControllerTest extends TestCase
      */
     public function test_admins_create()
     {
-        $response = $this->post($this->router, $this->parameters);
+        $headers  = [
+            'Accept', 'application/json',
+        ];
+        $response = $this->post($this->router, $this->parameters, $headers);
+
+//        $response->dd();
 
         $response
             ->assertStatus(200);
+    }
+
+    /**
+     * Test create without key
+     */
+    public function test_admins_create_without_key_account()
+    {
+        $headers = [
+            'Accept', 'application/json',
+        ];
+
+        $new = $this->parameters;
+        unset($new[ 'account' ]);
+        $response = $this->post($this->router, $new, $headers);
+
+        $response
+            ->assertStatus(422);
+    }
+
+    /**
+     * Test create without key
+     */
+    public function test_admins_create_without_key_email()
+    {
+        $headers = [
+            'Accept', 'application/json',
+        ];
+
+        $new = $this->parameters;
+        unset($new[ 'email' ]);
+        $response = $this->post($this->router, $new, $headers);
+
+        $response
+            ->assertStatus(422);
     }
 
     /**
@@ -104,10 +145,7 @@ class AdminControllerTest extends TestCase
     public function test_admins_get_by_id()
     {
         $response = $this
-            ->get("{$this->router}/{$this->getID()}", [
-                'Accept'        => 'application/json',
-                'Authorization' => 'Bearer ' . $this->token,
-            ]);
+            ->get("{$this->router}/{$this->getID()}");
 
 //        $response->dd();
 

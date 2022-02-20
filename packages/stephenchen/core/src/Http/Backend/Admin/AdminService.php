@@ -179,7 +179,7 @@ final class AdminService
         }
 
         $roleID = $parameters[ 'role_id' ];
-        $this->adminRepository->sync(3, 'roles', $roleID);
+        $this->adminRepository->sync($id, 'roles', $roleID);
 
         $entity->update($parameters);
 

@@ -3,6 +3,7 @@
 namespace Stephenchen\Core\Service\Response;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 /**
  * Class ResponseObject
@@ -41,7 +42,7 @@ final class ResponseObject
      * @param int   $code
      * @param array $custom
      *
-     * @return JsonResponse
+     * @return Response
      */
     public static function fail($message, $code = 400, $custom = [])
     {
@@ -53,6 +54,6 @@ final class ResponseObject
 
         $output = array_merge($default, $custom);
 
-        return response()->json($output);
-    }
+        return response($output, $code);
+}
 }

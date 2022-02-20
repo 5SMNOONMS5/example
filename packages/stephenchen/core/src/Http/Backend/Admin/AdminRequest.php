@@ -2,11 +2,11 @@
 
 namespace Stephenchen\Core\Http\Backend\Admin;
 
+use Illuminate\Validation\Rule;
+use InvalidArgumentException;
 use Stephenchen\Core\Base\BaseRequest;
 use Stephenchen\Core\Rules\RulesAlphaDash;
 use Stephenchen\Core\Traits\PasswordTrait;
-use Illuminate\Validation\Rule;
-use InvalidArgumentException;
 
 final class AdminRequest extends BaseRequest
 {
@@ -20,31 +20,38 @@ final class AdminRequest extends BaseRequest
      */
     public function rules()
     {
-        $id = $this->route('id');
+        $id = $this->route('authUser');
 
-        return [
-            'permission_group' => [
-                'nullable',
-            ],
-            'email'            => [
-                'required',
-                'email',
-                Rule::unique('admins')
-                    ->ignore($id, 'id')
-                    ->whereNull('deleted_at'),
-            ],
-            'account'          => [
+        $rules = [
+            'account'      => [
                 'required',
                 ( new RulesAlphaDash() )
                     ->setErrorMessagePrefix('帳號')
                     ->setValidateLengthBetween(4, 12)
                     ->setValidateUnderline(FALSE)
                     ->setValidateDash(FALSE),
-                Rule::unique('admins', 'account')->ignore($id),
+                Rule::unique('admins', 'account')->ignore($id, 'id'),
             ],
-            'password'         => $this->getPasswordRules($this->isPostMethod()),
-            'display_name'     => 'required',
+            'email'        => [
+                'required',
+                'email',
+                Rule::unique('admins')
+                    ->ignore($id, 'id')
+                    ->whereNull('deleted_at'),
+            ],
+            'display_name' => 'required',
+            'status'       => [
+                'required',
+            ],
+            'role_id'      => [
+                'required',
+            ],
         ];
+
+        $rules = array_merge($rules, $this->getPasswordRules($this->isPostMethod()));
+        $rules = array_merge($rules, $this->getPasswordConfirmationRules($this->isPostMethod()));
+
+        return $rules;
     }
 
     /**
@@ -54,7 +61,7 @@ final class AdminRequest extends BaseRequest
      */
     public function messages()
     {
-        return [
+        $messages = [
             'email.required' => '請輸入信箱',
             'email.email'    => '信箱格式有誤',
             'email.unique'   => '信箱 不可重複',
@@ -63,13 +70,13 @@ final class AdminRequest extends BaseRequest
 
             'account.required' => '請輸入帳號',
             'account.unique'   => '帳號不可重複',
-            'account.between'  => '帳號必須在 4 ~ 12 中英混合',
 
-            'password.required' => '請輸入密碼',
-            'password.unique'   => '密碼不可重複',
-            'password.between'  => '密碼必須在 6 ~ 12 中英混合',
-
-            'permission_group.required' => '請選擇權限',
+            'role_id.required' => '請選擇角色',
         ];
+
+        $messages = array_merge($messages, $this->getPasswordValidationFailMessage($this->isPostMethod()));
+        $messages = array_merge($messages, $this->getPasswordConfirmationValidationFailMessage());
+
+        return $messages;
     }
 }
