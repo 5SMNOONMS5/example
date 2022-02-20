@@ -17,7 +17,7 @@ final class PermissionRequest extends BaseRequest
      */
     public function rules()
     {
-        $id = $this->route('id');
+        $id = $this->route('permission');
 
         return [
             'name' => [

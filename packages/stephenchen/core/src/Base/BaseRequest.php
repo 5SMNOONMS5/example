@@ -75,6 +75,14 @@ abstract class BaseRequest extends FormRequest
     {
         return $this->getMethod() === self::METHOD_POST;
     }
+
+    /**
+     * Return true if http method is put
+     */
+    protected function isPutMethod(): bool
+    {
+        return $this->getMethod() === self::METHOD_PUT;
+    }
 }
 
 

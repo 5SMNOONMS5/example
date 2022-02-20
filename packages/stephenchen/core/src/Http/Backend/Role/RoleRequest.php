@@ -19,7 +19,7 @@ class RoleRequest extends BaseRequest
      */
     public function rules()
     {
-        $id = $this->route('id');
+        $id = $this->route('role');
 
         return [
             'name'          => [
