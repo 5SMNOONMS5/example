@@ -6,11 +6,11 @@ use Illuminate\Validation\Rule;
 use InvalidArgumentException;
 use Stephenchen\Core\Base\BaseRequest;
 use Stephenchen\Core\Rules\RulesAlphaDash;
-use Stephenchen\Core\Traits\PasswordTrait;
+use Stephenchen\Core\Traits\Request\RequestPasswordTrait;
 
 final class AdminRequest extends BaseRequest
 {
-    use PasswordTrait;
+    use RequestPasswordTrait;
 
     /**
      * Get the validation rules that apply to the request.
@@ -49,7 +49,7 @@ final class AdminRequest extends BaseRequest
         ];
 
         $rules = array_merge($rules, $this->getPasswordRules($this->isPostMethod()));
-        $rules = array_merge($rules, $this->getPasswordConfirmationRules($this->isPostMethod()));
+        $rules = array_merge($rules, $this->getPasswordConfirmationRules());
 
         return $rules;
     }

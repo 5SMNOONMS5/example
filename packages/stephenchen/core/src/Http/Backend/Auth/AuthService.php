@@ -4,6 +4,7 @@ namespace Stephenchen\Core\Http\Backend\Auth;
 
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -37,13 +38,16 @@ final class AuthService
      */
     private function transformJWTToken(string $token): array
     {
-        $authorization = new JwtObject($token);
+        $authorization      = new JwtObject($token);
+        $expiredAtTimestamp = $authorization->getExpiredAt();
+        $date               = Carbon::createFromTimestamp($expiredAtTimestamp)->toDateTimeString();;
 
         return [
-            'token'              => $authorization->getToken(),
-            'expired_at'         => $authorization->getExpiredAt(),
-            'token_type'         => 'Bearer',
-            'refresh_expired_at' => $authorization->getRefreshExpiredAt(),
+            'token'                => $authorization->getToken(),
+            'expired_at'           => $date,
+            'expired_at_timestmap' => $expiredAtTimestamp,
+            'token_type'           => 'Bearer',
+//            'refresh_expired_at'   => $authorization->getRefreshExpiredAt(),
         ];
     }
 

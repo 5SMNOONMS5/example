@@ -5,7 +5,6 @@ namespace Stephenchen\Core\Http\Backend\Permission;
 use Illuminate\Validation\Rule;
 use InvalidArgumentException;
 use Stephenchen\Core\Base\BaseRequest;
-use Stephenchen\Core\Traits\PasswordTrait;
 
 final class PermissionRequest extends BaseRequest
 {

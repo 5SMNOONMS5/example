@@ -6,6 +6,9 @@ Route::group([
     // @TODO:
 //    'prefix'    => 'api/core',
     'namespace' => 'Stephenchen\Core\Http\Backend',
+    'middleware' => [
+        'set.language',
+    ],
 ], function () {
 
     /*

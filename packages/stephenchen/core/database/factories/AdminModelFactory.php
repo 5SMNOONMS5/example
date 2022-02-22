@@ -26,7 +26,7 @@ class AdminModelFactory extends Factory
             'email'           => $this->faker->email(),
             'password'        => 'a111111',
             'display_name'    => $this->faker->firstName(),
-            'status'          => $this->faker->numberBetween(0, 2),
+            'status'          => $this->faker->numberBetween(0, 1),
             'latest_ip'       => $this->faker->ipv4(),
             'latest_login_at' => $this->faker->time(),
         ];

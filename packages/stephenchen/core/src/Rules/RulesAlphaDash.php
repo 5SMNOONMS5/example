@@ -69,6 +69,11 @@ final class RulesAlphaDash implements Rule
     private ?string $errorMessagePrefix = NULL;
 
     /**
+     * @var string
+     */
+    private ?string $validateLengthBetweenErrorMessage;
+
+    /**
      * Laravel build in dump and die method
      *
      * @return RulesAlphaDash
@@ -256,10 +261,12 @@ final class RulesAlphaDash implements Rule
          * ( group1 ) 允許 大小寫英文開頭，數字，下底線，橫槓，然後可允許 0 ~ 4 位
          */
 
-        $min = $min - 1;
-        $max = $max - 1;
+        $validateMin = $min - 1;
+        $validateMax = $max - 1;
 
-        $this->validateLengthBetween = "{$min},{$max}";
+        $this->validateLengthBetween             = "{$validateMin},{$validateMax}";
+        $this->validateLengthBetweenErrorMessage = "{$min},{$max}";
+
         return $this;
     }
 
@@ -291,7 +298,7 @@ final class RulesAlphaDash implements Rule
             $pattern = "{$pattern} 英文字母開頭";
         }
         if ($this->getValidateLengthBetween()) {
-            $pattern = "{$pattern} 長度只能限制是 {$this->validateLengthBetween}";
+            $pattern = "{$pattern} 長度只能限制是 {$this->validateLengthBetweenErrorMessage}";
         }
 
         return "{$this->errorMessagePrefix} {$pattern} 的組合";

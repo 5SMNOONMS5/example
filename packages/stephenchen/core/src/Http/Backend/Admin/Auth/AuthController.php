@@ -55,7 +55,7 @@ final class AuthController extends BaseController
         $results = $this->service->attempt($request->all());
 
         return ( $results )
-            ? parent::jsonSuccess('success', $results)
+            ? parent::jsonSuccess(trans('core::global.success'), $results)
             : parent::jsonFail('fail');
     }
 

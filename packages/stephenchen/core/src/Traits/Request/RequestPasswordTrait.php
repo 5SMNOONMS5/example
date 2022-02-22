@@ -1,11 +1,11 @@
 <?php
 
-namespace Stephenchen\Core\Traits;
+namespace Stephenchen\Core\Traits\Request;
 
 use InvalidArgumentException;
 use Stephenchen\Core\Rules\RulesAlphaDash;
 
-trait PasswordTrait
+trait RequestPasswordTrait
 {
     /**
      * 如果有需要驗證 `密碼` 的話就用 array_merge
@@ -31,14 +31,13 @@ trait PasswordTrait
     /**
      * 如果有需要驗證 `確認密碼` 的話就用 array_merge
      *
-     * @param bool $isRequired
      * @return array
      */
-    private function getPasswordConfirmationRules(bool $isRequired): array
+    private function getPasswordConfirmationRules(): array
     {
         return [
             'password_confirmation' => [
-                $isRequired ? 'required' : 'nullable',
+                'required_unless:password,null',
                 'same:password',
             ],
         ];

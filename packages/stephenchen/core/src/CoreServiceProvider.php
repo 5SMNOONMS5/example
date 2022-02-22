@@ -13,10 +13,9 @@ use Stephenchen\Core\Http\Backend\Permission\PermissionRepository;
 use Stephenchen\Core\Http\Backend\Permission\PermissionRepositoryInterface;
 use Stephenchen\Core\Http\Backend\Role\RoleRepository;
 use Stephenchen\Core\Http\Backend\Role\RoleRepositoryInterface;
-use Stephenchen\Core\Http\Backend\Socialite\SocialiteRepository;
-use Stephenchen\Core\Http\Backend\Socialite\SocialiteRepositoryInterface;
 use Stephenchen\Core\Http\Middleware\AuthenticateAssignGuard;
 use Stephenchen\Core\Http\Middleware\AuthenticateJwtVerify;
+use Stephenchen\Core\Http\Middleware\SetLanguage;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -49,10 +48,11 @@ class CoreServiceProvider extends ServiceProvider
         // cf. https://laracasts.com/discuss/channels/general-discussion/register-middleware-via-service-provider?page=2
         $router->aliasMiddleware('auth.jwt.verify', AuthenticateJwtVerify::class);
         $router->aliasMiddleware('auth.assign.guard', AuthenticateAssignGuard::class);
-
+        $router->aliasMiddleware('set.language', SetLanguage::class);
 
         $this->registerModelBindings();
 
+        $this->loadTranslations();
 
         if ($this->app->runningInConsole()) {
 
@@ -112,9 +112,13 @@ class CoreServiceProvider extends ServiceProvider
 
     private function registerModelBindings()
     {
-        $this->app->bind(SocialiteRepositoryInterface::class, SocialiteRepository::class);
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
         $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
         $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
+    }
+
+    public function loadTranslations()
+    {
+        $this->loadTranslationsFrom(__DIR__ . '/lang', 'core');
     }
 }
