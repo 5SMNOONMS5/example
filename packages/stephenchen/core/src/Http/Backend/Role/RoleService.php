@@ -50,6 +50,7 @@ class RoleService
                     ->skip($this->getSkip())
                     ->take($this->getPerPage());
             })
+            ->orderBy('id', 'desc')
             ->get()
             ->toArray();
 

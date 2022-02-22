@@ -199,6 +199,7 @@ final class AdminService
         $source = $this->adminRepository
             ->scopeQuery(fn($query) => $query->where('id', '!=', $authAdmin->id))
             ->with('roles')
+            ->orderBy('id', 'desc')
             ->paginate($this->getPerPage());
 
         $admins = collect($source->items())
