@@ -116,8 +116,9 @@ class AuthControllerTest extends TestCase
             'msg',
             'data' => [
                 "expired_at",
+//                "expired_at_timestamp",
                 "token_type",
-                "refresh_expired_at",
+//                "refresh_expired_at",
                 'admin_infos' => [
                     "id",
                     "account",
