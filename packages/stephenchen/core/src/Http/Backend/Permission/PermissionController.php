@@ -41,6 +41,6 @@ class PermissionController extends BaseController
     {
         $results = $this->service->index();
 
-        return $this->jsonSuccess('success', $results);
+        return $this->jsonSuccess(trans('core::global.success'),  $results);
     }
 }

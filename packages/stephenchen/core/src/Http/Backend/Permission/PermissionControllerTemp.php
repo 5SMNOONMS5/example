@@ -40,7 +40,7 @@ class PermissionControllerTemp extends BaseController
     {
         $results = $this->service->index();
 
-        return $this->jsonSuccess('success', $results);
+        return $this->jsonSuccess(trans('core::global.success'),  $results);
     }
 
     /**
@@ -74,8 +74,8 @@ class PermissionControllerTemp extends BaseController
         $results = $this->service->store($request->all());
 
         return ( $results )
-            ? $this->jsonSuccess('success', $results)
-            : $this->jsonFail('fail', $results);
+            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            : $this->jsonFail(trans('core::global.fail'));
     }
 
     /**
@@ -108,8 +108,8 @@ class PermissionControllerTemp extends BaseController
         $results = $this->service->show($id);
 
         return ( $results )
-            ? $this->jsonSuccess('success', $results)
-            : $this->jsonFail('fail', $results);
+            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            : $this->jsonFail(trans('core::global.fail'));
     }
 
     /**
@@ -151,8 +151,8 @@ class PermissionControllerTemp extends BaseController
         $results = $this->service->update($request->all(), $id);
 
         return ( $results )
-            ? $this->jsonSuccess('success', $results)
-            : $this->jsonFail('fail', $results);
+            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            : $this->jsonFail(trans('core::global.fail'));
     }
 
     /**
@@ -183,7 +183,7 @@ class PermissionControllerTemp extends BaseController
         $results = $this->service->destroy($id);
 
         return ( $results )
-            ? $this->jsonSuccess('success', $results)
-            : $this->jsonFail('fail', $results);
+            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            : $this->jsonFail(trans('core::global.fail'));
     }
 }

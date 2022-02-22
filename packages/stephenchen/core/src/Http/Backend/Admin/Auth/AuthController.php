@@ -14,6 +14,11 @@ final class AuthController extends BaseController
      */
     private AuthService $service;
 
+    /**
+     * Create a new AuthController instance.
+     *
+     * @param AuthService $service
+     */
     public function __construct(AuthService $service)
     {
         $this->service = $service;
@@ -55,8 +60,8 @@ final class AuthController extends BaseController
         $results = $this->service->attempt($request->all());
 
         return ( $results )
-            ? parent::jsonSuccess(trans('core::global.success'), $results)
-            : parent::jsonFail('fail');
+            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            : $this->jsonFail(trans('core::global.fail'));
     }
 
     /**
@@ -75,11 +80,11 @@ final class AuthController extends BaseController
      */
     public function me()
     {
-        $result = $this->service->me();
+        $results = $this->service->me();
 
-        return ( $result )
-            ? parent::jsonSuccess('success', $result)
-            : parent::jsonFail('fail');
+        return ( $results )
+            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            : $this->jsonFail(trans('core::global.fail'));
     }
 
     /**
@@ -117,11 +122,11 @@ final class AuthController extends BaseController
      */
     public function logout()
     {
-        $result = $this->service->logout();
+        $results = $this->service->logout();
 
-        return ( $result )
-            ? parent::jsonSuccess('success', $result)
-            : parent::jsonFail('fail');
+        return ( $results )
+            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            : $this->jsonFail(trans('core::global.fail'));
     }
 
     /**
@@ -159,11 +164,11 @@ final class AuthController extends BaseController
      */
     public function refresh()
     {
-        $result = $this->service->refresh();
+        $results = $this->service->refresh();
 
-        return ( $result )
-            ? parent::jsonSuccess('success', $result)
-            : parent::jsonFail('fail');
+        return ( $results )
+            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            : $this->jsonFail(trans('core::global.fail'));
     }
 }
 
