@@ -2,11 +2,6 @@
 
 namespace Stephenchen\Core\Traits;
 
-/**
- * Trait HelperPaginateTrait
- *
- * @package App\Traits
- */
 trait HelperPaginateTrait
 {
     /**

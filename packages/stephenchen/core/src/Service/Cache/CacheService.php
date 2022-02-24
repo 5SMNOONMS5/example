@@ -6,11 +6,6 @@ use DateInterval;
 use DateTimeInterface;
 use Illuminate\Support\Facades\Cache;
 
-/**
- * Class CacheService
- *
- * @package App\Service\Cache
- */
 final class CacheService
 {
     /**

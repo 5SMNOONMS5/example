@@ -2,23 +2,18 @@
 
 namespace Stephenchen\Core\Traits;
 
+use Illuminate\Http\Response;
 use Stephenchen\Core\Service\Response\ResponseObject;
-use Illuminate\Http\JsonResponse;
 
-/**
- * Trait ResponseJsonTrait
- *
- * @package App\Traits
- */
 trait ResponseJsonTrait
 {
     /**
      * Success response data format
      *
-     * @param       $message
+     * @param string $message
      * @param array $results
      * @param array $custom
-     * @return JsonResponse
+     * @return Response
      */
     public static function jsonSuccess($message, $results = [], $custom = [])
     {
@@ -31,7 +26,7 @@ trait ResponseJsonTrait
      * @param       $message
      * @param int $code
      * @param array $custom
-     * @return JsonResponse
+     * @return Response
      */
     public static function jsonFail($message, $code = 400, $custom = [])
     {

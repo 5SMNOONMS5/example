@@ -5,11 +5,6 @@ namespace Stephenchen\Core\Traits;
 use Illuminate\Support\Arr;
 use Stephenchen\Core\Service\Signature\Signature;
 
-/**
- * Trait SignatureTrait
- *
- * @package App\Traits
- */
 trait SignatureTrait
 {
     /**

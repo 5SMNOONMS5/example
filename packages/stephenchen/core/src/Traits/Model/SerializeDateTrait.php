@@ -4,11 +4,6 @@ namespace Stephenchen\Core\Traits\Model;
 
 use DateTimeInterface;
 
-/**
- * Trait SerializeDateTrait
- *
- * @package App\Traits\Model
- */
 trait SerializeDateTrait
 {
     /**

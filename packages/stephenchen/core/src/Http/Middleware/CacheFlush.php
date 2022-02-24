@@ -6,11 +6,6 @@ use App\Service\Cache\CacheService;
 use Closure;
 use Illuminate\Http\Request;
 
-/**
- * Class FlushCache
- *
- * @package App\Http\Middleware
- */
 final class CacheFlush
 {
     /**

@@ -6,11 +6,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-/**
- * Class AssignGuard
- *
- * @package App\Http\Middleware
- */
 final class AuthenticateAssignGuard
 {
     /**

@@ -2,14 +2,8 @@
 
 namespace Stephenchen\Core\Service\Response;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
-/**
- * Class ResponseObject
- *
- * @package App\Service\Response
- */
 final class ResponseObject
 {
     /**
@@ -18,8 +12,7 @@ final class ResponseObject
      * @param       $message
      * @param array $result
      * @param array $custom
-     *
-     * @return JsonResponse
+     * @return Response
      */
     public static function success($message, $result = [], $custom = [])
     {
@@ -30,18 +23,15 @@ final class ResponseObject
         ];
 
         $output = array_merge($default, $custom);
-
-        return response()->json($output);
+        return response($output, 200);
     }
-
 
     /**
      * Response 失敗回傳
      *
      * @param       $message
-     * @param int   $code
+     * @param int $code
      * @param array $custom
-     *
      * @return Response
      */
     public static function fail($message, $code = 400, $custom = [])
@@ -55,5 +45,5 @@ final class ResponseObject
         $output = array_merge($default, $custom);
 
         return response($output, $code);
-}
+    }
 }

@@ -4,9 +4,6 @@ namespace Stephenchen\Core;
 
 use Illuminate\Support\Facades\Facade;
 
-/**
- * @see \Stephenchen\Core\Skeleton\SkeletonClass
- */
 class CoreFacade extends Facade
 {
     /**

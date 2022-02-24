@@ -4,11 +4,6 @@ namespace Stephenchen\Core\Service\Signature;
 
 use Stephenchen\Core\Utilities\Helpers;
 
-/**
- * Class Signature
- *
- * @package App\Services\Signature
- */
 final class Signature
 {
     /**

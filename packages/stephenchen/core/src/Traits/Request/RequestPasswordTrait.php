@@ -37,7 +37,7 @@ trait RequestPasswordTrait
     {
         return [
             'password_confirmation' => [
-                'required_unless:password,null',
+                'required_with_all:password',
                 'same:password',
             ],
         ];
@@ -67,8 +67,8 @@ trait RequestPasswordTrait
     private function getPasswordConfirmationValidationFailMessage(): array
     {
         return [
-            'password_confirmation.same'     => __('message.password_confirmation_same'),
-            'password_confirmation.required' => __('message.password_confirmation_required'),
+            'password_confirmation.same'              => __('message.password_confirmation_same'),
+            'password_confirmation.required_with_all' => __('message.password_confirmation_required'),
         ];
     }
 }
