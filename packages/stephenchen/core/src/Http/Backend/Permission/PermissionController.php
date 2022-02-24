@@ -5,7 +5,6 @@ namespace Stephenchen\Core\Http\Backend\Permission;
 use Illuminate\Http\JsonResponse;
 use Stephenchen\Core\Base\BaseController;
 
-
 class PermissionController extends BaseController
 {
     /**

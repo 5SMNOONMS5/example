@@ -8,11 +8,6 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-/**
- * Class BaseRequest
- *
- * @package App\Base
- */
 abstract class BaseRequest extends FormRequest
 {
     /**

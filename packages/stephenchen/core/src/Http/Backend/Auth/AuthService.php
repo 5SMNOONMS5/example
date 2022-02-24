@@ -7,11 +7,6 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-/**
- * Class AuthService
- *
- * @package App\Http\Backend\Auth
- */
 final class AuthService
 {
     /**

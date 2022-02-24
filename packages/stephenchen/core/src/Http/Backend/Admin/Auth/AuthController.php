@@ -3,8 +3,8 @@
 namespace Stephenchen\Core\Http\Backend\Admin\Auth;
 
 use Exception;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Stephenchen\Core\Base\BaseController;
 
 final class AuthController extends BaseController
@@ -52,7 +52,7 @@ final class AuthController extends BaseController
      * )
      *
      * @param  $request
-     * @return JsonResponse
+     * @return Response
      * @throws Exception
      */
     public function login(Request $request)
@@ -60,7 +60,7 @@ final class AuthController extends BaseController
         $results = $this->service->attempt($request->all());
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 
@@ -83,7 +83,7 @@ final class AuthController extends BaseController
         $results = $this->service->me();
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 
@@ -125,7 +125,7 @@ final class AuthController extends BaseController
         $results = $this->service->logout();
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 
@@ -167,7 +167,7 @@ final class AuthController extends BaseController
         $results = $this->service->refresh();
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 }

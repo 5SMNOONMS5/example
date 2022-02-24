@@ -3,8 +3,6 @@
 namespace Stephenchen\Core\Http\Backend\Admin;
 
 use Exception;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Stephenchen\Core\Base\BaseController;
 
 final class AdminController extends BaseController
@@ -57,7 +55,7 @@ final class AdminController extends BaseController
     {
         $results = $this->service->index();
 
-        return $this->jsonSuccess(trans('core::global.success'),  $results);
+        return $this->jsonSuccess(trans('core::global.success'), $results);
     }
 
     /**
@@ -81,7 +79,7 @@ final class AdminController extends BaseController
      * )
      *
      * @param  $request
-     * @return JsonResponse
+     * @return Response
      * @throws Exception
      */
     public function store(AdminRequest $request)
@@ -89,7 +87,7 @@ final class AdminController extends BaseController
         $results = $this->service->store($request->all());
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 
@@ -116,14 +114,14 @@ final class AdminController extends BaseController
      * )
      *
      * @param $id
-     * @return JsonResponse
+     * @return Response
      */
     public function show($id)
     {
         $results = $this->service->show($id);
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 
@@ -160,14 +158,14 @@ final class AdminController extends BaseController
      *
      * @param AdminRequest $request
      * @param $id
-     * @return JsonResponse
+     * @return Response
      */
     public function update(AdminRequest $request, $id)
     {
         $results = $this->service->update($request->all(), $id);
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 
@@ -191,7 +189,7 @@ final class AdminController extends BaseController
      * )
      *
      * @param $id
-     * @return JsonResponse
+     * @return Response
      * @throws Exception
      */
     public function destroy($id)
@@ -199,7 +197,7 @@ final class AdminController extends BaseController
         $results = $this->service->destroy($id);
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 }

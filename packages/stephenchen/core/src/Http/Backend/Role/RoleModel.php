@@ -8,11 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Permission\Models\Role as BaseRole;
 use Stephenchen\Core\Traits\Model\SerializeDateTrait;
 
-/**
- * Class RoleModel
- *
- * @package App\Http\Backend\Role
- */
 class RoleModel extends BaseRole
 {
     use SerializeDateTrait,

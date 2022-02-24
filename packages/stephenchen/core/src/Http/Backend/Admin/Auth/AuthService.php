@@ -2,9 +2,7 @@
 
 namespace Stephenchen\Core\Http\Backend\Admin\Auth;
 
-use App\Http\Backend\User\UserModel;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Stephenchen\Core\Http\Backend\Admin\AdminService;
 use Stephenchen\Core\Http\Backend\Auth\AuthService as BaseAuthService;
 

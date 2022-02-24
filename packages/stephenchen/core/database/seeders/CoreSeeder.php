@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Stephenchen\Core\Http\Backend\Admin\AdminModel;
+use Stephenchen\Core\Http\Backend\Banner\BannerModel;
 use Stephenchen\Core\Http\Backend\Permission\PermissionModel;
 use Stephenchen\Core\Http\Backend\Role\RoleModel;
 use Stephenchen\Core\Utilities\Database;
@@ -39,6 +40,8 @@ class CoreSeeder extends Seeder
         AdminModel::all()->map(function ($admin) use ($role) {
             $admin->syncRoles([$role->name]);
         });
+
+        BannerModel::factory(10)->create();
     }
 
     private function seedPermissions()

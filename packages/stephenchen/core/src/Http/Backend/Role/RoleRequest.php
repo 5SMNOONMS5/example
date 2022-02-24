@@ -5,11 +5,6 @@ namespace Stephenchen\Core\Http\Backend\Role;
 use Illuminate\Validation\Rule;
 use Stephenchen\Core\Base\BaseRequest;
 
-/**
- * Class RoleRequest
- *
- * @package App\Http\Backend\Role
- */
 class RoleRequest extends BaseRequest
 {
     /**

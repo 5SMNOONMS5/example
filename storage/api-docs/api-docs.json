@@ -305,6 +305,207 @@
                 ]
             }
         },
+        "/admins/banners": {
+            "get": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "把 Banner 資料列出來",
+                "operationId": "93eddce59df7e1b5515b99dfbd154b91",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "admin 的 page ( 沒有帶參數就全部吐回來 )",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "admin 的 per_page ( 沒有帶參數就全部吐回來 )",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "新增 Banner, permission 也一並傳近來新增",
+                "operationId": "2aadb84170514ef709c42e91d46f22e7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Updated name of the pet",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "描述",
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "description": "狀態",
+                                        "type": "boolean"
+                                    },
+                                    "permission_ids": {
+                                        "description": "permissions 的 ID",
+                                        "type": "array",
+                                        "items": {
+                                            "description": "permissions 的 id",
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admins/banners/{id}": {
+            "get": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "查看一筆 Banner, 會把 permissions 一起回傳",
+                "operationId": "c3b9372a9f0d3f1b851a5b6f90b7e363",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "banner 的 id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "修改一筆 Banner, permission 也一並傳近來一起修改",
+                "operationId": "75a6ed13abae9f73d9eeaa925e8ba319",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "banner 的 id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Updated name of the pet",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "描述",
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "description": "狀態",
+                                        "type": "boolean"
+                                    },
+                                    "permission_ids": {
+                                        "description": "permissions 的 ID",
+                                        "type": "array",
+                                        "items": {
+                                            "description": "permissions 的 id",
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Banner"
+                ],
+                "summary": "刪除一筆 Banner",
+                "operationId": "6719aabd98249a109efa89073086733f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "banner 的 id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/admins/permissions": {
             "get": {
                 "tags": [
@@ -383,7 +584,7 @@
                                         "description": "描述",
                                         "type": "string"
                                     },
-                                    "is_enabled": {
+                                    "status": {
                                         "description": "狀態",
                                         "type": "boolean"
                                     },
@@ -473,7 +674,7 @@
                                         "description": "描述",
                                         "type": "string"
                                     },
-                                    "is_enabled": {
+                                    "status": {
                                         "description": "狀態",
                                         "type": "boolean"
                                     },
@@ -579,6 +780,25 @@
                 "type": "object",
                 "xml": {
                     "name": "AdminModel"
+                }
+            },
+            "BannerModel": {
+                "description": "BannerModel 物件",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "name"
+                    },
+                    "status": {
+                        "type": "string",
+                        "format": "integer",
+                        "example": "status"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BannerModel"
                 }
             },
             "PermissionModel": {

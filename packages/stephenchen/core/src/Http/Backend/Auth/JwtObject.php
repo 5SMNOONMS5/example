@@ -6,7 +6,7 @@ use Exception;
 use Carbon\Carbon;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class JwtObject
+final class JwtObject
 {
     /**
      * @string

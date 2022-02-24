@@ -1,37 +1,28 @@
 <?php
 
-namespace Stephenchen\Core\Http\Backend\Role;
+namespace Stephenchen\Core\Http\Backend\Banner;
 
 use Exception;
-use Stephenchen\Core\Http\Backend\Permission\PermissionRepositoryInterface;
 use Stephenchen\Core\Http\Resources\IndexResource;
 use Stephenchen\Core\Traits\HelperPaginateTrait;
 
-class RoleService
+class BannerService
 {
     use HelperPaginateTrait;
 
     /**
-     * @var RoleRepositoryInterface
+     * @var BannerRepositoryInterface
      */
-    private RoleRepositoryInterface $repository;
+    private BannerRepositoryInterface $repository;
 
     /**
-     * @var PermissionRepositoryInterface
-     */
-    private PermissionRepositoryInterface $permissionRepository;
-
-    /**
-     * Create a new RoleService instance.
+     * Create a new BannerService instance.
      *
-     * @param RoleRepositoryInterface $repository
-     * @param PermissionRepositoryInterface $permissionRepository
+     * @param BannerRepositoryInterface $repository
      */
-    public function __construct(RoleRepositoryInterface $repository,
-                                PermissionRepositoryInterface $permissionRepository)
+    public function __construct(BannerRepositoryInterface $repository)
     {
-        $this->permissionRepository = $permissionRepository;
-        $this->repository           = $repository;
+        $this->repository = $repository;
     }
 
     /**
@@ -68,17 +59,10 @@ class RoleService
      */
     public function show(int $id): ?array
     {
-        $roles = $this->repository
-            ->loadRelationships()
+        return $this->repository
+//            ->loadRelationships()
             ->find($id)
             ->toArray();
-
-        $roles[ 'permission_ids' ] = collect($roles[ 'permissions' ])
-            ->pluck('id')
-            ->toArray();
-
-        unset($roles[ 'permissions' ]);
-        return $roles;
     }
 
     /**
@@ -90,16 +74,7 @@ class RoleService
      */
     public function store(array $parameters): bool
     {
-        // @FIXME: 怪怪的 還有要修改 vue
-        $permissionsIDs = $parameters[ 'permission_ids' ] ?? [];
-        unset($parameters[ 'permission_ids' ]);
-
-        $entity = $this->repository->create($parameters);
-
-        $permissions = $this->permissionRepository->findWhereIn('id', $permissionsIDs);
-        $entity->syncPermissions($permissions);
-
-        return TRUE;
+        return $this->repository->create($parameters);
     }
 
     /**
@@ -112,13 +87,7 @@ class RoleService
     public function update(array $parameters, int $id): ?bool
     {
         $entity = $this->repository->find($id);
-        $entity->update($parameters);
-
-        $permissionIDs = $parameters[ 'permission_ids' ];
-
-        $this->repository->sync($id, 'permissions', $permissionIDs);
-
-        return TRUE;
+        return $entity->update($parameters);
     }
 
     /**

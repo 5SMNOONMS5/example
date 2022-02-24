@@ -67,7 +67,7 @@ class PermissionControllerTemp extends BaseController
      * )
      *
      * @param  $request
-     * @return JsonResponse
+     * @return Response
      */
     public function store(PermissionRequest $request)
     {
@@ -101,7 +101,7 @@ class PermissionControllerTemp extends BaseController
      * )
      *
      * @param $id
-     * @return JsonResponse
+     * @return Response
      */
     public function show($id)
     {
@@ -144,7 +144,7 @@ class PermissionControllerTemp extends BaseController
      *
      * @param PermissionRequest $request
      * @param $id
-     * @return JsonResponse
+     * @return Response
      */
     public function update(PermissionRequest $request, $id)
     {
@@ -176,7 +176,7 @@ class PermissionControllerTemp extends BaseController
      * )
      *
      * @param $id
-     * @return JsonResponse
+     * @return Response
      */
     public function destroy($id)
     {

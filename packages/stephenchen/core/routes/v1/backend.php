@@ -84,5 +84,17 @@ Route::group([
         ], function () {
             Route::resource('roles', 'RoleController');
         });
+
+        /*
+        |--------------------------------------------------------------------------
+        | Banners
+        |--------------------------------------------------------------------------
+        */
+        Route::group([
+            'prefix'    => 'admins',
+            'namespace' => 'Banner',
+        ], function () {
+            Route::resource('banners', 'BannerController');
+        });
     });
 });
