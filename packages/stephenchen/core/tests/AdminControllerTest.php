@@ -11,8 +11,6 @@ class AdminControllerTest extends TestCase
 {
     use FakeUserTrait;
 
-//    TIP: Mark for temp
-//    protected string $router = 'api/core/admins';
     protected string $router = 'admins/authUser';
 
     protected array $parameters;
@@ -25,7 +23,6 @@ class AdminControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
 
         $random           = time();
         $this->parameters = [

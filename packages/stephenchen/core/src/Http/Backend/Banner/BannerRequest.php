@@ -14,10 +14,9 @@ final class BannerRequest extends BaseRequest
     public function rules()
     {
         return [
-            'title'    => 'required',
-            'subtitle' => 'required',
-            'synopsis' => 'required',
-            // Add more ....
+            'title'  => 'required',
+            'path'   => 'required',
+            'status' => 'required|numeric',
         ];
     }
 
@@ -28,11 +27,17 @@ final class BannerRequest extends BaseRequest
      */
     public function messages()
     {
+        $title  = ['key' => trans('core::global.title')];
+        $path   = ['key' => trans('core::global.path')];
+        $status = ['key' => 'status'];
+
+        $name = ['key' => trans('core::global.permission')];
+
         return [
-            'title.required'    => '請輸入 title',
-            'subtitle.required' => '請輸入 subtitle',
-            'synopsis.required' => '請輸入 synopsis',
-            // Add more ....
+            'title.required'  => trans('core::global.validation.required', $title),
+            'path.required'   => trans('core::global.validation.required', $path),
+            'status.required' => trans('core::global.validation.required', $status),
+            'status.numeric'  => trans('core::global.validation.numeric', $status),
         ];
     }
 }

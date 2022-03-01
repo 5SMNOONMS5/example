@@ -33,9 +33,11 @@ final class PermissionRequest extends BaseRequest
      */
     public function messages()
     {
+        $name = ['key' => trans('core::global.permission')];
+
         return [
-            'name.required' => '請輸入 權限名稱',
-            'name.unique'   => '權限名稱 不可重複',
+            'name.required' => trans('core::global.validation.required', $name),
+            'name.unique'   => trans('core::global.validation.unique', $name),
         ];
     }
 }

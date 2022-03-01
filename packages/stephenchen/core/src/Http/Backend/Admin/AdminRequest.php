@@ -61,17 +61,22 @@ final class AdminRequest extends BaseRequest
      */
     public function messages()
     {
+        $email       = ['key' => 'email'];
+        $displayName = ['key' => trans('core::global.display_name')];
+        $account     = ['key' => trans('core::global.account')];
+        $roleID      = ['key' => trans('core::global.role')];
+
         $messages = [
-            'email.required' => '請輸入信箱',
-            'email.email'    => '信箱格式有誤',
-            'email.unique'   => '信箱 不可重複',
+            'email.required' => trans('core::global.validation.required', $email),
+            'email.email'    => trans('core::global.validation.email', $email),
+            'email.unique'   => trans('core::global.validation.unique', $email),
 
-            'display_name.unique' => '請輸入名稱',
+            'display_name.required' => trans('core::global.validation.required', $displayName),
 
-            'account.required' => '請輸入帳號',
-            'account.unique'   => '帳號不可重複',
+            'account.required' => trans('core::global.validation.required', $account),
+            'account.unique'   => trans('core::global.validation.unique', $account),
 
-            'role_id.required' => '請選擇角色',
+            'role_id.required' => trans('core::global.validation.required', $roleID),
         ];
 
         $messages = array_merge($messages, $this->getPasswordValidationFailMessage($this->isPostMethod()));

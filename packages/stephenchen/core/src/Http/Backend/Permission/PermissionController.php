@@ -2,7 +2,6 @@
 
 namespace Stephenchen\Core\Http\Backend\Permission;
 
-use Illuminate\Http\JsonResponse;
 use Stephenchen\Core\Base\BaseController;
 
 class PermissionController extends BaseController
@@ -40,6 +39,6 @@ class PermissionController extends BaseController
     {
         $results = $this->service->index();
 
-        return $this->jsonSuccess(trans('core::global.success'),  $results);
+        return $this->jsonSuccess(trans('core::global.success'), $results);
     }
 }

@@ -4,15 +4,14 @@ namespace Stephenchen\Core\Tests;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Stephenchen\Core\Http\Backend\Permission\PermissionModel;
-use Stephenchen\Core\Http\Backend\Role\RoleModel;
+use Stephenchen\Core\Http\Backend\Banner\BannerModel;
 use Tests\TestCase;
 
-class RoleControllerTest extends TestCase
+class BannerControllerTest extends TestCase
 {
     use FakeUserTrait;
 
-    protected string $router = 'admins/roles';
+    protected string $router = 'admins/banners';
 
     protected array $parameters;
 
@@ -25,13 +24,10 @@ class RoleControllerTest extends TestCase
     {
         parent::setUp();
 
-        $all = PermissionModel::select('id')->get()->pluck('id')->toArray();
-
         $this->parameters = [
-            'name'           => Str::random(),
-            'description'    => Str::random(),
-            'status'         => 1,
-            'permission_ids' => $all,
+            'title'  => Str::random(),
+            'status' => 1,
+            'path'   => "aaa/bbbb/ccc",
         ];
 
         $this->actingAsSuperAdmin();
@@ -40,13 +36,12 @@ class RoleControllerTest extends TestCase
     /**
      * Test get lists
      */
-    public function test_roles_get_all()
+    public function test_banners_get_all()
     {
         $response = $this->get($this->router);
 
-        $all  = RoleModel::count();
+        $all  = BannerModel::count();
         $json = $response->json();
-//        dd($json, $all);
 
         // Assert same count
         $lists = $json[ 'data' ][ 'lists' ];
@@ -61,8 +56,9 @@ class RoleControllerTest extends TestCase
                     'lists' => [
                         [
                             'id',
-                            'name',
-                            'guard_name',
+                            'title',
+                            'path',
+                            'status',
                             'created_at',
                             'updated_at',
                         ],
@@ -72,11 +68,10 @@ class RoleControllerTest extends TestCase
             ]);
     }
 
-
     /**
      * Test get lists
      */
-    public function test_roles_get_all_with_page_and_perpage()
+    public function test_banners_get_all_with_page_and_perpage()
     {
         $perPage    = 5;
         $parameters = [
@@ -102,8 +97,9 @@ class RoleControllerTest extends TestCase
                     'lists' => [
                         [
                             'id',
-                            'name',
-                            'guard_name',
+                            'title',
+                            'path',
+                            'status',
                             'created_at',
                             'updated_at',
                         ],
@@ -116,7 +112,7 @@ class RoleControllerTest extends TestCase
     /**
      * Test create
      */
-    public function test_roles_create()
+    public function test_banners_create()
     {
         $response = $this->post($this->router, $this->parameters);
 
@@ -130,7 +126,7 @@ class RoleControllerTest extends TestCase
     /**
      * Test get by id
      */
-    public function test_roles_get_by_id()
+    public function test_banners_get_by_id()
     {
         $response = $this->get("{$this->router}/{$this->getID()}");
 
@@ -143,15 +139,17 @@ class RoleControllerTest extends TestCase
     /**
      * Test update by id
      */
-    public function test_roles_update()
+    public function test_banners_update()
     {
         $data     = [
-            'name'           => Str::random(),
-            'description'    => Str::random(),
-            'status'         => 1,
-            'permission_ids' => [1],
+            'title'  => Str::random(),
+            'status' => 0,
+            'path'   => "aaa/bbbb/ccc",
         ];
         $response = $this->put("{$this->router}/{$this->getID()}", $data);
+
+//        $json = $response->json();
+//        dd($json, $response);
 
         $response->assertStatus(200);
     }
@@ -159,7 +157,7 @@ class RoleControllerTest extends TestCase
     /**
      * Test delete
      */
-    public function test_roles_delete()
+    public function test_banners_delete()
     {
         $this->delete("{$this->router}/{$this->getID()}")
             ->assertStatus(200);
@@ -170,7 +168,7 @@ class RoleControllerTest extends TestCase
      */
     private function getID()
     {
-        return RoleModel::select('id')->orderBy('id', 'desc')->firstOrFail()->id;
+        return BannerModel::select('id')->orderBy('id', 'desc')->firstOrFail()->id;
     }
 
     /**
@@ -184,8 +182,9 @@ class RoleControllerTest extends TestCase
             'data' => [
                 '*' => [
                     'id',
-                    'name',
-                    'guard_name',
+                    'title',
+                    'path',
+                    'status',
                     'created_at',
                     'updated_at',
                 ],
@@ -203,8 +202,9 @@ class RoleControllerTest extends TestCase
             'msg',
             'data' => [
                 'id',
-                'name',
-                'guard_name',
+                'title',
+                'path',
+                'status',
                 'created_at',
                 'updated_at',
             ],

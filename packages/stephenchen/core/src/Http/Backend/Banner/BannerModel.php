@@ -37,6 +37,16 @@ final class BannerModel extends Model
     private string $status;
 
     /**
+     * @OA\Property(
+     *     format="string",
+     *     example="檔案 path",
+     *     description="請先透過 file 擋下的 upload 那隻 api 將檔案上傳，並拿到 suffix，再將 suffix 傳到這隻 banner",
+     * )
+     * @var string
+     */
+    private string $path;
+
+    /**
      * The table associated with the model.
      *
      * @var string
@@ -50,10 +60,8 @@ final class BannerModel extends Model
      */
     protected $fillable = [
         'title',
-        'subtitle',
-        'synopsis',
-
-        'is_enabled',
+        'status',
+        'path',
 
         'created_at',
         'updated_at',

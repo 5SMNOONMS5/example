@@ -74,7 +74,8 @@ class BannerService
      */
     public function store(array $parameters): bool
     {
-        return $this->repository->create($parameters);
+        $this->repository->create($parameters);
+        return TRUE;
     }
 
     /**

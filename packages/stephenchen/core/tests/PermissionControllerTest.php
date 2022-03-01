@@ -9,8 +9,6 @@ class PermissionControllerTest extends TestCase
 {
     use FakeUserTrait;
 
-//    TIP: Mark for temp
-//    protected string $router = 'api/core/admins/permissions';
     protected string $router = 'admins/permissions';
 
     protected array $parameters;
@@ -30,6 +28,29 @@ class PermissionControllerTest extends TestCase
 
         $this->actingAsSuperAdmin();
     }
+
+    public function test_array_diffs()
+    {
+        // Arrange
+        $sources     = [1, 2, 3, 4, 5, 6, 7];
+        $challenger1 = [1];
+        $challenger2 = [1, 2, 3];
+        $challenger3 = [0];
+        $challenger4 = [1, 2, 4, 8];
+
+        // Act
+        $result1 = array_diff($challenger1, $sources);
+        $result2 = array_diff($challenger2, $sources);
+        $result3 = array_diff($challenger3, $sources);
+        $result4 = array_diff($challenger4, $sources);
+
+        // Assert
+        $this->assertSame([], array_values($result1));
+        $this->assertSame([], array_values($result2));
+        $this->assertSame([0], array_values($result3));
+        $this->assertSame([8], array_values($result4));
+    }
+
 
     /**
      * Test get lists
@@ -67,74 +88,4 @@ class PermissionControllerTest extends TestCase
                 ],
             ]);
     }
-
-//    /**
-//     * Test create
-//     */
-//    public function test_permissions_create()
-//    {
-//        $response = $this->post($this->router, $this->parameters);
-//
-//        $response
-//            ->assertStatus(200);
-//    }
-//
-//    /**
-//     * Test get by id
-//     */
-//    public function test_permissions_get_by_id()
-//    {
-//        $response = $this->get("{$this->router}/{$this->getID()}");
-//
-//        $response->assertStatus(200)
-//            ->assertJsonStructure(
-//                $this->getJsonStructureForSingle()
-//            );
-//    }
-//
-//    /**
-//     * Test update by id
-//     */
-//    public function test_permissions_update()
-//    {
-//        $response = $this->put("{$this->router}/{$this->getID()}", [
-//            'name' => Str::random(),
-//        ]);
-//        $response->assertStatus(200);
-//    }
-//
-//    /**
-//     * Test delete
-//     */
-//    public function test_permissions_delete()
-//    {
-//        $this->delete("{$this->router}/{$this->getID()}")
-//            ->assertStatus(200);
-//    }
-//
-//    /**
-//     * Current data id for this test
-//     */
-//    private function getID()
-//    {
-//        return (int)PermissionModel::select('id')->orderBy('id', 'desc')->firstOrFail()->id;
-//    }
-//
-//    /**
-//     * Current assert json structure
-//     */
-//    public function getJsonStructureForSingle()
-//    {
-//        return [
-//            'code',
-//            'msg',
-//            'data' => [
-//                'id',
-//                'name',
-//                'guard_name',
-//                'created_at',
-//                'updated_at',
-//            ],
-//        ];
-//    }
 }

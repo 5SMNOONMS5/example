@@ -13,11 +13,6 @@ class AuthControllerTest extends TestCase
 {
     use FakeUserTrait;
 
-//    TIP: Mark for temp
-//    protected string $router = 'api/core/admins';
-    /**
-     * @var string
-     */
     protected string $router = 'admins';
 
     /**

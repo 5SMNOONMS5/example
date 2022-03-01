@@ -3,6 +3,7 @@
 namespace Stephenchen\Core\Http\Backend\Permission;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Stephenchen\Core\Base\BaseController;
 
 class PermissionControllerTemp extends BaseController

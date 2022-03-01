@@ -5,7 +5,6 @@ namespace Stephenchen\Core\Http\Middleware;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Stephenchen\Core\Traits\ResponseJsonTrait;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -29,12 +28,12 @@ class AuthenticateJwtVerify extends BaseMiddleware
             JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
             if ($e instanceof TokenInvalidException) {
-                return self::jsonFail('token 無效，請重新登入', 401);
+                return $this->jsonFail(trans('core::global.unauthorized'), 401);
             }
             if ($e instanceof TokenExpiredException) {
-                return self::jsonFail('token 過期，請重新登入', 401);
+                return $this->jsonFail(trans('core::global.unauthorized'), 401);
             }
-            return self::jsonFail($e->getMessage());
+            return $this->jsonFail($e->getMessage());
         }
         return $next($request);
     }

@@ -62,7 +62,7 @@ final class BannerController extends BaseController
     }
 
     /**
-     * 新增 Banner, permission 也一並傳近來新增
+     * 新增 Banner
      * @OA\Post(
      *     path="/admins/banners",
      *     tags={"Banner"},
@@ -75,33 +75,7 @@ final class BannerController extends BaseController
      *          required=true,
      *          @OA\MediaType(
      *              mediaType="application/json",
-     *              @OA\Schema(
-     *                  type="object",
-     *                  @OA\Property(
-     *                      property="name",
-     *                      description="Updated name of the pet",
-     *                      type="string"
-     *                  ),
-     *                  @OA\Property(
-     *                      property="description",
-     *                      description="描述",
-     *                      type="string"
-     *                  ),
-     *                  @OA\Property(
-     *                      property="status",
-     *                      description="狀態",
-     *                      type="boolean"
-     *                  ),
-     *                  @OA\Property(
-     *                      property="permission_ids",
-     *                      description="permissions 的 ID",
-     *                      type="array",
-     *                      @OA\Items(
-     *                          type="integer",
-     *                          description="permissions 的 id",
-     *                      )
-     *                  ),
-     *              )
+     *              @OA\Schema(ref="#/components/schemas/BannerModel")
      *          )
      *     ),
      *     @OA\Response(response="200", description="成功")
@@ -121,7 +95,7 @@ final class BannerController extends BaseController
     }
 
     /**
-     * 查看一筆 Banner, 會把 permissions 一起回傳
+     * 查看一筆 Banner
      * @OA\Get(
      *     path="/admins/banners/{id}",
      *     tags={"Banner"},
@@ -155,7 +129,7 @@ final class BannerController extends BaseController
     }
 
     /**
-     * 修改一筆 Banner, permission 也一並傳近來一起修改
+     * 修改一筆 Banner
      * @OA\Put(
      *     path="/admins/banners/{id}",
      *     tags={"Banner"},
@@ -177,33 +151,7 @@ final class BannerController extends BaseController
      *          required=true,
      *          @OA\MediaType(
      *              mediaType="application/json",
-     *              @OA\Schema(
-     *                  type="object",
-     *                  @OA\Property(
-     *                      property="name",
-     *                      description="Updated name of the pet",
-     *                      type="string"
-     *                  ),
-     *                  @OA\Property(
-     *                      property="description",
-     *                      description="描述",
-     *                      type="string"
-     *                  ),
-     *                  @OA\Property(
-     *                      property="status",
-     *                      description="狀態",
-     *                      type="boolean"
-     *                  ),
-     *                  @OA\Property(
-     *                      property="permission_ids",
-     *                      description="permissions 的 ID",
-     *                      type="array",
-     *                      @OA\Items(
-     *                          type="integer",
-     *                          description="permissions 的 id",
-     *                      )
-     *                  ),
-     *              )
+     *              @OA\Schema(ref="#/components/schemas/BannerModel")
      *          )
      *     ),
      *     @OA\Response(response="200", description="成功")

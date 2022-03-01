@@ -52,9 +52,11 @@ trait RequestPasswordTrait
      */
     private function getPasswordValidationFailMessage(bool $isRequired): array
     {
+        $password = ['key' => 'password'];
+
         return $isRequired ?
             [
-                'password.required' => '請輸入密碼',
+                'password.required' => trans('core::global.validation.required', $password),
             ] : [];
     }
 

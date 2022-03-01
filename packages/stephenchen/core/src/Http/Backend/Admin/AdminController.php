@@ -3,6 +3,7 @@
 namespace Stephenchen\Core\Http\Backend\Admin;
 
 use Exception;
+use Illuminate\Http\Response;
 use Stephenchen\Core\Base\BaseController;
 
 final class AdminController extends BaseController

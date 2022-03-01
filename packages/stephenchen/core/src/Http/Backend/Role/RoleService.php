@@ -90,13 +90,13 @@ class RoleService
      */
     public function store(array $parameters): bool
     {
-        // @FIXME: 怪怪的 還有要修改 vue
-        $permissionsIDs = $parameters[ 'permission_ids' ] ?? [];
-        unset($parameters[ 'permission_ids' ]);
-
+        // Create an new role
         $entity = $this->repository->create($parameters);
 
-        $permissions = $this->permissionRepository->findWhereIn('id', $permissionsIDs);
+        // Sync permissions
+        $permissionIDs = $parameters[ 'permission_ids' ] ?? [];
+        $permissionIDs = $this->mappingPermissionParentIDIfMissing($permissionIDs);
+        $permissions   = $this->permissionRepository->findWhereIn('id', $permissionIDs);
         $entity->syncPermissions($permissions);
 
         return TRUE;
@@ -114,8 +114,8 @@ class RoleService
         $entity = $this->repository->find($id);
         $entity->update($parameters);
 
-        $permissionIDs = $parameters[ 'permission_ids' ];
-
+        $permissionIDs  = $parameters[ 'permission_ids' ];
+        $permissionsIDs = $this->mappingPermissionParentIDIfMissing($permissionIDs);
         $this->repository->sync($id, 'permissions', $permissionIDs);
 
         return TRUE;
@@ -131,6 +131,33 @@ class RoleService
     public function destroy(int $id): ?bool
     {
         return $this->repository->delete($id);
+    }
+
+    /**
+     * For example,
+     * admin send only id [3], we will return add missing parent_id into  [1, 3]
+     *
+     * @param array $permissionIDs
+     * @return array
+     */
+    private function mappingPermissionParentIDIfMissing(array $permissionIDs): array
+    {
+        $this->permissionRepository
+            ->whereIn('id', $permissionIDs)
+            ->get()
+            ->each(function ($item, $key) use (&$permissionIDs) {
+                $id = $item[ 'id' ];
+                if (!in_array($id, $permissionIDs, TRUE)) {
+                    array_push($permissionIDs, $id);
+                }
+
+                $parentId = $item[ 'parent_id' ];
+                if (!in_array($parentId, $permissionIDs, TRUE)) {
+                    array_push($permissionIDs, $parentId);
+                }
+            });
+
+        return $permissionIDs;
     }
 }
 

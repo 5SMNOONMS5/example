@@ -316,7 +316,7 @@
                     {
                         "name": "page",
                         "in": "query",
-                        "description": "admin 的 page ( 沒有帶參數就全部吐回來 )",
+                        "description": "page ( 沒有帶參數就全部吐回來 )",
                         "schema": {
                             "type": "integer"
                         }
@@ -324,7 +324,7 @@
                     {
                         "name": "per_page",
                         "in": "query",
-                        "description": "admin 的 per_page ( 沒有帶參數就全部吐回來 )",
+                        "description": "per_page ( 沒有帶參數就全部吐回來 )",
                         "schema": {
                             "type": "integer"
                         }
@@ -345,36 +345,14 @@
                 "tags": [
                     "Banner"
                 ],
-                "summary": "新增 Banner, permission 也一並傳近來新增",
+                "summary": "新增 Banner",
                 "operationId": "2aadb84170514ef709c42e91d46f22e7",
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "properties": {
-                                    "name": {
-                                        "description": "Updated name of the pet",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "description": "描述",
-                                        "type": "string"
-                                    },
-                                    "status": {
-                                        "description": "狀態",
-                                        "type": "boolean"
-                                    },
-                                    "permission_ids": {
-                                        "description": "permissions 的 ID",
-                                        "type": "array",
-                                        "items": {
-                                            "description": "permissions 的 id",
-                                            "type": "integer"
-                                        }
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/BannerModel"
                             }
                         }
                     }
@@ -396,7 +374,7 @@
                 "tags": [
                     "Banner"
                 ],
-                "summary": "查看一筆 Banner, 會把 permissions 一起回傳",
+                "summary": "查看一筆 Banner",
                 "operationId": "c3b9372a9f0d3f1b851a5b6f90b7e363",
                 "parameters": [
                     {
@@ -424,7 +402,7 @@
                 "tags": [
                     "Banner"
                 ],
-                "summary": "修改一筆 Banner, permission 也一並傳近來一起修改",
+                "summary": "修改一筆 Banner",
                 "operationId": "75a6ed13abae9f73d9eeaa925e8ba319",
                 "parameters": [
                     {
@@ -442,29 +420,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "properties": {
-                                    "name": {
-                                        "description": "Updated name of the pet",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "description": "描述",
-                                        "type": "string"
-                                    },
-                                    "status": {
-                                        "description": "狀態",
-                                        "type": "boolean"
-                                    },
-                                    "permission_ids": {
-                                        "description": "permissions 的 ID",
-                                        "type": "array",
-                                        "items": {
-                                            "description": "permissions 的 id",
-                                            "type": "integer"
-                                        }
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/BannerModel"
                             }
                         }
                     }
@@ -497,6 +453,77 @@
                 "responses": {
                     "200": {
                         "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/files/upload": {
+            "post": {
+                "tags": [
+                    "File"
+                ],
+                "summary": "新增檔案，只支援 jpeg,png,jpg,pdf,ico 格式，最大 2 m",
+                "operationId": "bb8cb95774afc435fb47178dcb299c39",
+                "requestBody": {
+                    "description": "上傳檔案",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "description": "檔案",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "回傳格式解析",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "suffix": {
+                                            "description": "檔案完整的 後綴路徑",
+                                            "type": "integer"
+                                        },
+                                        "prefix": {
+                                            "description": "檔案完整的 前綴路徑",
+                                            "type": "string"
+                                        },
+                                        "filename": {
+                                            "description": "檔案名稱",
+                                            "type": "string"
+                                        },
+                                        "full_path": {
+                                            "description": "檔案完整路徑",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "example": {
+                                        "suffix": "uploads/20220301/sample-621d87bde24f8.png",
+                                        "prefix": "http://example-app.test/storage/",
+                                        "filename": "sample-621d87bde24f8.png",
+                                        "full_path": "http://example-app.test/storage/uploads/20220301/sample-621d87bde24f8.png"
+                                    }
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -539,7 +566,7 @@
                     {
                         "name": "page",
                         "in": "query",
-                        "description": "admin 的 page ( 沒有帶參數就全部吐回來 )",
+                        "description": "page ( 沒有帶參數就全部吐回來 )",
                         "schema": {
                             "type": "integer"
                         }
@@ -547,7 +574,7 @@
                     {
                         "name": "per_page",
                         "in": "query",
-                        "description": "admin 的 per_page ( 沒有帶參數就全部吐回來 )",
+                        "description": "per_page ( 沒有帶參數就全部吐回來 )",
                         "schema": {
                             "type": "integer"
                         }
@@ -794,11 +821,23 @@
                         "type": "string",
                         "format": "integer",
                         "example": "status"
+                    },
+                    "path": {
+                        "description": "請先透過 file 擋下的 upload 那隻 api 將檔案上傳，並拿到 suffix，再將 suffix 傳到這隻 banner",
+                        "type": "string",
+                        "format": "string",
+                        "example": "檔案 path"
                     }
                 },
                 "type": "object",
                 "xml": {
                     "name": "BannerModel"
+                }
+            },
+            "FileObject": {
+                "description": "File 物件",
+                "xml": {
+                    "name": "FileObject"
                 }
             },
             "PermissionModel": {

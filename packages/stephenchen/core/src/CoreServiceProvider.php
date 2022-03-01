@@ -9,6 +9,8 @@ use Stephenchen\Core\Commands\InitialCommandPart1;
 use Stephenchen\Core\Commands\TestCommand;
 use Stephenchen\Core\Http\Backend\Admin\AdminRepository;
 use Stephenchen\Core\Http\Backend\Admin\AdminRepositoryInterface;
+use Stephenchen\Core\Http\Backend\Banner\BannerRepository;
+use Stephenchen\Core\Http\Backend\Banner\BannerRepositoryInterface;
 use Stephenchen\Core\Http\Backend\Permission\PermissionRepository;
 use Stephenchen\Core\Http\Backend\Permission\PermissionRepositoryInterface;
 use Stephenchen\Core\Http\Backend\Role\RoleRepository;
@@ -115,6 +117,7 @@ class CoreServiceProvider extends ServiceProvider
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
         $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
         $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
+        $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
     }
 
     public function loadTranslations()

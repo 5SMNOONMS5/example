@@ -137,7 +137,7 @@ final class AdminService
         $admin = $this->authService->getAuthUser();
 
         if (( $admin->id ?? NULL ) == $id) {
-            throw new Exception('不能刪除自己');
+            throw new Exception(trans('core::global.delete_self'));
         }
 
         // @TIP: Admin had soft_delete so roles will not being detach
