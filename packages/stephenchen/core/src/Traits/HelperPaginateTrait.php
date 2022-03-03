@@ -23,7 +23,7 @@ trait HelperPaginateTrait
     }
 
     /**
-     * Get page number, return `page 1` if nonexist
+     * Get page number, return `page 1` if NonExist
      *
      * @param string $key
      * @return int
@@ -34,7 +34,7 @@ trait HelperPaginateTrait
     }
 
     /**
-     * Get Per Page number, return `20` if nonexist
+     * Get Per Page number, return `20` if NonExist
      *
      * @param string $key
      * @return int

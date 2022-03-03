@@ -1,6 +1,6 @@
 <?php
 
-use Stephenchen\Core\Http\Backend\Admin\AdminModel;
+use Stephenchen\Admin\Http\Backend\Admin\AdminModel;
 
 return [
 

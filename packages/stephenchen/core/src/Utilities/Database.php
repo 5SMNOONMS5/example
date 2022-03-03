@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Schema;
 final class Database
 {
     /**
-     * Convience way to truncate all data arcoss all the tables
+     * Truncate all data across all the tables
      *
      * @return void
      */
@@ -20,7 +20,7 @@ final class Database
         $tables       = DB::select("SELECT * FROM information_schema.tables WHERE table_schema = '$databaseName'");
         foreach ($tables as $table) {
             $name = $table->TABLE_NAME;
-            //if you don't want to truncate migrations
+            // Skip migration table
             if ($name == 'migrations') {
                 continue;
             }

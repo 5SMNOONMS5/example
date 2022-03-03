@@ -56,5 +56,3 @@ trait SignatureTrait
         return $values == $sign;
     }
 }
-
-

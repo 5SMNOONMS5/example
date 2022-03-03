@@ -7,21 +7,12 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Stephenchen\Core\Commands\InitialCommandPart1;
 use Stephenchen\Core\Commands\TestCommand;
-use Stephenchen\Core\Http\Backend\Admin\AdminRepository;
-use Stephenchen\Core\Http\Backend\Admin\AdminRepositoryInterface;
-use Stephenchen\Core\Http\Backend\Banner\BannerRepository;
-use Stephenchen\Core\Http\Backend\Banner\BannerRepositoryInterface;
-use Stephenchen\Core\Http\Backend\Permission\PermissionRepository;
-use Stephenchen\Core\Http\Backend\Permission\PermissionRepositoryInterface;
-use Stephenchen\Core\Http\Backend\Role\RoleRepository;
-use Stephenchen\Core\Http\Backend\Role\RoleRepositoryInterface;
 use Stephenchen\Core\Http\Middleware\AuthenticateAssignGuard;
 use Stephenchen\Core\Http\Middleware\AuthenticateJwtVerify;
 use Stephenchen\Core\Http\Middleware\SetLanguage;
 
 class CoreServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap the application services.
      *
@@ -39,13 +30,12 @@ class CoreServiceProvider extends ServiceProvider
         // Load database relate
         $this->loadFactoriesFrom(__DIR__ . '/../database/factories');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-
+        $this->loadMigrationsFrom(__DIR__ . '/../database/seeders');
 
         // load routers
         $this->loadRoutesFrom(__DIR__ . '/../routes/develop.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/v1/backend.php');
         $this->loadRoutesFrom(__DIR__ . '/../routes/v1/frontend.php');
-
 
         // cf. https://laracasts.com/discuss/channels/general-discussion/register-middleware-via-service-provider?page=2
         $router->aliasMiddleware('auth.jwt.verify', AuthenticateJwtVerify::class);
@@ -80,8 +70,7 @@ class CoreServiceProvider extends ServiceProvider
         });
     }
 
-    private
-    function offerPublishing()
+    private function offerPublishing()
     {
 //        $this->publishes([
 //            __DIR__ . '/../config/config.php' => config_path('core.php'),
@@ -98,8 +87,7 @@ class CoreServiceProvider extends ServiceProvider
         ], 'assets');*/
     }
 
-    private
-    function registerMacroHelpers()
+    private function registerMacroHelpers()
     {
 
     }
@@ -114,10 +102,7 @@ class CoreServiceProvider extends ServiceProvider
 
     private function registerModelBindings()
     {
-        $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
-        $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
-        $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
-        $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
+
     }
 
     public function loadTranslations()

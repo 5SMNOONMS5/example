@@ -21,7 +21,7 @@ if (!App::environment('production')) {
         */
 
         Route::group([
-            'prefix'    => 'develop',
+            'prefix' => 'develop',
         ], function () {
             Route::get('success', 'PingController@success');
             Route::post('success', 'PingController@success');

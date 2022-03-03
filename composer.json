@@ -8,12 +8,14 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4|^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "stephenchen/admin": "dev-master",
+        "stephenchen/banner": "dev-master",
         "stephenchen/core": "dev-master",
         "wulfheart/pretty_routes": "^0.3.0"
     },
@@ -36,6 +38,14 @@
         {
             "type": "path",
             "url": "./packages/stephenchen/core"
+        },
+        {
+            "type": "path",
+            "url": "./packages/stephenchen/banner"
+        },
+        {
+            "type": "path",
+            "url": "./packages/stephenchen/admin"
         }
     ],
     "autoload-dev": {
@@ -47,8 +57,6 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
-            "@reminder",
-            "@reminder",
             "@reminder"
         ],
         "post-update-cmd": [

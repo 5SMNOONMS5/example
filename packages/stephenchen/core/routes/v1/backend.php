@@ -11,33 +11,6 @@ Route::group([
     ],
 ], function () {
 
-
-//    namespace Stephenchen\Core\Http\Backend\File;
-
-    /*
-    |--------------------------------------------------------------------------
-    | Admin Auth
-    |--------------------------------------------------------------------------
-    */
-
-    Route::group([
-        'namespace' => 'Admin\Auth',
-        'prefix'    => 'admins',
-    ], function () {
-        Route::post('login', 'AuthController@login');
-
-        Route::group([
-            'middleware' => [
-                'auth.assign.guard:admins',
-                'auth.jwt.verify',
-            ],
-        ], function () {
-            Route::get('me', 'AuthController@me');
-            Route::get('refresh', 'AuthController@refresh');
-            Route::get('logout', 'AuthController@logout');
-        });
-    });
-
     /*
     |--------------------------------------------------------------------------
     | 後台 admins, role, permissions 相關的
@@ -61,54 +34,6 @@ Route::group([
             'namespace' => 'File',
         ], function () {
             Route::post('files/upload', 'FileController@upload');
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | 後台使用者
-        |--------------------------------------------------------------------------
-        */
-
-        Route::group([
-            'namespace' => 'Admin',
-        ], function () {
-            Route::resource('admins/authUser', 'AdminController');
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | 權限
-        |--------------------------------------------------------------------------
-        */
-        Route::group([
-            'prefix'    => 'admins',
-            'namespace' => 'Permission',
-        ], function () {
-            Route::resource('permissions', 'PermissionController');
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | 權限群組(角色)
-        |--------------------------------------------------------------------------
-        */
-        Route::group([
-            'prefix'    => 'admins',
-            'namespace' => 'Role',
-        ], function () {
-            Route::resource('roles', 'RoleController');
-        });
-
-        /*
-        |--------------------------------------------------------------------------
-        | Banners
-        |--------------------------------------------------------------------------
-        */
-        Route::group([
-            'prefix'    => 'admins',
-            'namespace' => 'Banner',
-        ], function () {
-            Route::resource('banners', 'BannerController');
         });
     });
 });
