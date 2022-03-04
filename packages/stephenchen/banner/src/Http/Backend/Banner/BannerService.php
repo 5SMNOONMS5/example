@@ -43,6 +43,12 @@ class BannerService
             })
             ->orderBy('id', 'desc')
             ->get()
+            ->map(function ($element) {
+                $prefix            = env('APP_URL');
+                $path              = $element[ 'path' ];
+                $element[ 'path' ] = "{$prefix}/storage{$path}";
+                return $element;
+            })
             ->toArray();
 
         $total = $this->repository->count();
