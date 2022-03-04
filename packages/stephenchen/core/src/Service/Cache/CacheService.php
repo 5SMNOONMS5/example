@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Cache;
+namespace Stephenchen\Core\Service\Cache;
 
 use DateInterval;
 use DateTimeInterface;
