@@ -20,7 +20,7 @@
                     "Admin"
                 ],
                 "summary": "把 Admins 資料列出來, 但是不會顯示當前的自己",
-                "operationId": "b3c98ff4a5f79ba02af9bd784217c4e8",
+                "operationId": "7bb0d9445ee8cf78bf0facec2bb090d6",
                 "parameters": [
                     {
                         "name": "page",
@@ -55,7 +55,7 @@
                     "Admin"
                 ],
                 "summary": "新增 Admin",
-                "operationId": "ec1ae4f6306e708d6f7662e16776ebdc",
+                "operationId": "09a25c1a4bb7a8fa0003f8f147869e41",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -84,7 +84,7 @@
                     "Admin"
                 ],
                 "summary": "查看一筆 Admin, 會把 role 一併回傳",
-                "operationId": "3dd3feaad17383dc4ad7f9364cc39264",
+                "operationId": "7abb68b947ac166de7f163a624718579",
                 "parameters": [
                     {
                         "name": "id",
@@ -112,7 +112,7 @@
                     "Admin"
                 ],
                 "summary": "修改一筆 Admin",
-                "operationId": "a36373c404a8a5f3f99b60abb7dd0167",
+                "operationId": "a26175a99fd45b8ca6d112f9921b7c83",
                 "parameters": [
                     {
                         "name": "id",
@@ -150,7 +150,7 @@
                     "Admin"
                 ],
                 "summary": "刪除一筆 Admin",
-                "operationId": "64e77ed97f5d70a854e03e7957e326c3",
+                "operationId": "c0055dc72b422df2db4c72ea93759c80",
                 "parameters": [
                     {
                         "name": "id",
@@ -177,7 +177,7 @@
                     "Auth"
                 ],
                 "summary": "後台登入，測試帳密是 admin 或者 admin@gmail.com, 123456，登入之後請在打 me 這隻 api 拿到當前使用者資訊",
-                "operationId": "5563155241b9391f950225221d545341",
+                "operationId": "0a5695ae2406a8c598084175a6f56a1c",
                 "parameters": [
                     {
                         "name": "primary",
@@ -214,7 +214,7 @@
                     "Auth"
                 ],
                 "summary": "拿到 admin 使用者的相關資料",
-                "operationId": "d43087e86b4255b9e9d8dac3c1be1bbb",
+                "operationId": "3ba6be304dc61aa9589bab7c2f50d8e7",
                 "responses": {
                     "200": {
                         "description": "成功"
@@ -233,7 +233,7 @@
                     "Auth"
                 ],
                 "summary": "Log the user out (Invalidate the token)",
-                "operationId": "909b1ba20f6c909f0a2706446d1d3ae6",
+                "operationId": "445d683b26d9e0cfe857078740a6e545",
                 "parameters": [
                     {
                         "name": "email",
@@ -272,7 +272,7 @@
                     "Auth"
                 ],
                 "summary": "Refresh a token.",
-                "operationId": "de1ed6aafc6a06d202ec7d7d197d6c86",
+                "operationId": "8e497f5a3c40cbb0d7b897ed1149c266",
                 "parameters": [
                     {
                         "name": "email",
@@ -305,13 +305,236 @@
                 ]
             }
         },
+        "/admins/permissions": {
+            "get": {
+                "tags": [
+                    "Permission"
+                ],
+                "summary": "把 Permission 資料列出來",
+                "operationId": "04a96bd85d9870253da58fb5e9800d66",
+                "responses": {
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admins/roles": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "把 Role 資料列出來",
+                "operationId": "7d18bc23fdcc82418d976c66b49f5cc7",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page ( 沒有帶參數就全部吐回來 )",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "per_page ( 沒有帶參數就全部吐回來 )",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "新增 Role, permission 也一並傳近來新增",
+                "operationId": "370fae00ae43b25cfbee60be4565dd03",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Updated name of the pet",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "描述",
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "description": "狀態",
+                                        "type": "boolean"
+                                    },
+                                    "permission_ids": {
+                                        "description": "permissions 的 ID",
+                                        "type": "array",
+                                        "items": {
+                                            "description": "permissions 的 id",
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admins/roles/{id}": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "查看一筆 Role, 會把 permissions 一起回傳",
+                "operationId": "ef847cfa1b758918b2b837844ae6ea2f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "role 的 id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "修改一筆 Role, permission 也一並傳近來一起修改",
+                "operationId": "9b37e8a3186b7f6256cd55c4c1d7c865",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "role 的 id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Updated name of the pet",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "描述",
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "description": "狀態",
+                                        "type": "boolean"
+                                    },
+                                    "permission_ids": {
+                                        "description": "permissions 的 ID",
+                                        "type": "array",
+                                        "items": {
+                                            "description": "permissions 的 id",
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "刪除一筆 Role",
+                "operationId": "aa4b906770cf494ff8bb9799d586c58f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "role 的 id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/admins/banners": {
             "get": {
                 "tags": [
                     "Banner"
                 ],
                 "summary": "把 Banner 資料列出來",
-                "operationId": "93eddce59df7e1b5515b99dfbd154b91",
+                "operationId": "dd75ea9a38fe4c81eaca57751be12522",
                 "parameters": [
                     {
                         "name": "page",
@@ -346,7 +569,7 @@
                     "Banner"
                 ],
                 "summary": "新增 Banner",
-                "operationId": "2aadb84170514ef709c42e91d46f22e7",
+                "operationId": "57e948671bfa85a7a65321faef3ccaa0",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -375,7 +598,7 @@
                     "Banner"
                 ],
                 "summary": "查看一筆 Banner",
-                "operationId": "c3b9372a9f0d3f1b851a5b6f90b7e363",
+                "operationId": "5bd00ad0bc09bba3f1972d8d806eef31",
                 "parameters": [
                     {
                         "name": "id",
@@ -403,7 +626,7 @@
                     "Banner"
                 ],
                 "summary": "修改一筆 Banner",
-                "operationId": "75a6ed13abae9f73d9eeaa925e8ba319",
+                "operationId": "adfe622c20eb262367c229e8e0dbca2f",
                 "parameters": [
                     {
                         "name": "id",
@@ -441,7 +664,7 @@
                     "Banner"
                 ],
                 "summary": "刪除一筆 Banner",
-                "operationId": "6719aabd98249a109efa89073086733f",
+                "operationId": "ca61f2ceba2a103cf29eb91cdd1725b4",
                 "parameters": [
                     {
                         "name": "id",
@@ -532,229 +755,6 @@
                     }
                 ]
             }
-        },
-        "/admins/permissions": {
-            "get": {
-                "tags": [
-                    "Permission"
-                ],
-                "summary": "把 Permission 資料列出來",
-                "operationId": "b48c083bdf2f2599353d2dd2da392539",
-                "responses": {
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "200": {
-                        "description": "成功"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/admins/roles": {
-            "get": {
-                "tags": [
-                    "Role"
-                ],
-                "summary": "把 Role 資料列出來",
-                "operationId": "a368e74d19e8dbff72d432813ecbc500",
-                "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "page ( 沒有帶參數就全部吐回來 )",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "per_page",
-                        "in": "query",
-                        "description": "per_page ( 沒有帶參數就全部吐回來 )",
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Role"
-                ],
-                "summary": "新增 Role, permission 也一並傳近來新增",
-                "operationId": "a5f3efbca2f59c3007dd385e943b4236",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "description": "Updated name of the pet",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "description": "描述",
-                                        "type": "string"
-                                    },
-                                    "status": {
-                                        "description": "狀態",
-                                        "type": "boolean"
-                                    },
-                                    "permission_ids": {
-                                        "description": "permissions 的 ID",
-                                        "type": "array",
-                                        "items": {
-                                            "description": "permissions 的 id",
-                                            "type": "integer"
-                                        }
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "成功"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/admins/roles/{id}": {
-            "get": {
-                "tags": [
-                    "Role"
-                ],
-                "summary": "查看一筆 Role, 會把 permissions 一起回傳",
-                "operationId": "bf0806b9a377d04466387ca26ee2be56",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "role 的 id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Role"
-                ],
-                "summary": "修改一筆 Role, permission 也一並傳近來一起修改",
-                "operationId": "b50f0626dce93b75b747d5f0259c9705",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "role 的 id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "description": "Updated name of the pet",
-                                        "type": "string"
-                                    },
-                                    "description": {
-                                        "description": "描述",
-                                        "type": "string"
-                                    },
-                                    "status": {
-                                        "description": "狀態",
-                                        "type": "boolean"
-                                    },
-                                    "permission_ids": {
-                                        "description": "permissions 的 ID",
-                                        "type": "array",
-                                        "items": {
-                                            "description": "permissions 的 id",
-                                            "type": "integer"
-                                        }
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "成功"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Role"
-                ],
-                "summary": "刪除一筆 Role",
-                "operationId": "d3931a1869f19b300e57552529c6c1e8",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "role 的 id",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "成功"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
         }
     },
     "components": {
@@ -809,6 +809,20 @@
                     "name": "AdminModel"
                 }
             },
+            "PermissionModel": {
+                "description": "PermissionModel 物件",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "format": "string",
+                        "example": "permission_name"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PermissionModel"
+                }
+            },
             "BannerModel": {
                 "description": "BannerModel 物件",
                 "properties": {
@@ -838,20 +852,6 @@
                 "description": "File 物件",
                 "xml": {
                     "name": "FileObject"
-                }
-            },
-            "PermissionModel": {
-                "description": "PermissionModel 物件",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "format": "string",
-                        "example": "permission_name"
-                    }
-                },
-                "type": "object",
-                "xml": {
-                    "name": "PermissionModel"
                 }
             }
         },

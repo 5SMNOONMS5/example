@@ -40,6 +40,8 @@ return [
                 */
                 'annotations'            => [
                     base_path() . '/packages/stephenchen/core/src',
+                    base_path() . '/packages/stephenchen/admin/src',
+                    base_path() . '/packages/stephenchen/banner/src',
                 ],
 
             ],
