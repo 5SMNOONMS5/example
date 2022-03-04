@@ -23,7 +23,7 @@ class BannerModelFactory extends Factory
     {
         return [
             'title' => $this->faker->name(),
-            'path'  => '/example/path/com.png'
+            'path'  => 'example/path/com.png',
         ];
     }
 }

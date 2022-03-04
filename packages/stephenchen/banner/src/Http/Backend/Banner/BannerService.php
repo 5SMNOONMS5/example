@@ -46,7 +46,7 @@ class BannerService
             ->map(function ($element) {
                 $prefix            = env('APP_URL');
                 $path              = $element[ 'path' ];
-                $element[ 'path' ] = "{$prefix}/storage{$path}";
+                $element[ 'path' ] = "{$prefix}/storage/{$path}";
                 return $element;
             })
             ->toArray();
