@@ -1,17 +1,15 @@
 <?php
 
-namespace Stephenchen\Admin\Http\Backend\Admin;
+namespace Stephenchen\Member\Http\Backend;
 
 use Carbon\Carbon;
 use Exception;
-use Stephenchen\Core\Service\Auth\AuthenticationService;
-use Stephenchen\Admin\Http\Backend\Role\RoleRepositoryInterface;
 use Stephenchen\Core\Http\Resources\IndexResource;
+use Stephenchen\Core\Service\Auth\AuthenticationService;
 use Stephenchen\Core\Traits\HelperPaginateTrait;
 use Stephenchen\Core\Utilities\Helpers;
-use Stephenchen\Core\Utilities\ToTree;
 
-final class AdminService
+final class MemberService
 {
     use HelperPaginateTrait;
 
@@ -20,17 +18,12 @@ final class AdminService
      *
      * @var string
      */
-    const GUARD_ADMIN = 'admins';
+    const GUARD_ADMIN = 'users';
 
     /**
-     * @var RoleRepositoryInterface
+     * @var UserRepositoryInterface
      */
-    protected RoleRepositoryInterface $roleRepository;
-
-    /**
-     * @var AdminRepositoryInterface
-     */
-    private AdminRepositoryInterface $adminRepository;
+    private UserRepositoryInterface $adminRepository;
 
     /**
      * @var AuthenticationService
@@ -40,15 +33,13 @@ final class AdminService
     /**
      * Create a new Service instance.
      *
-     * @param RoleRepositoryInterface $roleRepository
-     * @param AdminRepositoryInterface $adminRepository
+     * @param MemberRepositoryInterface $adminRepository
      * @param AuthenticationService $authService
      */
-    public function __construct(RoleRepositoryInterface $roleRepository,
-                                AdminRepositoryInterface $adminRepository,
+    public function __construct(MemberRepositoryInterface $adminRepository,
                                 AuthenticationService $authService)
     {
-        $this->roleRepository  = $roleRepository;
+
         $this->adminRepository = $adminRepository;
         $this->authService     = $authService;
     }
@@ -76,26 +67,10 @@ final class AdminService
      */
     public function me($admin)
     {
-        $permissions = $this->roleRepository
-            ->getPermissionsViaAdmin($admin)
-            ->map(function ($permission) {
-                $newPermission[ 'id' ]        = $permission[ 'id' ];
-                $newPermission[ 'parent_id' ] = $permission[ 'parent_id' ];
-                $newPermission[ 'name' ]      = $permission[ 'name' ];
-                $newPermission[ 'path' ]      = $permission[ 'path' ];
-                $newPermission[ 'icon' ]      = $permission[ 'icon' ];
-                return $newPermission;
-            })
-            ->toArray();
-
-        $permissions = ( new ToTree() )
-            ->convert($permissions, 'parent_id');
-
         unset($admin[ 'roles' ]);
 
         return [
             'admin_infos' => $admin,
-            'permissions' => $permissions,
         ];
     }
 

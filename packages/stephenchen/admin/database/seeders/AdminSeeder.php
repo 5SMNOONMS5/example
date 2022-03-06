@@ -62,5 +62,6 @@ class AdminSeeder extends Seeder
             'icon'      => 'authRole',
             'parent_id' => $auth->id,
         ]);
+
     }
 }

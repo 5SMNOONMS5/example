@@ -1,13 +1,13 @@
 <?php
 
-namespace Stephenchen\Admin\Http\Backend\Auth;
+namespace Stephenchen\Core\Service\Auth;
 
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-final class AuthService
+final class AuthenticationService
 {
     /**
      * @param        $people

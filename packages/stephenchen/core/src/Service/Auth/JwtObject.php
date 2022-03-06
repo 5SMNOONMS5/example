@@ -1,6 +1,6 @@
 <?php
 
-namespace Stephenchen\Admin\Http\Backend\Auth;
+namespace Stephenchen\Core\Service\Auth;
 
 use Exception;
 use Carbon\Carbon;

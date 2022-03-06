@@ -1,45 +1,46 @@
 {
-    "name": "stephenchen/admin",
-    "description": "stephen chen admin packages",
+    "name": "stephenchen/member",
+    "description": "",
     "keywords": [
-        "stephen chen",
-        "admin"
+        "stephen chen member",
+        "user"
     ],
-    "homepage": "https://github.com/stephenchen/admin",
+    "homepage": "https://github.com/stephenchen/member",
     "license": "MIT",
     "type": "library",
     "authors": [
         {
-            "name": "stephen chen",
+            "name": "stephen chen ",
             "email": "tasb00429@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^8.0",
-        "stephenchen/core": "dev-master"
+        "illuminate/support": "^8.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.0",
+        "stephenchen/core": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "Stephenchen\\Admin\\": "src",
-            "Stephenchen\\Admin\\Tests\\": "tests",
+            "Stephenchen\\Member\\": "src",
+            "Stephenchen\\Member\\Tests\\": "tests",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Stephenchen\\Admin\\Tests\\": "tests"
+            "Stephenchen\\Member\\Tests\\": "tests"
         }
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
     },
     "config": {
         "sort-packages": true
@@ -47,10 +48,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Stephenchen\\Admin\\AdminServiceProvider"
+                "Stephenchen\\Member\\MemberServiceProvider"
             ],
             "aliases": {
-                "Admin": "Stephenchen\\Admin\\AdminFacade"
+                "User": "Stephenchen\\Member\\MemberFacade"
             }
         }
     }

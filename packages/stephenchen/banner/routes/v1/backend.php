@@ -34,7 +34,7 @@ Route::group([
             'prefix'    => 'admins',
             'namespace' => 'Banner',
         ], function () {
-            Route::resource('banners', 'BannerController');
+            Route::resource('homePgBanner', 'BannerController');
         });
     });
 });

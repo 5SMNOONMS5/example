@@ -528,13 +528,13 @@
                 ]
             }
         },
-        "/admins/banners": {
+        "/admins/homePgBanner": {
             "get": {
                 "tags": [
                     "Banner"
                 ],
                 "summary": "把 Banner 資料列出來",
-                "operationId": "dd75ea9a38fe4c81eaca57751be12522",
+                "operationId": "423bb3a3bd67ab6e8dce08ce18d4f7d7",
                 "parameters": [
                     {
                         "name": "page",
@@ -569,7 +569,7 @@
                     "Banner"
                 ],
                 "summary": "新增 Banner",
-                "operationId": "57e948671bfa85a7a65321faef3ccaa0",
+                "operationId": "a60b8facdee5c6749d98a831dff1f0c7",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -592,13 +592,13 @@
                 ]
             }
         },
-        "/admins/banners/{id}": {
+        "/admins/homePgBanner/{id}": {
             "get": {
                 "tags": [
                     "Banner"
                 ],
                 "summary": "查看一筆 Banner",
-                "operationId": "5bd00ad0bc09bba3f1972d8d806eef31",
+                "operationId": "36602e599f6c551837e94fc92ab8725a",
                 "parameters": [
                     {
                         "name": "id",
@@ -626,7 +626,7 @@
                     "Banner"
                 ],
                 "summary": "修改一筆 Banner",
-                "operationId": "adfe622c20eb262367c229e8e0dbca2f",
+                "operationId": "f21a5f0b5acb5a3a41023b9d68312948",
                 "parameters": [
                     {
                         "name": "id",
@@ -664,7 +664,7 @@
                     "Banner"
                 ],
                 "summary": "刪除一筆 Banner",
-                "operationId": "ca61f2ceba2a103cf29eb91cdd1725b4",
+                "operationId": "e8246bc5448b35a41d05ee5fdcf4eec2",
                 "parameters": [
                     {
                         "name": "id",

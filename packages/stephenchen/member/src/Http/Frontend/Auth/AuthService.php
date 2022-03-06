@@ -1,9 +1,9 @@
 <?php
 
-namespace Stephenchen\Admin\Http\Backend\Admin\Auth;
+namespace Stephenchen\Memb\Http\Backend\Auth;
 
 use Exception;
-use Stephenchen\Admin\Http\Backend\Admin\AdminService;
+use Stephenchen\Admin\Http\Backend\Admin\UserService;
 use Stephenchen\Core\Service\Auth\AuthenticationService;
 
 final class AuthService
@@ -21,17 +21,17 @@ final class AuthService
     private AuthenticationService $authService;
 
     /**
-     * @var AdminService
+     * @var UserService
      */
-    private AdminService $adminService;
+    private UserService $adminService;
 
     /**
      * Create a new Service instance.
      *
-     * @param AdminService $adminService
+     * @param UserService $adminService
      * @param AuthenticationService $authService
      */
-    public function __construct(AdminService $adminService,
+    public function __construct(UserService $adminService,
                                 AuthenticationService $authService)
     {
         $this->authService  = $authService;

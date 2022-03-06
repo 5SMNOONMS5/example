@@ -54,6 +54,8 @@ class AdminControllerTest extends TestCase
             'Accept', 'application/json',
         ]);
 
+//        dd($response);
+
         // Act
         $json = $response->json();
         $data = $json[ 'data' ][ 'lists' ];

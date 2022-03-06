@@ -12,7 +12,7 @@ class BannerControllerTest extends TestCase
 {
     use FakeUserTrait;
 
-    protected string $router = 'admins/banners';
+    protected string $router = 'admins/homePgBanner';
 
     protected array $parameters;
 

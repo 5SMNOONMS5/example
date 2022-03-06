@@ -1,35 +1,33 @@
 <?php
 
-namespace Stephenchen\Banner\Http\Backend\Banner;
+namespace Stephenchen\Member\Http\Backend;
 
 use Exception;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Stephenchen\Core\Base\BaseController;
 
-final class BannerController extends BaseController
+final class MemberController extends BaseController
 {
     /**
-     * @var BannerService
+     * @var MemberService
      */
-    private BannerService $service;
+    private MemberService $service;
 
     /**
-     * Create a new Controller.
+     * Create a new AdminController instance.
      *
-     * @param BannerService $service
+     * @param MemberService $service
      */
-    public function __construct(BannerService $service)
+    public function __construct(MemberService $service)
     {
         $this->service = $service;
     }
 
     /**
-     * 把 Banner 資料列出來
+     * 把 Admins 資料列出來, 但是不會顯示當前的自己
      * @OA\Get(
-     *     path="/admins/homePgBanner",
-     *     tags={"Banner"},
+     *     path="/admins/authUser",
+     *     tags={"Admin"},
      *     security={
      *          {
      *              "bearerAuth": {}
@@ -38,7 +36,7 @@ final class BannerController extends BaseController
      *     @OA\Parameter(
      *         name="page",
      *         in="query",
-     *         description="page ( 沒有帶參數就全部吐回來 )",
+     *         description="admin 的 page ( 最小是 1 )",
      *         @OA\Schema(
      *             type="integer"
      *         ),
@@ -46,7 +44,7 @@ final class BannerController extends BaseController
      *     @OA\Parameter(
      *         name="per_page",
      *         in="query",
-     *         description="per_page ( 沒有帶參數就全部吐回來 )",
+     *         description="admin 的 per_page ( 默認 20 )",
      *         @OA\Schema(
      *             type="integer"
      *         ),
@@ -58,14 +56,14 @@ final class BannerController extends BaseController
     {
         $results = $this->service->index();
 
-        return $this->jsonSuccess(trans('core::global.success'),  $results);
+        return $this->jsonSuccess(trans('core::global.success'), $results);
     }
 
     /**
-     * 新增 Banner
+     * 新增 Admin
      * @OA\Post(
-     *     path="/admins/homePgBanner",
-     *     tags={"Banner"},
+     *     path="/admins/authUser",
+     *     tags={"Admin"},
      *     security={
      *          {
      *              "bearerAuth": {}
@@ -75,7 +73,7 @@ final class BannerController extends BaseController
      *          required=true,
      *          @OA\MediaType(
      *              mediaType="application/json",
-     *              @OA\Schema(ref="#/components/schemas/BannerModel")
+     *              @OA\Schema(ref="#/components/schemas/AdminModel")
      *          )
      *     ),
      *     @OA\Response(response="200", description="成功")
@@ -85,20 +83,20 @@ final class BannerController extends BaseController
      * @return Response
      * @throws Exception
      */
-    public function store(BannerRequest $request)
+    public function store(UserRequest $request)
     {
         $results = $this->service->store($request->all());
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 
     /**
-     * 查看一筆 Banner
+     * 查看一筆 Admin, 會把 role 一併回傳
      * @OA\Get(
-     *     path="/admins/homePgBanner/{id}",
-     *     tags={"Banner"},
+     *     path="/admins/authUser/{id}",
+     *     tags={"Admin"},
      *     security={
      *          {
      *              "bearerAuth": {}
@@ -107,11 +105,11 @@ final class BannerController extends BaseController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="banner 的 id",
+     *         description="admin 的 id",
      *         required=true,
      *         @OA\Schema(
      *             type="integer"
-     *         )
+     *         ),
      *     ),
      *     @OA\Response(response="200", description="成功")
      * )
@@ -124,15 +122,15 @@ final class BannerController extends BaseController
         $results = $this->service->show($id);
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 
     /**
-     * 修改一筆 Banner
+     * 修改一筆 Admin
      * @OA\Put(
-     *     path="/admins/homePgBanner/{id}",
-     *     tags={"Banner"},
+     *     path="/admins/authUser/{id}",
+     *     tags={"Admin"},
      *     security={
      *          {
      *              "bearerAuth": {}
@@ -141,7 +139,7 @@ final class BannerController extends BaseController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="banner 的 id",
+     *         description="admin 的 id",
      *         required=true,
      *         @OA\Schema(
      *             type="integer"
@@ -151,31 +149,32 @@ final class BannerController extends BaseController
      *          required=true,
      *          @OA\MediaType(
      *              mediaType="application/json",
-     *              @OA\Schema(ref="#/components/schemas/BannerModel")
+     *              @OA\Schema(ref="#/components/schemas/AdminModel")
+     *
      *          )
      *     ),
      *     @OA\Response(response="200", description="成功")
      * )
      * Update the specified resource in storage.
      *
-     * @param BannerRequest $request
+     * @param UserRequest $request
      * @param $id
      * @return Response
      */
-    public function update(BannerRequest $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $results = $this->service->update($request->all(), $id);
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 
     /**
-     * 刪除一筆 Banner
+     * 刪除一筆 Admin
      * @OA\Delete(
-     *     path="/admins/homePgBanner/{id}",
-     *     tags={"Banner"},
+     *     path="/admins/authUser/{id}",
+     *     tags={"Admin"},
      *     security={
      *          {
      *              "bearerAuth": {}
@@ -184,10 +183,10 @@ final class BannerController extends BaseController
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="banner 的 id",
+     *         description="admin 的 id",
      *         required=true,
      *     ),
-     *     @OA\Response(response="200", description="成功"),
+     *     @OA\Response(response="200", description="成功")
      * )
      *
      * @param $id
@@ -199,7 +198,7 @@ final class BannerController extends BaseController
         $results = $this->service->destroy($id);
 
         return ( $results )
-            ? $this->jsonSuccess(trans('core::global.success'),  $results)
+            ? $this->jsonSuccess(trans('core::global.success'), $results)
             : $this->jsonFail(trans('core::global.fail'));
     }
 }
